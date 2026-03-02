@@ -34,13 +34,14 @@ export class PolicyService {
     return this.http.get<PolicyResponseDto & { id: number; customerName: string }>(API_ENDPOINTS.policies.byId(id));
   }
 
-  getUnassignedPolicies(): Observable<PolicyAssignmentDto[]> {
-    return this.http.get<PolicyAssignmentDto[]>(API_ENDPOINTS.policies.unassigned);
-  }
-
-  getAssignedPolicies(): Observable<PolicyAssignmentDto[]> {
-    return this.http.get<PolicyAssignmentDto[]>(API_ENDPOINTS.policies.assigned);
-  }
+ getAdminPolicies(status?: string): Observable<PolicyAssignmentDto[]> {
+  return this.http.get<PolicyAssignmentDto[]>(
+    API_ENDPOINTS.policies.admin,
+    {
+      params: status ? { status } : {}
+    }
+  );
+}
 
   assignAgent(policyId: number, agentId: number): Observable<void> {
     return this.http.patch<void>(API_ENDPOINTS.policies.assignAgent(policyId), null, {

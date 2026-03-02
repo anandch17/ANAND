@@ -34,8 +34,13 @@ namespace TravelInsurance.WebApi.Controllers
         [HttpPost("admin/register")]
         public async Task<IActionResult> RegisterAgent(AgenentCoRegisterDto dto)
         {
-            var token = await _authService.AgentCoRegisterAsync(dto);
-            return Ok(token);
+            await _authService.AgentCoRegisterAsync(dto);
+
+            return Ok(new
+            {
+                success = true,
+                message = "User created successfully"
+            });
         }
 
         // 🔹 Login

@@ -580,22 +580,19 @@
         }
       }
     },
-    "/api/policies/unassigned": {
+    "/api/policies/admin": {
       "get": {
         "tags": [
           "Policies"
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
-        }
-      }
-    },
-    "/api/policies/assigned": {
-      "get": {
-        "tags": [
-          "Policies"
         ],
         "responses": {
           "200": {

@@ -36,3 +36,4 @@ D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\Tr
 D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.Infrastructure\obj\Debug\net8.0\TravelInsurance.Infrastructure.pdb
 D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.Infrastructure\obj\Debug\net8.0\TravelInsurance.Infrastructure.genruntimeconfig.cache
 D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.Infrastructure\obj\Debug\net8.0\ref\TravelInsurance.Infrastructure.dll
+D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.Infrastructure\obj\Debug\net8.0\TravelInsurance.Infrastructure.sourcelink.json

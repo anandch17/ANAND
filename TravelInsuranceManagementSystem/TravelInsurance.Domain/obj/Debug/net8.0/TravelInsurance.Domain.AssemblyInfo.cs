@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TravelInsurance.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+464bdd033a1597a1227ae048c2e4ea97afe7e2ca")]
 [assembly: System.Reflection.AssemblyProductAttribute("TravelInsurance.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TravelInsurance.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

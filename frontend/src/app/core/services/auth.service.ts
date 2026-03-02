@@ -34,10 +34,9 @@ export class AuthService {
     );
   }
 
-  adminRegister(dto: AgentCoRegisterDto): Observable<string> {
-    return this.http.post(API_ENDPOINTS.auth.adminRegister, dto, { responseType: 'text' }).pipe(
-      tap((token) => this.setToken(token))
-    );
+  adminRegister(dto: AgentCoRegisterDto) {
+    return this.http.post(API_ENDPOINTS.auth.adminRegister, dto)
+     
   }
 
   forgotPassword(dto: ForgotPasswordDto): Observable<{ token: string }> {

@@ -90,31 +90,17 @@ namespace TravelInsurance.WebApi.Controllers
             return NoContent();
         }
 
-        
-
-        // =========================================================
-        // ADMIN: Get Unassigned Policies
-        // GET /api/policies/unassigned
-        // =========================================================
         [Authorize(Roles = "Admin")]
-        [HttpGet("unassigned")]
-        public async Task<IActionResult> GetUnassigned()
+        [HttpGet("admin")]
+        public async Task<IActionResult> GetPoliciesByStatus([FromQuery] string? status)
         {
-            var result = await _policyService.GetUnassignedPoliciesAsync();
+            var result = await _policyService.GetPoliciesByStatusAsync(status);
             return Ok(result);
         }
 
-        // =========================================================
-        // ADMIN: Get Assigned Policies
-        // GET /api/policies/assigned
-        // =========================================================
-        [Authorize(Roles = "Admin")]
-        [HttpGet("assigned")]
-        public async Task<IActionResult> GetAssigned()
-        {
-            var result = await _policyService.GetAssignedPoliciesAsync();
-            return Ok(result);
-        }
+
+
+
 
  
 

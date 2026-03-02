@@ -34,7 +34,7 @@ export class UnassignedPoliciesComponent {
 
   readonly statusOptions = [
     { label: 'Interested', value: 'Interested' },
-    { label: 'Agent Approval Pending', value: 'AgentApprovalPending' },
+    { label: 'Agent Approval Pending', value: 'PendingAgentApproval' },
     { label: 'Payment Pending', value: 'PaymentPending' },
     { label: 'Active', value: 'Active' },
     { label: 'Expired', value: 'Expired' }
@@ -45,25 +45,26 @@ export class UnassignedPoliciesComponent {
     this.userService.getAgents().subscribe((list) => this.agents.set(list));
   }
 
-  private fetchData(): void {
-    this.loading.set(true);
-    // Note: Reusing unassigned endpoint for now, but ideally we'd have a getall endpoint
-    // Given user's request, I will assume getUnassignedPolicies returns a list we can filter
-    this.policyService.getUnassignedPolicies().subscribe({
-      next: (list) => {
-        this.allPolicies.set(list);
-        this.loading.set(false);
-      },
-      error: (err) => {
-        this.toast.error(err.error?.message ?? 'Failed to load policies');
-        this.loading.set(false);
-      },
-    });
-  }
+ private fetchData(): void {
+  this.loading.set(true);
+
+  this.policyService.getAdminPolicies(this.filterStatus()).subscribe({
+    next: (list) => {
+      this.allPolicies.set(list);
+      this.loading.set(false);
+    },
+    error: (err) => {
+      this.toast.error(err.error?.message ?? 'Failed to load policies');
+      this.loading.set(false);
+    },
+  });
+}
 
   onStatusFilterChange(event: Event): void {
-    this.filterStatus.set((event.target as HTMLSelectElement).value);
-  }
+  const status = (event.target as HTMLSelectElement).value;
+  this.filterStatus.set(status);
+  this.fetchData();
+}
 
   selectedAgentId(policyId: number): number {
     return this.selectedAgents()[policyId] ?? 0;

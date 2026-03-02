@@ -29,5 +29,15 @@ export class SoldPoliciesComponent {
         this.loading.set(false);
       },
     });
+    console.log( this.policyService.getAgentSoldPolicies().subscribe({
+      next: (list) => {
+        this.policies.set(list);
+        this.loading.set(false);
+      },
+      error: (err) => {
+        this.toast.error(err.error?.message ?? 'Failed to load');
+        this.loading.set(false);
+      },
+    }));
   }
 }

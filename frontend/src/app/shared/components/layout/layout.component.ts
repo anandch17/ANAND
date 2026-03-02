@@ -19,26 +19,48 @@ export interface NavLink {
 
 const DASHBOARD_LINKS: Record<string, NavLink[]> = {
   Admin: [
-    { path: '/admin', label: 'Analytics Console', icon: 'chart-bar' },
-    { path: '/admin/users', label: 'User Directory', icon: 'users' },
-    { path: '/admin/plans', label: 'Plan Catalog', icon: 'document-text' },
-    { path: '/admin/unassigned-policies', label: 'Unassigned Queue', icon: 'clipboard-document-list' },
+    { path: '/admin/analytics', label: 'Analytics Console', icon: 'reports' },
+    { path: '/admin/users', label: 'User Directory', icon: 'customers' },
+    { path: '/admin/plans', label: 'Plan Catalog', icon: 'policy' },
+    { path: '/admin/unassigned-policies', label: 'Unassigned Queue', icon: 'policies' },
   ],
   Customer: [
-    { path: '/customer/browse-plans', label: 'Browse Plans', icon: 'policies' },
-    { path: '/customer/active-policies', label: 'My Policies', icon: 'shield-check' },
-    { path: '/customer/claims', label: 'Claim Center', icon: 'document-magnifying-glass' },
-    { path: '/customer/payment-pending', label: 'Pending Payments', icon: 'credit-card' },
+    { path: '/customer/browse-plans', label: 'Browse Plans', icon: 'policy' },
+    { path: '/customer/active-policies', label: 'My Policies', icon: 'policies' },
+    { path: '/customer/claims', label: 'Claim Center', icon: 'claims' },
+    { path: '/customer/payment-pending', label: 'Pending Payments', icon: 'policy' },
   ],
   Agent: [
-    { path: '/agent', label: 'Performance', icon: 'presentation-chart-line' },
-    { path: '/agent/assigned-policies', label: 'My Queue', icon: 'inbox-arrow-down' },
-    { path: '/agent/sold-policies', label: 'Sales History', icon: 'currency-dollar' },
+    { path: '/agent/performance', label: 'Performance', icon: 'reports' },
+    { path: '/agent/assigned-policies', label: 'My Queue', icon: 'policy' },
+    { path: '/agent/sold-policies', label: 'Sales History', icon: 'policies' },
   ],
   ClaimOfficer: [
-    { path: '/claim-officer', label: 'Claims Engine', icon: 'shield-exclamation' },
+    { path: '/claim-officer', label: 'Claims Engine', icon: 'claims' },
   ],
 };
+// const DASHBOARD_LINKS: Record<string, NavLink[]> = {
+//   Admin: [
+//     { path: '/admin/analytics', label: 'Analytics Console', icon: 'chart-bar' },
+//     { path: '/admin/users', label: 'User Directory', icon: 'users' },
+//     { path: '/admin/plans', label: 'Plan Catalog', icon: 'document-text' },
+//     { path: '/admin/unassigned-policies', label: 'Unassigned Queue', icon: 'clipboard-document-list' },
+//   ],
+//   Customer: [
+//     { path: '/customer/browse-plans', label: 'Browse Plans', icon: 'policies' },
+//     { path: '/customer/active-policies', label: 'My Policies', icon: 'shield-check' },
+//     { path: '/customer/claims', label: 'Claim Center', icon: 'document-magnifying-glass' },
+//     { path: '/customer/payment-pending', label: 'Pending Payments', icon: 'credit-card' },
+//   ],
+//   Agent: [
+//     { path: '/agent', label: 'Performance', icon: 'presentation-chart-line' },
+//     { path: '/agent/assigned-policies', label: 'My Queue', icon: 'inbox-arrow-down' },
+//     { path: '/agent/sold-policies', label: 'Sales History', icon: 'currency-dollar' },
+//   ],
+//   ClaimOfficer: [
+//     { path: '/claim-officer', label: 'Claims Engine', icon: 'shield-exclamation' },
+//   ],
+// };
 
 const PORTAL_LINKS: NavLink[] = [
   { path: '/customer/browse-plans', label: 'Browse Plans', icon: 'globe-alt' },

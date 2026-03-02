@@ -53,7 +53,7 @@ namespace TravelInsurance.Application.Services
         // =========================================
         // 2️⃣ ADMIN REGISTER (AGENT / CLAIM OFFICER)
         // =========================================
-        public async Task<string> AgentCoRegisterAsync(AgenentCoRegisterDto dto)
+        public async Task AgentCoRegisterAsync(AgenentCoRegisterDto dto)
         {
             if (await _repo.ExistsAsync(dto.Email))
                 throw new Exception("Email already exists");
@@ -78,7 +78,7 @@ namespace TravelInsurance.Application.Services
             await _repo.AddAsync(user);
             await _repo.SaveChangesAsync();
 
-            return _jwt.GenerateToken(user);
+            
         }
 
         // ================================

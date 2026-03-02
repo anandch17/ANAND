@@ -30,13 +30,21 @@
           </svg>
         </div>
       </div>
-      <a routerLink="/admin/create-user"
-        class="inline-flex items-center gap-1.5 bg-sky-600 font-semibold text-white text-sm px-4 py-2.5 rounded-lg shadow-md shadow-sky-600/20 hover:bg-sky-700 transition-colors transform active:scale-95">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.5v15m7.5-7.5h-15" />
-        </svg>
-        Add User
-      </a>
+      <div class="flex items-center gap-2">
+  <button
+    (click)="openCreateModal('Agent')"
+    class="bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-md"
+  >
+    Create Agent
+  </button>
+
+  <button
+    (click)="openCreateModal('ClaimOfficer')"
+    class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-md"
+  >
+    Create Claim Officer
+  </button>
+</div>
     </div>
   </div>
 
@@ -135,4 +143,23 @@
     }
     }
   </div>
+  @if (showCreateModal()) {
+  <div class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg p-6 relative">
+
+      <button
+        class="absolute top-3 right-3 text-slate-400 hover:text-slate-600"
+        (click)="closeModal()"
+      >
+        ✕
+      </button>
+
+      <app-create-user
+        [defaultRole]="selectedRole()"
+        (created)="closeModal()"
+      ></app-create-user>
+
+    </div>
+  </div>
+}
 </div>

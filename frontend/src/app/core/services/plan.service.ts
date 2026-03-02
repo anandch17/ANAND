@@ -30,4 +30,11 @@ export class PlanService {
   deactivatePlan(id: number): Observable<void> {
     return this.http.patch<void>(API_ENDPOINTS.plans.deactivate(id), {});
   }
+
+  updatePlan(id: number, dto: CreatePlanDto) {
+  return this.http.put(
+    `${API_ENDPOINTS.plans.byId(id)}`,
+    dto
+  );
+}
 }

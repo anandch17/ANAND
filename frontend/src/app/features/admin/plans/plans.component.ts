@@ -3,13 +3,12 @@ import { CommonModule, DecimalPipe, SlicePipe, UpperCasePipe } from '@angular/co
 import { ReactiveFormsModule, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PlanService } from '../../../core/services/plan.service';
 import { ToastService } from '../../../core/services/toast.service';
-import { CardComponent } from '../../../shared/components/card/card.component';
 import type { PlanResponseDto, CreatePlanDto, CreateCoverageDto } from '../../../core/models/admin.model';
 
 @Component({
   selector: 'app-plans',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CardComponent, DecimalPipe, SlicePipe, UpperCasePipe],
+  imports: [CommonModule, ReactiveFormsModule, DecimalPipe, SlicePipe, UpperCasePipe],
   templateUrl: './plans.component.html',
 })
 export class PlansComponent {
@@ -21,7 +20,9 @@ export class PlansComponent {
   creating = signal(false);
   plans = signal<PlanResponseDto[]>([]);
 
-  // Predefined coverage types for travel insurance
+  showModal = signal(false);
+  editingPlanId = signal<number | null>(null);
+
   readonly coverageTypes = [
     'Medical Expenses',
     'Trip Cancellation',
@@ -36,31 +37,25 @@ export class PlansComponent {
   form = this.fb.nonNullable.group({
     planName: ['', Validators.required],
     planType: ['', Validators.required],
-    maxCoverageAmount: [0, [Validators.required, Validators.min(0)]],
+    maxCoverageAmount: [0, Validators.required],
     isActive: [true],
+
     coverages: this.fb.array([]),
-    basePrice: [100, Validators.required],
-    perDayRate: [10, Validators.required],
+
+    premiumRule: this.fb.nonNullable.group({
+      basePrice: 100,
+      perDayRate: 10,
+      ageBelow30Multiplier: 1,
+      ageBetween30And50Multiplier: 1.2,
+      ageAbove50Multiplier: 1.5,
+    }),
   });
 
   get coverages(): FormArray {
     return this.form.get('coverages') as FormArray;
   }
 
-  addCoverage(): void {
-    const coverageGroup = this.fb.group({
-      coverageName: ['', Validators.required],
-      coverageAmount: [0, [Validators.required, Validators.min(0)]]
-    });
-    this.coverages.push(coverageGroup);
-  }
-
-  removeCoverage(index: number): void {
-    this.coverages.removeAt(index);
-  }
-
   constructor() {
-    this.addCoverage(); // Start with one coverage row
     this.fetchPlans();
   }
 
@@ -74,66 +69,90 @@ export class PlansComponent {
     });
   }
 
-  createPlan(): void {
-    if (this.form.invalid) {
-      this.toast.error('Please fill all required fields correctly.');
-      return;
-    }
+  openCreate(): void {
+    this.editingPlanId.set(null);
+    this.form.reset();
+    this.coverages.clear();
+    this.addCoverage();
+    this.showModal.set(true);
+  }
+
+  openEdit(plan: PlanResponseDto): void {
+    this.editingPlanId.set(plan.id);
+    this.form.patchValue({
+      planName: plan.planName,
+      planType: plan.planType,
+      maxCoverageAmount: plan.maxCoverageAmount,
+      isActive: plan.isActive,
+      premiumRule: plan.premiumRule,
+    });
+
+    this.coverages.clear();
+    plan.coverages.forEach(c =>
+      this.coverages.push(
+        this.fb.group({
+          coverageName: c.coverageName,
+          coverageAmount: c.coverageAmount
+        })
+      )
+    );
+
+    this.showModal.set(true);
+  }
+
+  closeModal(): void {
+    this.showModal.set(false);
+  }
+
+  addCoverage(): void {
+    this.coverages.push(
+      this.fb.group({
+        coverageName: ['', Validators.required],
+        coverageAmount: [0, Validators.required]
+      })
+    );
+  }
+
+  createOrUpdate(): void {
+    if (this.form.invalid) return;
 
     const raw = this.form.getRawValue();
+
     const dto: CreatePlanDto = {
       planName: raw.planName,
       planType: raw.planType,
       maxCoverageAmount: raw.maxCoverageAmount,
       isActive: raw.isActive,
       coverages: raw.coverages as CreateCoverageDto[],
-      premiumRule: {
-        basePrice: raw.basePrice,
-        ageBelow30Multiplier: 1,
-        ageBetween30And50Multiplier: 1.2,
-        ageAbove50Multiplier: 1.5,
-        perDayRate: raw.perDayRate,
-      },
+      premiumRule: raw.premiumRule,
     };
 
     this.creating.set(true);
-    this.planService.createPlan(dto).subscribe({
+
+    const request = this.editingPlanId()
+      ? this.planService.updatePlan(this.editingPlanId()!, dto)
+      : this.planService.createPlan(dto);
+
+    request.subscribe({
       next: () => {
         this.toast.success('Plan created successfully.');
         this.fetchPlans();
-        this.form.reset({
-          isActive: true,
-          basePrice: 100,
-          perDayRate: 10
-        });
-        this.coverages.clear();
-        this.addCoverage();
+        this.showModal.set(false);
         this.creating.set(false);
       },
-      error: (err) => {
-        this.toast.error(err.error?.message ?? 'Failed to create plan');
-        this.creating.set(false);
-      },
+       error: (err) => {
+      console.error(err);
+      this.toast.error(err.error?.message ?? 'Failed to save plan');
+      this.creating.set(false);
+    }
     });
   }
 
-  activate(id: number): void {
-    this.planService.activatePlan(id).subscribe({
-      next: () => {
-        this.toast.success('Plan activated');
-        this.fetchPlans();
-      },
-      error: (err) => this.toast.error(err.error?.message ?? 'Failed'),
-    });
+  activate(id: number) {
+    this.planService.activatePlan(id).subscribe(() => this.fetchPlans());
   }
 
-  deactivate(id: number): void {
-    this.planService.deactivatePlan(id).subscribe({
-      next: () => {
-        this.toast.success('Plan deactivated');
-        this.fetchPlans();
-      },
-      error: (err) => this.toast.error(err.error?.message ?? 'Failed'),
-    });
+  deactivate(id: number) {
+    this.planService.deactivatePlan(id).subscribe(() => this.fetchPlans());
   }
 }

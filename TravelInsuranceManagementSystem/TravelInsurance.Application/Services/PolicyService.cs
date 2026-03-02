@@ -173,43 +173,6 @@ namespace TravelInsurance.Application.Services
         }
 
 
-   
-
-        public async Task<IEnumerable<PolicyAssignmentDto>> GetUnassignedPoliciesAsync()
-        {
-            var policies = await _policyRepo.GetPoliciesWithDetailsAsync();
-
-            return policies.Where(p => p.Status == "Interested")
-                .Select(p => new PolicyAssignmentDto(
-                    p.Id,
-                    p.InsurancePlan.PolicyName,
-                    p.Customer.Name,
-                    p.StartDate,
-                    p.EndDate,
-                    p.PremiumAmount,
-                    p.Status,
-                    p.AgentId,
-                    null
-                ));
-        }
-
-        public async Task<IEnumerable<PolicyAssignmentDto>> GetAssignedPoliciesAsync()
-        {
-            var policies = await _policyRepo.GetPoliciesWithDetailsAsync();
-
-            return policies.Where(p => p.Status == "PendingAgentApproval")
-                .Select(p => new PolicyAssignmentDto(
-                    p.Id,
-                    p.InsurancePlan.PolicyName,
-                    p.Customer.Name,
-                    p.StartDate,
-                    p.EndDate,
-                    p.PremiumAmount,
-                    p.Status,
-                    p.AgentId,
-                    p.Agent!.Name
-                ));
-        }
 
         public async Task<IEnumerable<PolicyAssignmentDto>> GetAgentPendingPoliciesAsync(int agentId)
         {
@@ -245,6 +208,30 @@ namespace TravelInsurance.Application.Services
                     p.AgentId,
                     p.Agent!.Name
                 ));
+        }
+
+        public async Task<IEnumerable<PolicyAssignmentDto>> GetPoliciesByStatusAsync(string? status)
+        {
+            var policies = await _policyRepo.GetPoliciesWithDetailsAsync();
+
+            if (!string.IsNullOrWhiteSpace(status))
+            {
+                policies = policies
+                    .Where(p => p.Status.Equals(status, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            return policies.Select(p => new PolicyAssignmentDto(
+                p.Id,
+                p.InsurancePlan.PolicyName,
+                p.Customer.Name,
+                p.StartDate,
+                p.EndDate,
+                p.PremiumAmount,
+                p.Status,
+                p.AgentId,
+                p.Agent?.Name
+            ));
         }
     }
 }

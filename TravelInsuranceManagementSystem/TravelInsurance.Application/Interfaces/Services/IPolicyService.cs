@@ -24,10 +24,11 @@ namespace TravelInsurance.Application.Interfaces.Services
         Task RenewPolicyAsync(int policyId);
 
         Task AssignAgentAsync(int policyId, int agentId);
-        Task<IEnumerable<PolicyAssignmentDto>> GetUnassignedPoliciesAsync();
-        Task<IEnumerable<PolicyAssignmentDto>> GetAssignedPoliciesAsync();
+
         Task<IEnumerable<PolicyAssignmentDto>> GetAgentPendingPoliciesAsync(int agentId);
         Task<IEnumerable<PolicyAssignmentDto>> GetAgentSoldPoliciesAsync(int agentId);
+
+        Task<IEnumerable<PolicyAssignmentDto>> GetPoliciesByStatusAsync(string? status);
     }
 
 }

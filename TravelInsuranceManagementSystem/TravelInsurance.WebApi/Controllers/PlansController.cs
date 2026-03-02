@@ -22,7 +22,11 @@ namespace TravelInsurance.WebApi.Controllers
         public async Task<IActionResult> Create(CreatePlanDto dto)
         {
             var id = await _planService.CreatePlanAsync(dto);
-            return Ok("plan created successfully");
+            return Ok(new
+            {
+                success = true,
+                message = "Plan created successfully"
+            });
         }
 
         [HttpGet]

@@ -19,15 +19,28 @@ export class AnalyticsComponent {
   assignedPolicies = signal<PolicyAssignmentDto[]>([]);
   planCounts = signal<{ planName: string; count: number }[]>([]);
 
-  constructor() {
-    this.planService.getAllPlans().subscribe((list) => this.plans.set(list));
-    this.policyService.getAssignedPolicies().subscribe((list) => this.assignedPolicies.set(list));
-    this.policyService.getAssignedPolicies().subscribe((list) => {
+ constructor() {
+  this.planService.getAllPlans().subscribe((list) => {
+    this.plans.set(list);
+  });
+
+  this.policyService
+    .getAdminPolicies('PendingAgentApproval')
+    .subscribe((list) => {
+      this.assignedPolicies.set(list);
+
       const counts: Record<string, number> = {};
+
       for (const p of list) {
         counts[p.planName] = (counts[p.planName] ?? 0) + 1;
       }
-      this.planCounts.set(Object.entries(counts).map(([planName, count]) => ({ planName, count })));
+
+      this.planCounts.set(
+        Object.entries(counts).map(([planName, count]) => ({
+          planName,
+          count,
+        }))
+      );
     });
-  }
+}
 }

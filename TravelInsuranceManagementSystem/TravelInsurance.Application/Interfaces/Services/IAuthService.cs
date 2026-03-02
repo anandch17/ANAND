@@ -11,7 +11,7 @@ namespace TravelInsurance.Application.Interfaces.Services
     public interface IAuthService
     {
          Task<string> RegisterAsync(RegisterDto dto);
-        Task<string> AgentCoRegisterAsync(AgenentCoRegisterDto dto);
+        Task AgentCoRegisterAsync(AgenentCoRegisterDto dto);
         Task<string> LoginAsync(LoginDto dto);
         Task<string> ForgotPasswordAsync(ForgotPasswordDto dto);
         Task ResetPasswordAsync(ResetPasswordDto dto);

@@ -2,12 +2,13 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { UserService } from '../../../core/services/user.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { CardComponent } from '../../../shared/components/card/card.component';
+import { CreateUserComponent } from '../create-user/create-user.component';
 import type { UserResponseDto } from '../../../core/models/admin.model';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CardComponent],
+  imports: [CardComponent,CreateUserComponent],
   templateUrl: './users.component.html',
 })
 export class UsersComponent {
@@ -19,6 +20,8 @@ export class UsersComponent {
   customers = signal<UserResponseDto[]>([]);
   agents = signal<UserResponseDto[]>([]);
   claimOfficers = signal<UserResponseDto[]>([]);
+  showCreateModal = signal(false);
+selectedRole = signal<'Agent' | 'ClaimOfficer'>('Agent');
 
   constructor() {
     this.userService.getCustomers().subscribe({
@@ -61,6 +64,16 @@ export class UsersComponent {
       error: (err) => this.toast.error(err.error?.message ?? 'Failed'),
     });
   }
+
+  openCreateModal(role: 'Agent' | 'ClaimOfficer') {
+  this.selectedRole.set(role);
+  this.showCreateModal.set(true);
+}
+
+closeModal() {
+  this.showCreateModal.set(false);
+  this.refresh();
+}
 
   deactivate(id: number): void {
     this.userService.deactivateUser(id).subscribe({

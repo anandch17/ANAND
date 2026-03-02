@@ -385,6 +385,22 @@
   },
   {
     "ContainingType": "TravelInsurance.WebApi.Controllers.PoliciesController",
+    "Method": "GetPoliciesByStatus",
+    "RelativePath": "api/policies/admin",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.PoliciesController",
     "Method": "GetAgentPendingPolicies",
     "RelativePath": "api/policies/agent/pending",
     "HttpMethod": "GET",
@@ -405,28 +421,8 @@
   },
   {
     "ContainingType": "TravelInsurance.WebApi.Controllers.PoliciesController",
-    "Method": "GetAssigned",
-    "RelativePath": "api/policies/assigned",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TravelInsurance.WebApi.Controllers.PoliciesController",
     "Method": "GetPaymentPendingPolicies",
     "RelativePath": "api/policies/payment-pending",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TravelInsurance.WebApi.Controllers.PoliciesController",
-    "Method": "GetUnassigned",
-    "RelativePath": "api/policies/unassigned",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

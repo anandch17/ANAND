@@ -28,7 +28,6 @@ export const routes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'users' },
       { path: 'users', loadComponent: () => import('./features/admin/users/users.component').then((m) => m.UsersComponent) },
-      { path: 'create-user', loadComponent: () => import('./features/admin/create-user/create-user.component').then((m) => m.CreateUserComponent) },
       { path: 'plans', loadComponent: () => import('./features/admin/plans/plans.component').then((m) => m.PlansComponent) },
       { path: 'unassigned-policies', loadComponent: () => import('./features/admin/unassigned-policies/unassigned-policies.component').then((m) => m.UnassignedPoliciesComponent) },
       { path: 'analytics', loadComponent: () => import('./features/admin/analytics/analytics.component').then((m) => m.AnalyticsComponent) },
