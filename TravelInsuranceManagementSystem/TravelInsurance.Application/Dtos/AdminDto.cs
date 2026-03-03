@@ -115,7 +115,8 @@ namespace TravelInsurance.Application.Dtos
     decimal PremiumAmount,
     string Status,
     int? AssignedAgentId,
-    string? AssignedAgentName
+    string? AssignedAgentName,
+    decimal AgeMultiplier
 );
    
 
@@ -133,7 +134,8 @@ namespace TravelInsurance.Application.Dtos
             DateTime StartDate,
             DateTime EndDate,
             decimal PremiumAmount,
-            string Status
+            string Status,
+            decimal AgeMultiplier
         );
 
 
@@ -151,6 +153,14 @@ namespace TravelInsurance.Application.Dtos
             string Status
         );
 
-        public record AssignedClaimsDto(int id,int PolicyNumber,String CustomerName,string ClaimType,decimal ClaimAmount,string AgentName,string Status);
+        public record AssignedClaimsDto(int id, int PolicyNumber, string CustomerName, string ClaimType, decimal ClaimAmount, string AgentName, string Status, List<string> DocumentUrls);
+
+        public record AgentPerformanceDto(
+            int TotalAssigned,
+            int SoldPolicies,
+            int PendingApprovals,
+            int InterestedPolicies,
+            decimal TotalPremiumGenerated
+        );
     }
 

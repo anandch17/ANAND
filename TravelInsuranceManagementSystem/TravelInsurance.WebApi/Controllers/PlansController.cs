@@ -59,5 +59,13 @@ namespace TravelInsurance.WebApi.Controllers
             var result = await _planService.BrowsePlansByCoverageAsync(coverageType);
             return Ok(result);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var plan = await _planService.GetPlanByIdAsync(id);
+            if (plan == null) return NotFound();
+            return Ok(plan);
+        }
     }
 }

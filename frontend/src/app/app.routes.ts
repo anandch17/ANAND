@@ -31,6 +31,8 @@ export const routes: Routes = [
       { path: 'plans', loadComponent: () => import('./features/admin/plans/plans.component').then((m) => m.PlansComponent) },
       { path: 'unassigned-policies', loadComponent: () => import('./features/admin/unassigned-policies/unassigned-policies.component').then((m) => m.UnassignedPoliciesComponent) },
       { path: 'analytics', loadComponent: () => import('./features/admin/analytics/analytics.component').then((m) => m.AnalyticsComponent) },
+      { path: 'unassigned-claims', loadComponent: () => import('./features/admin/unassigned-claims/unassigned-claims.component').then((m) => m.UnassignedClaimsComponent) },
+      { path: 'risk-management', loadComponent: () => import('./features/admin/risk-management/risk-management.component').then((m) => m.RiskManagementComponent) },
     ],
   },
   {
@@ -52,6 +54,7 @@ export const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'assigned-claims' },
       { path: 'assigned-claims', loadComponent: () => import('./features/claim-officer/assigned-claims/assigned-claims.component').then((m) => m.AssignedClaimsComponent) },
       { path: 'review-claim/:id', loadComponent: () => import('./features/claim-officer/review-claim/review-claim.component').then((m) => m.ReviewClaimComponent) },
+      { path: 'performance', loadComponent: () => import('./features/claim-officer/performance/performance.component').then((m) => m.PerformanceComponent) },
     ],
   },
   { path: '**', redirectTo: '' },

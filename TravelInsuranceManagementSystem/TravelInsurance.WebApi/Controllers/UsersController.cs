@@ -46,5 +46,13 @@ namespace TravelInsurance.WebApi.Controllers
         [HttpGet("claim-officers")]
         public async Task<IActionResult> GetClaimOfficers()
             => Ok(await _userService.GetClaimOfficersAsync());
+
+        [Authorize]
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetProfile()
+        {
+            var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "0");
+            return Ok(await _userService.GetProfileAsync(userId));
+        }
     }
 }

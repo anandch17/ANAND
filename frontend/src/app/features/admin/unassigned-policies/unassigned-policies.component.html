@@ -87,24 +87,32 @@
               [class.bg-sky-50]="p.status === 'Interested'" [class.text-sky-700]="p.status === 'Interested'"
               [class.border-sky-200]="p.status === 'Interested'" [class.bg-emerald-50]="p.status === 'Active'"
               [class.text-emerald-700]="p.status === 'Active'" [class.border-emerald-200]="p.status === 'Active'"
-              [class.bg-amber-50]="p.status === 'AgentApprovalPending' || p.status === 'PaymentPending'"
-              [class.text-amber-700]="p.status === 'AgentApprovalPending' || p.status === 'PaymentPending'"
-              [class.border-amber-200]="p.status === 'AgentApprovalPending' || p.status === 'PaymentPending'"
+              [class.bg-amber-50]="p.status === 'PendingAgentApproval' || p.status === 'PaymentPending'"
+              [class.text-amber-700]="p.status === 'PendingAgentApproval' || p.status === 'PaymentPending'"
+              [class.border-amber-200]="p.status === 'PendingAgentApproval' || p.status === 'PaymentPending'"
               [class.bg-rose-50]="p.status === 'Expired'" [class.text-rose-700]="p.status === 'Expired'"
               [class.border-rose-200]="p.status === 'Expired'">
-              {{ p.status === 'AgentApprovalPending' ? 'Approval Pending' : p.status === 'PaymentPending' ? 'Pay
+              {{ p.status === 'PendingAgentApproval' ? 'Approval Pending' : p.status === 'PaymentPending' ? 'Pay
               Pending' : p.status }}
             </span>
           </div>
 
           <div>
             <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Premium</p>
-            <p class="font-bold text-slate-900 text-lg">${{ p.premiumAmount | number:'1.2-2' }}</p>
+            <div class="flex items-center gap-2">
+              <p class="font-bold text-slate-900 text-lg">${{ p.premiumAmount | number:'1.2-2' }}</p>
+              @if (p.ageMultiplier && p.ageMultiplier !== 1) {
+              <span
+                class="text-[10px] font-bold bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded border border-slate-200">
+                × {{ p.ageMultiplier }} age
+              </span>
+              }
+            </div>
           </div>
         </div>
 
         <!-- Action Area (Only for Interested) -->
-        @if (p.status === 'Interested') {
+        @if (p.status === 'Interested' || p.status === 'PendingAgentApproval') {
         <div
           class="flex flex-col sm:flex-row sm:items-center gap-3 shrink-0 bg-slate-50/50 rounded-xl p-4 xl:p-0 border xl:border-transparent border-slate-100">
           <div class="relative min-w-[180px]">

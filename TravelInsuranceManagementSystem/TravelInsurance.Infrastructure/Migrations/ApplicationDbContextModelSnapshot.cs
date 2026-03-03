@@ -195,6 +195,9 @@ namespace TravelInsurance.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<decimal>("AgeMultiplier")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int?>("AgentId")
                         .HasColumnType("int");
 
@@ -216,6 +219,9 @@ namespace TravelInsurance.Infrastructure.Migrations
 
                     b.Property<decimal>("PremiumAmount")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("PurchaseAge")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");

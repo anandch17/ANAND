@@ -93,5 +93,30 @@ namespace TravelInsurance.Application.Services {
         {
             return await _planRepository.BrowsePlansByCoverageAsync(coverageType);
         }
+
+        public async Task<PlanResponseDto?> GetPlanByIdAsync(int id)
+        {
+            var p = await _planRepository.GetByIdAsync(id);
+            if (p == null) return null;
+
+            return new PlanResponseDto(
+                p.Id,
+                p.PolicyName,
+                p.PlanType,
+                p.MaxCoverageAmount,
+                p.IsActive,
+                p.Coverages.Select(c => new CreateCoverageDto(
+                    c.CoverageType,
+                    c.CoverageAmount
+                )).ToList(),
+                new PremiumRuleResponseDto(
+                    p.PremiumRule.BasePrice,
+                    p.PremiumRule.AgeBelow30Multiplier,
+                    p.PremiumRule.AgeBetween30And50Multiplier,
+                    p.PremiumRule.AgeAbove50Multiplier,
+                    p.PremiumRule.PerDayRate
+                )
+            );
+        }
     }
 }

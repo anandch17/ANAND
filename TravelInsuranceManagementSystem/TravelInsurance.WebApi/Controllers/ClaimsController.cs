@@ -91,5 +91,13 @@ namespace TravelInsurance.WebApi.Controllers
             int officerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             return Ok(await _claimService.GetClaimsByOfficerAsync(officerId));
         }
+
+        [Authorize(Roles = "ClaimOfficer")]
+        [HttpGet("officer/performance")]
+        public async Task<IActionResult> GetPerformance()
+        {
+            int officerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            return Ok(await _claimService.GetOfficerPerformanceAsync(officerId));
+        }
     }
 }

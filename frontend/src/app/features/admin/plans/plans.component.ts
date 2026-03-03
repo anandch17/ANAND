@@ -34,6 +34,18 @@ export class PlansComponent {
     'Personal Liability'
   ];
 
+  readonly planTypes = [
+    'Domestic',
+    'International',
+    'Student',
+    'Senior Citizen',
+    'Family',
+    'Multi-Trip Annual',
+    'Business',
+    'Adventure / Sports'
+  ];
+
+
   form = this.fb.nonNullable.group({
     planName: ['', Validators.required],
     planType: ['', Validators.required],
@@ -140,11 +152,11 @@ export class PlansComponent {
         this.showModal.set(false);
         this.creating.set(false);
       },
-       error: (err) => {
-      console.error(err);
-      this.toast.error(err.error?.message ?? 'Failed to save plan');
-      this.creating.set(false);
-    }
+      error: (err) => {
+        console.error(err);
+        this.toast.error(err.error?.message ?? 'Failed to save plan');
+        this.creating.set(false);
+      }
     });
   }
 

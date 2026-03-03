@@ -31,20 +31,16 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-  <button
-    (click)="openCreateModal('Agent')"
-    class="bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-md"
-  >
-    Create Agent
-  </button>
+        <button (click)="openCreateModal('Agent')"
+          class="bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-md">
+          Create Agent
+        </button>
 
-  <button
-    (click)="openCreateModal('ClaimOfficer')"
-    class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-md"
-  >
-    Create Claim Officer
-  </button>
-</div>
+        <button (click)="openCreateModal('ClaimOfficer')"
+          class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-md">
+          Create Claim Officer
+        </button>
+      </div>
     </div>
   </div>
 
@@ -143,23 +139,22 @@
     }
     }
   </div>
-  @if (showCreateModal()) {
-  <div class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-    <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg p-6 relative">
 
-      <button
-        class="absolute top-3 right-3 text-slate-400 hover:text-slate-600"
-        (click)="closeModal()"
-      >
+</div>
+@if (showCreateModal()) {
+<div class="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 font-body">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-3xl flex flex-col relative overflow-hidden max-h-[90vh]">
+    <div class="flex justify-between items-center px-8 py-5 border-b border-slate-200 shrink-0">
+      <h2 class="text-lg font-display font-bold text-slate-900">
+        Create {{ selectedRole() === 'Agent' ? 'Agent' : 'Claim Officer' }}
+      </h2>
+      <button (click)="closeModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">
         ✕
       </button>
-
-      <app-create-user
-        [defaultRole]="selectedRole()"
-        (created)="closeModal()"
-      ></app-create-user>
-
+    </div>
+    <div class="p-8 overflow-y-auto flex-1">
+      <app-create-user [defaultRole]="selectedRole()" (created)="closeModal()"></app-create-user>
     </div>
   </div>
-}
 </div>
+}

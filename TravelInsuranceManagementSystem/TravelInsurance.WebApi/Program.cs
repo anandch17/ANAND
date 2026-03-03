@@ -30,6 +30,7 @@ namespace TravelInsurance.WebApi
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IInsurancePlanRepository, InsurancePlanRepository>();
+            builder.Services.AddScoped<IDestinationRiskRepository, DestinationRiskRepository>();
             builder.Services.AddScoped<IPlanService, PlanService>();
             builder.Services.AddScoped<IPolicyRepository, PolicyRepository>();
             builder.Services.AddScoped<IClaimRepository, ClaimRepository>();
@@ -37,6 +38,7 @@ namespace TravelInsurance.WebApi
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IPremiumCalculationService, PremiumCalculationService>();
             builder.Services.AddScoped<IPolicyService, PolicyService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("travelDB")));
             builder.Services.AddControllers();

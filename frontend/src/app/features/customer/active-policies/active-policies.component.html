@@ -72,12 +72,30 @@
             </div>
             <div class="bg-white rounded-xl p-3 border border-slate-200 shadow-sm">
               <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1 flex items-center gap-1"><svg
-                  class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg> Premium Paid</p>
+              <div class="flex items-center gap-2">
+                <p class="text-[13px] font-semibold text-slate-800">
+                  ${{ p.premiumAmount | number:'1.2-2' }}
+                </p>
+                @if (p.ageMultiplier && p.ageMultiplier !== 1) {
+                <span
+                  class="text-[9px] font-bold bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded border border-emerald-200">
+                  × {{ p.ageMultiplier }} age
+                </span>
+                }
+              </div>
+            </div>
+            <div class="bg-white rounded-xl p-3 border border-slate-200 shadow-sm col-span-2">
+              <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-1 flex items-center gap-1"><svg
+                  class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                </svg> Destination</p>
               <p class="text-[13px] font-semibold text-slate-800">
-                ${{ p.premiumAmount | number:'1.2-2' }}
+                {{ p.destinationCountry || 'Not Specified' }}
               </p>
             </div>
           </div>

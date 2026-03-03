@@ -12,7 +12,7 @@ import type { PolicyAssignmentDto } from '../models/admin.model';
 
 @Injectable({ providedIn: 'root' })
 export class PolicyService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) { }
 
   requestPolicy(dto: CreatePolicyRequestDto): Observable<{ message: string; policyId: number }> {
     return this.http.post<{ message: string; policyId: number }>(API_ENDPOINTS.policies.base, dto);
@@ -34,14 +34,14 @@ export class PolicyService {
     return this.http.get<PolicyResponseDto & { id: number; customerName: string }>(API_ENDPOINTS.policies.byId(id));
   }
 
- getAdminPolicies(status?: string): Observable<PolicyAssignmentDto[]> {
-  return this.http.get<PolicyAssignmentDto[]>(
-    API_ENDPOINTS.policies.admin,
-    {
-      params: status ? { status } : {}
-    }
-  );
-}
+  getAdminPolicies(status?: string): Observable<PolicyAssignmentDto[]> {
+    return this.http.get<PolicyAssignmentDto[]>(
+      API_ENDPOINTS.policies.admin,
+      {
+        params: status ? { status } : {}
+      }
+    );
+  }
 
   assignAgent(policyId: number, agentId: number): Observable<void> {
     return this.http.patch<void>(API_ENDPOINTS.policies.assignAgent(policyId), null, {
@@ -63,5 +63,9 @@ export class PolicyService {
 
   renewPolicy(policyId: number): Observable<{ message: string }> {
     return this.http.patch<{ message: string }>(API_ENDPOINTS.policies.renew(policyId), {});
+  }
+
+  getMyPolicies(): Observable<PolicyResponseDto[]> {
+    return this.http.get<PolicyResponseDto[]>(API_ENDPOINTS.policies.myPolicies);
   }
 }

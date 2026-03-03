@@ -106,7 +106,7 @@ namespace TravelInsurance.Application.Services
             if (claim == null)
                 throw new Exception("Claim not found");
 
-            if (claim.Status != "Submitted")
+            if (claim.Status != "Submitted" && claim.Status != "Under Review")
                 throw new Exception("Invalid state");
 
             claim.Status = dto.Status;
@@ -130,6 +130,20 @@ namespace TravelInsurance.Application.Services
             claim.SettledDate = DateTime.UtcNow;
 
             await _claimRepository.UpdateAsync(claim);
+        }
+
+        public async Task<ClaimOfficerPerformanceDto> GetOfficerPerformanceAsync(int officerId)
+        {
+            var claims = await _claimRepository.GetClaimsByOfficerEntitiesAsync(officerId);
+
+            return new ClaimOfficerPerformanceDto
+            {
+                TotalAssigned = claims.Count(),
+                ApprovedClaims = claims.Count(c => c.Status == "Approved" || c.Status == "Settled"),
+                RejectedClaims = claims.Count(c => c.Status == "Rejected"),
+                PendingClaims = claims.Count(c => c.Status == "Submitted" || c.Status == "Under Review"),
+                TotalSettledAmount = claims.Where(c => c.Status == "Settled").Sum(c => c.SettledAmount ?? 0)
+            };
         }
     }
 }

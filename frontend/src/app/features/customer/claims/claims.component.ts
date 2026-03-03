@@ -35,10 +35,39 @@ export class ClaimsComponent {
     documentUrlsText: [''],
   });
 
+  //claimTypes = ['Medical', 'Baggage Loss', 'Trip Cancellation', 'Flight Delay', 'Other'];
+  claimTypes = [
+    'Medical Expenses',
+    'Trip Cancellation',
+    'Baggage Loss',
+    'Personal Accident',
+    'Emergency Evacuation',
+    'Loss of Passport',
+    'Flight Delay',
+    'Personal Liability'
+  ];
+
   constructor() {
     this.loadClaims();
+  }
+
+  ngOnInit(): void {
     const q = this.route.snapshot.queryParamMap.get('raise');
-    if (q) this.showRaiseForm.set(true);
+    if (q) {
+      const policyId = parseInt(q, 10);
+      if (policyId) {
+        this.showRaiseForm.set(true);
+        this.raiseForm.patchValue({ policyId });
+        this.loadActivePolicies();
+      }
+    }
+  }
+
+  loadActivePolicies(): void {
+    this.policyService.getActivePolicies().subscribe({
+      next: (list) => this.activePolicies.set(list),
+      error: () => this.activePolicies.set([]),
+    });
   }
 
   loadClaims(): void {

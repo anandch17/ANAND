@@ -47,7 +47,8 @@ namespace TravelInsurance.Infrastructure.Repositories
                    c.ClaimType,
                    c.ClaimAmount,
                    c.Policy.Agent != null ? c.Policy.Agent.Name : "",
-                   c.Status
+                   c.Status,
+                   c.Documents.Select(d => d.Url).ToList()
                ))
                .ToListAsync();
         }
@@ -64,7 +65,8 @@ namespace TravelInsurance.Infrastructure.Repositories
                     c.ClaimType,
                     c.ClaimAmount,
                     c.Policy.Agent != null ? c.Policy.Agent.Name : "",
-                    c.Status
+                    c.Status,
+                    c.Documents.Select(d => d.Url).ToList()
                 ))
                 .ToListAsync();
         }
@@ -99,6 +101,13 @@ namespace TravelInsurance.Infrastructure.Repositories
          c.Documents.Select(d => d.Url).ToList()
      ))
      .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Claim>> GetClaimsByOfficerEntitiesAsync(int officerId)
+        {
+            return await _context.Claims
+                .Where(c => c.AssignedOfficerId == officerId)
+                .ToListAsync();
         }
     }
 }

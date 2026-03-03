@@ -23,5 +23,7 @@ namespace TravelInsurance.Application.Interfaces.Repositories
         Task AddAsync(Claim claim);
 
         Task<List<ClaimWithDocumentsDto>> GetCustomerClaimsAsync(int customerId);
+
+        Task<IEnumerable<Claim>> GetClaimsByOfficerEntitiesAsync(int officerId);
     }
 }

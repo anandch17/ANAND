@@ -14,7 +14,8 @@ public class PolicyRepository : IPolicyRepository
 
     public PolicyRepository(ApplicationDbContext context)
     {
-        _context = context;    
+        _context = context;
+    
       
 
     }
@@ -28,8 +29,9 @@ public class PolicyRepository : IPolicyRepository
     public async Task<List<Policy?>> GetByCustomerIdAsync(int id)
     {
         return await _context.Policies
-   .Where(p => p.CustomerId == id)
-   .ToListAsync();
+            .Include(p => p.InsurancePlan)
+            .Where(p => p.CustomerId == id)
+            .ToListAsync();
     }
     public async Task<InsurancePlan?> GetByPlanId(int id)
     {
@@ -67,11 +69,14 @@ public class PolicyRepository : IPolicyRepository
             .Where(p => p.CustomerId == customerId && p.Status == "Active")
             .Select(p => new PolicyResponseDto(
                 p.Id,
+                p.InsurancePlanId,
                 p.InsurancePlan.PolicyName,
                 p.StartDate,
                 p.EndDate,
                 p.PremiumAmount,
-                p.Status
+                p.Status,
+                p.DestinationCountry,
+                p.AgeMultiplier
             ))
             .ToListAsync();
     }
@@ -82,10 +87,13 @@ public class PolicyRepository : IPolicyRepository
             .Where(p => p.CustomerId == customerId && p.Status == "PaymentPending")
             .Select(p => new PaymentPendingPolicyDto(
                 p.Id,
+                p.InsurancePlanId,
                 p.InsurancePlan.PolicyName,
                 p.StartDate,
                 p.EndDate,
-                p.PremiumAmount
+                p.PremiumAmount,
+                p.DestinationCountry,
+                p.AgeMultiplier
             ))
             .ToListAsync();
     }

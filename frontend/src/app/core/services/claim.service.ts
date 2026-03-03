@@ -8,12 +8,13 @@ import type {
   ClaimResponseDto,
   ReviewClaimDto,
   SettleClaimDto,
+  ClaimOfficerPerformance,
 } from '../models/claim.model';
 import type { ClaimListDto, AssignedClaimsDto } from '../models/admin.model';
 
 @Injectable({ providedIn: 'root' })
 export class ClaimService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) { }
 
   raiseClaim(dto: RaiseClaimDto): Observable<ClaimResponseDto> {
     return this.http.post<ClaimResponseDto>(API_ENDPOINTS.claims.raise, dto);
@@ -47,5 +48,9 @@ export class ClaimService {
 
   settleClaim(claimId: number, dto: SettleClaimDto): Observable<{ message: string }> {
     return this.http.patch<{ message: string }>(API_ENDPOINTS.claims.settle(claimId), dto);
+  }
+
+  getOfficerPerformance(): Observable<ClaimOfficerPerformance> {
+    return this.http.get<ClaimOfficerPerformance>(API_ENDPOINTS.claims.officerPerformance);
   }
 }

@@ -1,0 +1,64 @@
+<div class="max-w-6xl mx-auto py-8 px-4 font-body animate-fade-in-up">
+    <div class="mb-8">
+        <h1 class="text-2xl font-display font-bold text-slate-900 tracking-tight">Performance Metrics</h1>
+        <p class="text-sm font-medium text-slate-500">Overview of your claim processing efficiency and statistics.</p>
+    </div>
+
+    @if (loading()) {
+    <div class="flex justify-center py-20">
+        <div class="animate-spin rounded-full h-12 w-12 border-4 border-violet-500 border-t-transparent"></div>
+    </div>
+    } @else if (stats()) {
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Assigned</p>
+            <p class="text-3xl font-display font-bold text-slate-900">{{ stats()?.totalAssigned }}</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <p class="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Approved</p>
+            <p class="text-3xl font-display font-bold text-emerald-700">{{ stats()?.approvedClaims }}</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <p class="text-xs font-bold text-rose-600 uppercase tracking-widest mb-1">Rejected</p>
+            <p class="text-3xl font-display font-bold text-rose-700">{{ stats()?.rejectedClaims }}</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-emerald-100 shadow-sm bg-emerald-50/30">
+            <p class="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Total Settled</p>
+            <p class="text-3xl font-display font-bold text-emerald-800">${{ stats()?.totalSettledAmount | number:'1.2-2'
+                }}</p>
+        </div>
+    </div>
+
+    <!-- Detailed Card -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden p-8">
+        <h2 class="text-lg font-bold text-slate-800 mb-6">Processing Status</h2>
+        <div class="space-y-6">
+            <div>
+                <div class="flex justify-between text-sm font-bold mb-2">
+                    <span class="text-slate-600">Pending Review</span>
+                    <span class="text-slate-900">{{ stats()?.pendingClaims }} Claims</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2">
+                    <div class="bg-sky-500 h-2 rounded-full"
+                        [style.width.%]="(stats()!.pendingClaims / stats()!.totalAssigned) * 100"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-sm font-bold mb-2">
+                    <span class="text-slate-600">Approved vs Rejected Ratio</span>
+                    <span class="text-slate-900">{{ stats()?.approvedClaims }} : {{ stats()?.rejectedClaims }}</span>
+                </div>
+                <div class="flex h-2 rounded-full overflow-hidden w-full bg-slate-100">
+                    <div class="bg-emerald-500 h-full"
+                        [style.width.%]="(stats()!.approvedClaims / (stats()!.approvedClaims + stats()!.rejectedClaims || 1)) * 100">
+                    </div>
+                    <div class="bg-rose-500 h-full"
+                        [style.width.%]="(stats()!.rejectedClaims / (stats()!.approvedClaims + stats()!.rejectedClaims || 1)) * 100">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

@@ -27,6 +27,7 @@ export class PaymentPendingComponent {
     this.policyService.getPaymentPendingPolicies().subscribe({
       next: (list) => {
         this.policies.set(list);
+        
         this.loading.set(false);
       },
       error: (err) => {
@@ -35,6 +36,7 @@ export class PaymentPendingComponent {
       },
     });
   }
+ 
 
   pay(policyId: number): void {
     this.payingId.set(policyId);

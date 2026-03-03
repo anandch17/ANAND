@@ -21,6 +21,9 @@ namespace TravelInsurance.Domain.Entities
         public decimal PremiumAmount { get; set; }
         public string Status { get; set; } = default!;
 
+        public decimal AgeMultiplier { get; set; } = 1.0m;
+        public int PurchaseAge { get; set; }
+
         // Navigation
         public User Customer { get; set; } = default!;
         public User? Agent { get; set; }

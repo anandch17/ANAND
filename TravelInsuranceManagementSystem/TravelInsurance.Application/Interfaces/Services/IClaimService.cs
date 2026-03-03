@@ -22,5 +22,7 @@ namespace TravelInsurance.Application.Interfaces.Services
         Task ReviewClaimAsync(int officerId, int claimId, ReviewClaimDto dto);
 
         Task SettleClaimAsync(int claimId, decimal settledAmount);
+
+        Task<ClaimOfficerPerformanceDto> GetOfficerPerformanceAsync(int officerId);
     }
 }

@@ -1,4 +1,4 @@
-export const API_BASE_URL = '/api';
+export const API_BASE_URL = 'https://localhost:7231/api';
 
 export const API_ENDPOINTS = {
   auth: {
@@ -12,6 +12,7 @@ export const API_ENDPOINTS = {
     base: `${API_BASE_URL}/users`,
     activate: (id: number) => `${API_BASE_URL}/users/${id}/activate`,
     deactivate: (id: number) => `${API_BASE_URL}/users/${id}/deactivate`,
+    profile: `${API_BASE_URL}/users/profile`,
     agents: `${API_BASE_URL}/users/agents`,
     customers: `${API_BASE_URL}/users/customers`,
     claimOfficers: `${API_BASE_URL}/users/claim-officers`,
@@ -28,6 +29,7 @@ export const API_ENDPOINTS = {
     renew: (policyId: number) => `${API_BASE_URL}/policies/${policyId}/renew`,
     agentPending: `${API_BASE_URL}/policies/agent/pending`,
     agentSold: `${API_BASE_URL}/policies/agent/sold`,
+    myPolicies: `${API_BASE_URL}/policies/my-policies`,
   },
   plans: {
     base: `${API_BASE_URL}/plans`,
@@ -46,5 +48,13 @@ export const API_ENDPOINTS = {
     assignOfficer: (id: number) => `${API_BASE_URL}/claims/${id}/assign-officer`,
     review: (claimId: number) => `${API_BASE_URL}/claims/claims/${claimId}/review`,
     settle: (claimId: number) => `${API_BASE_URL}/claims/claims/${claimId}/settle`,
+    officerPerformance: `${API_BASE_URL}/claims/officer/performance`,
+  },
+  premium: {
+    calculate: `${API_BASE_URL}/premium/calculate`,
+  },
+  destinationRisk: {
+    base: `${API_BASE_URL}/destination-risk`,
+    byId: (id: number) => `${API_BASE_URL}/destination-risk/${id}`,
   },
 } as const;

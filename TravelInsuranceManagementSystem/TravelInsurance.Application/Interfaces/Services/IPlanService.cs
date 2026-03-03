@@ -15,5 +15,6 @@ namespace TravelInsurance.Application.Interfaces.Services
         Task DeactivatePlanAsync(int id);
 
         Task<List<BrowsePlanDto>> BrowsePlansByCoverageAsync(string coverageType);
+        Task<PlanResponseDto?> GetPlanByIdAsync(int id);
     }
 }

@@ -29,6 +29,7 @@ namespace TravelInsurance.Application.Interfaces.Services
         Task<IEnumerable<PolicyAssignmentDto>> GetAgentSoldPoliciesAsync(int agentId);
 
         Task<IEnumerable<PolicyAssignmentDto>> GetPoliciesByStatusAsync(string? status);
+        Task<List<PolicyResponseDto>> GetMyPoliciesAsync(int customerId);
     }
 
 }

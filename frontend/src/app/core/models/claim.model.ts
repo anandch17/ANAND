@@ -42,3 +42,11 @@ export const ClaimStatus = {
   Pending: 'Pending',
 } as const;
 export type ClaimStatusType = (typeof ClaimStatus)[keyof typeof ClaimStatus];
+
+export interface ClaimOfficerPerformance {
+  totalAssigned: number;
+  approvedClaims: number;
+  rejectedClaims: number;
+  pendingClaims: number;
+  totalSettledAmount: number;
+}

@@ -14,5 +14,6 @@ namespace TravelInsurance.Application.Interfaces.Services
         Task<IEnumerable<UserResponseDto>> GetAgentsAsync();
         Task<IEnumerable<UserResponseDto>> GetCustomersAsync();
         Task<IEnumerable<UserResponseDto>> GetClaimOfficersAsync();
+        Task<AuthDto.UserProfileDto> GetProfileAsync(int userId);
     }
 }

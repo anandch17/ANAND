@@ -1,0 +1,7 @@
+export interface ClaimOfficerPerformance {
+  totalAssigned: number;
+  approvedClaims: number;
+  rejectedClaims: number;
+  pendingClaims: number;
+  totalSettledAmount: number;
+}

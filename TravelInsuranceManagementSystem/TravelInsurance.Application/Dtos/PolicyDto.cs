@@ -26,28 +26,36 @@ namespace TravelInsurance.Application.Dtos
 
     public record PolicyResponseDto(
     int Id,
+    int PlanId,
     string PlanName,
     DateTime StartDate,
     DateTime EndDate,
     decimal PremiumAmount,
-    string Status
+    string Status,
+    string DestinationCountry,
+    decimal AgeMultiplier
 );
     public record PolicyList(
        int Id,
+       int PlanId,
        string PlanName,
        string CustomerName,
        DateTime StartDate,
        DateTime EndDate,
        decimal PremiumAmount,
-       string Status
+       string Status,
+       decimal AgeMultiplier
    );
 
     public record PaymentPendingPolicyDto(
     int PolicyId,
+    int PlanId,
     string PlanName,
     DateTime StartDate,
     DateTime EndDate,
-    decimal PremiumAmount
+    decimal PremiumAmount,
+    string DestinationCountry,
+    decimal AgeMultiplier
 );
 
     public record BuyPolicyResponseDto(
@@ -64,5 +72,16 @@ namespace TravelInsurance.Application.Dtos
     decimal MaxCoverageAmount,
     decimal CoverageAmount
 );
+
+    public record CoverageDto(
+        string CoverageType,
+        decimal CoverageAmount
+    );
+
+    public record CalculatePremiumResponseDto(
+        decimal FinalPremium,
+        decimal AgeMultiplier,
+        List<CoverageDto> DynamicCoverages
+    );
 
 }

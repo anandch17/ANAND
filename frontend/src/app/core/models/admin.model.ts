@@ -65,6 +65,7 @@ export interface PolicyAssignmentDto {
   status: string;
   assignedAgentId: number | null;
   assignedAgentName: string | null;
+  ageMultiplier: number;
 }
 
 export interface ClaimListDto {
@@ -84,4 +85,5 @@ export interface AssignedClaimsDto {
   claimAmount: number;
   agentName: string;
   status: string;
+  documentUrls: string[];
 }

@@ -67,7 +67,7 @@
                     d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg> Destination</p>
               <p class="text-[14px] font-semibold text-slate-800">
-                Worldwide
+                {{ p.destinationCountry }}
               </p>
             </div>
           </div>
@@ -77,14 +77,20 @@
         <div class="p-6 md:w-2/5 md:bg-slate-50 flex flex-col justify-center items-center md:items-end">
           <div class="text-center md:text-right mb-6 w-full">
             <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Total Amount Due</p>
-            <div class="flex items-baseline justify-center md:justify-end gap-1">
+            <div class="flex items-baseline justify-center md:justify-end gap-1.5">
               <span class="text-sm font-bold text-slate-400">$</span>
               <p class="text-4xl font-display font-bold text-slate-900 tracking-tight">{{ p.premiumAmount |
                 number:'1.2-2' }}</p>
+              @if (p.ageMultiplier && p.ageMultiplier !== 1) {
+              <span
+                class="text-[10px] font-bold bg-orange-100 text-orange-700 px-2 py-1 rounded border border-orange-200 mb-2">
+                × {{ p.ageMultiplier }} age
+              </span>
+              }
             </div>
           </div>
           <button type="button" (click)="pay(p.policyId)" [disabled]="payingId() === p.policyId"
-            class="w-full relative overflow-hidden flex items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-emerald-500 to-emerald-600 px-6 py-4 text-[15px] font-bold text-white hover:from-emerald-400 hover:to-emerald-500 focus:ring-4 focus:ring-emerald-500/30 shadow-[0_4px_20px_rgba(16,185,129,0.3)] disabled:opacity-75 disabled:shadow-none transition-all duration-300 transform active:scale-[0.98]">
+            class="w-full bg-green-500 relative overflow-hidden flex items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-emerald-500 to-emerald-600 px-6 py-4 text-[15px] font-bold text-white hover:from-emerald-400 hover:to-emerald-500 focus:ring-4 focus:ring-emerald-500/30 shadow-[0_4px_20px_rgba(16,185,129,0.3)] disabled:opacity-75 disabled:shadow-none transition-all duration-300 transform active:scale-[0.98]">
             @if (payingId() === p.policyId) {
             <svg class="animate-spin h-5 w-5 text-emerald-100" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none">

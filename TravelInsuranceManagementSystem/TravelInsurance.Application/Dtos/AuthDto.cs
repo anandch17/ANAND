@@ -18,6 +18,8 @@ namespace TravelInsurance.Application.Dtos
         public record ForgotPasswordDto(string Email);
 
         public record ResetPasswordDto(string Token, string NewPassword);
+        
+        public record UserProfileDto(int Id, string Name, string Email, string Role, DateTime? DateOfBirth);
 
     }
 }

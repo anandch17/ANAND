@@ -9,6 +9,6 @@ namespace TravelInsurance.Application.Interfaces.Services
 {
     public interface IPremiumCalculationService
     {
-        Task<decimal> CalculatePremiumAsync(CalculatePremiumRequestDto dto);
+        Task<CalculatePremiumResponseDto> CalculatePremiumAsync(CalculatePremiumRequestDto dto);
     }
 }

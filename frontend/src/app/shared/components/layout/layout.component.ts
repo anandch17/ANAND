@@ -23,6 +23,8 @@ const DASHBOARD_LINKS: Record<string, NavLink[]> = {
     { path: '/admin/users', label: 'User Directory', icon: 'customers' },
     { path: '/admin/plans', label: 'Plan Catalog', icon: 'policy' },
     { path: '/admin/unassigned-policies', label: 'Unassigned Queue', icon: 'policies' },
+    { path: '/admin/unassigned-claims', label: 'Claims Router', icon: 'claims' },
+    { path: '/admin/risk-management', label: 'Risk Factors', icon: 'policy' },
   ],
   Customer: [
     { path: '/customer/browse-plans', label: 'Browse Plans', icon: 'policy' },
@@ -36,7 +38,8 @@ const DASHBOARD_LINKS: Record<string, NavLink[]> = {
     { path: '/agent/sold-policies', label: 'Sales History', icon: 'policies' },
   ],
   ClaimOfficer: [
-    { path: '/claim-officer', label: 'Claims Engine', icon: 'claims' },
+    { path: '/claim-officer/assigned-claims', label: 'Claims Engine', icon: 'claims' },
+    { path: '/claim-officer/performance', label: 'Performance Metrics', icon: 'reports' },
   ],
 };
 // const DASHBOARD_LINKS: Record<string, NavLink[]> = {

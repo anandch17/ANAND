@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_ENDPOINTS } from '../constants/api.constants';
 import type { PlanResponseDto, CreatePlanDto } from '../models/admin.model';
-import type { BrowsePlanDto } from '../models/policy.model';
+import type { BrowsePlanDto, CalculatePremiumResponseDto } from '../models/policy.model';
 
 @Injectable({ providedIn: 'root' })
 export class PlanService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) { }
 
   getAllPlans(): Observable<PlanResponseDto[]> {
     return this.http.get<PlanResponseDto[]>(API_ENDPOINTS.plans.base);
@@ -32,9 +32,17 @@ export class PlanService {
   }
 
   updatePlan(id: number, dto: CreatePlanDto) {
-  return this.http.put(
-    `${API_ENDPOINTS.plans.byId(id)}`,
-    dto
-  );
-}
+    return this.http.put(
+      `${API_ENDPOINTS.plans.byId(id)}`,
+      dto
+    );
+  }
+
+  calculatePremium(dto: any): Observable<CalculatePremiumResponseDto> {
+    return this.http.post<CalculatePremiumResponseDto>(API_ENDPOINTS.premium.calculate, dto);
+  }
+
+  getPlanById(id: number): Observable<PlanResponseDto> {
+    return this.http.get<PlanResponseDto>(API_ENDPOINTS.plans.byId(id));
+  }
 }

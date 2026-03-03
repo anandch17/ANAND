@@ -6,7 +6,7 @@ import type { AgentDropdownDto, UserResponseDto } from '../models/admin.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) { }
 
   getAgents(): Observable<UserResponseDto[]> {
     return this.http.get<UserResponseDto[]>(API_ENDPOINTS.users.agents);
@@ -26,5 +26,9 @@ export class UserService {
 
   deactivateUser(id: number): Observable<void> {
     return this.http.patch<void>(API_ENDPOINTS.users.deactivate(id), {});
+  }
+
+  getProfile(): Observable<any> {
+    return this.http.get<any>(API_ENDPOINTS.users.profile);
   }
 }

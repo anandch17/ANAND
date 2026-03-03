@@ -5,13 +5,15 @@ using TravelInsurance.Application.Interfaces.Services;
 public class PremiumCalculationService : IPremiumCalculationService
 {
     private readonly IInsurancePlanRepository _planRepository;
+    private readonly IDestinationRiskRepository _riskRepository;
 
-    public PremiumCalculationService(IInsurancePlanRepository planRepository)
+    public PremiumCalculationService(IInsurancePlanRepository planRepository, IDestinationRiskRepository riskRepository)
     {
         _planRepository = planRepository;
+        _riskRepository = riskRepository;
     }
 
-    public async Task<decimal> CalculatePremiumAsync(CalculatePremiumRequestDto dto)
+    public async Task<CalculatePremiumResponseDto> CalculatePremiumAsync(CalculatePremiumRequestDto dto)
     {
         var plan = await _planRepository.GetByIdAsync(dto.PlanId);
 
@@ -27,11 +29,28 @@ public class PremiumCalculationService : IPremiumCalculationService
             _ => rule.AgeAbove50Multiplier
         };
 
-        decimal basePremium = rule.BasePrice;
-        decimal perDayCost = dto.TravelDays * rule.PerDayRate;
+        var destinationRisk = await _riskRepository.GetByDestinationAsync(dto.DestinationCountry);
+        decimal destinationRiskMultiplier = destinationRisk?.RiskMultiplier ?? 1.0m;
 
-        decimal premium = (basePremium + perDayCost) * ageMultiplier;
+        decimal basePrice = rule.BasePrice;
+        decimal perDayRate = rule.PerDayRate;
+        int tripDays = dto.TravelDays > 0 ? dto.TravelDays : 1;
 
-        return premium;
+        // corePremium = basePrice + (perDayRate × tripDays)
+        decimal corePremium = basePrice + (perDayRate * tripDays);
+
+        // riskMultiplier = ageMultiplier × destinationRiskMultiplier
+        decimal totalRiskMultiplier = ageMultiplier * destinationRiskMultiplier;
+
+        // finalPremium = corePremium × riskMultiplier
+        decimal finalPremium = corePremium * totalRiskMultiplier;
+
+        // Dynamic Coverage Scaling - Scale existing coverages by the age multiplier
+        var dynamicCoverages = plan.Coverages.Select(c => new CoverageDto(
+            c.CoverageType,
+            c.CoverageAmount * ageMultiplier
+        )).ToList();
+
+        return new CalculatePremiumResponseDto(finalPremium, ageMultiplier, dynamicCoverages);
     }
 }

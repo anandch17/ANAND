@@ -167,5 +167,14 @@ namespace TravelInsurance.WebApi.Controllers
             var result = await _policyService.GetAgentSoldPoliciesAsync(agentId);
             return Ok(result);
         }
+
+        [Authorize(Roles = "Customer")]
+        [HttpGet("my-policies")]
+        public async Task<IActionResult> GetMyPolicies()
+        {
+            int customerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var result = await _policyService.GetMyPoliciesAsync(customerId);
+            return Ok(result);
+        }
     }
 }

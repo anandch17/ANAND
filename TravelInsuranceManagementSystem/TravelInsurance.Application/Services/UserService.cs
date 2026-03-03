@@ -62,5 +62,19 @@ namespace TravelInsurance.Application.Services
             return users.Where(u => u.Role == "ClaimOfficer")
                 .Select(u => new UserResponseDto(u.Id, u.Name, u.Email, u.Role, u.IsActive));
         }
+
+        public async Task<AuthDto.UserProfileDto> GetProfileAsync(int userId)
+        {
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user == null) throw new Exception("User not found");
+
+            return new AuthDto.UserProfileDto(
+                user.Id,
+                user.Name,
+                user.Email,
+                user.Role,
+                user.DateOfBirth
+            );
+        }
     }
 }

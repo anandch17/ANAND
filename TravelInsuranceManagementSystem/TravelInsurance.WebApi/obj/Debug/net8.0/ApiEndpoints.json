@@ -190,12 +190,85 @@
   },
   {
     "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
+    "Method": "GetPerformance",
+    "RelativePath": "api/Claims/officer/performance",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
     "Method": "GetUnassigned",
     "RelativePath": "api/Claims/unassigned",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.DestinationRiskController",
+    "Method": "GetAll",
+    "RelativePath": "api/destination-risk",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.DestinationRiskController",
+    "Method": "Create",
+    "RelativePath": "api/destination-risk",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "risk",
+        "Type": "TravelInsurance.Domain.Entities.DestinationRisk",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.DestinationRiskController",
+    "Method": "Update",
+    "RelativePath": "api/destination-risk/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "risk",
+        "Type": "TravelInsurance.Domain.Entities.DestinationRisk",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.DestinationRiskController",
+    "Method": "Delete",
+    "RelativePath": "api/destination-risk/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -222,6 +295,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.PlansController",
+    "Method": "GetById",
+    "RelativePath": "api/Plans/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -421,12 +510,38 @@
   },
   {
     "ContainingType": "TravelInsurance.WebApi.Controllers.PoliciesController",
+    "Method": "GetMyPolicies",
+    "RelativePath": "api/policies/my-policies",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.PoliciesController",
     "Method": "GetPaymentPendingPolicies",
     "RelativePath": "api/policies/payment-pending",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.PremiumCalculationController",
+    "Method": "Calculate",
+    "RelativePath": "api/premium/calculate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "TravelInsurance.Application.Dtos.CalculatePremiumRequestDto",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -485,6 +600,16 @@
     "ContainingType": "TravelInsurance.WebApi.Controllers.UsersController",
     "Method": "GetCustomers",
     "RelativePath": "api/Users/customers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.UsersController",
+    "Method": "GetProfile",
+    "RelativePath": "api/Users/profile",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
