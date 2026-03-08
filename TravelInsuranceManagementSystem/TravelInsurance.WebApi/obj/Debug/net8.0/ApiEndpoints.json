@@ -81,6 +81,74 @@
   },
   {
     "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
+    "Method": "RaiseClaim",
+    "RelativePath": "api/Claims",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "TravelInsurance.Application.Dtos.RaiseClaimDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
+    "Method": "GetMyClaims",
+    "RelativePath": "api/Claims",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
+    "Method": "ReviewClaim",
+    "RelativePath": "api/Claims/{claimId}/review",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "claimId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "TravelInsurance.Application.Dtos.ReviewClaimDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
+    "Method": "SettleClaim",
+    "RelativePath": "api/Claims/{claimId}/settle",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "claimId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "TravelInsurance.Application.Dtos.SettleClaimDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
     "Method": "AssignOfficer",
     "RelativePath": "api/Claims/{id}/assign-officer",
     "HttpMethod": "PATCH",
@@ -102,80 +170,22 @@
   },
   {
     "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
+    "Method": "GetAllClaims",
+    "RelativePath": "api/Claims/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
     "Method": "GetAssigned",
     "RelativePath": "api/Claims/assigned",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
-    "Method": "RaiseClaim",
-    "RelativePath": "api/Claims/claims",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "TravelInsurance.Application.Dtos.RaiseClaimDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
-    "Method": "GetMyClaims",
-    "RelativePath": "api/Claims/claims",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
-    "Method": "ReviewClaim",
-    "RelativePath": "api/Claims/claims/{claimId}/review",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "claimId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "dto",
-        "Type": "TravelInsurance.Application.Dtos.ReviewClaimDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "TravelInsurance.WebApi.Controllers.ClaimsController",
-    "Method": "SettleClaim",
-    "RelativePath": "api/Claims/claims/{claimId}/settle",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "claimId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "dto",
-        "Type": "TravelInsurance.Application.Dtos.SettleClaimDto",
-        "IsRequired": true
-      }
-    ],
     "ReturnTypes": []
   },
   {
@@ -315,6 +325,27 @@
   },
   {
     "ContainingType": "TravelInsurance.WebApi.Controllers.PlansController",
+    "Method": "Update",
+    "RelativePath": "api/Plans/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "TravelInsurance.Application.Dtos.CreatePlanDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.PlansController",
     "Method": "Activate",
     "RelativePath": "api/Plans/{id}/activate",
     "HttpMethod": "PATCH",
@@ -410,6 +441,22 @@
         "Name": "agentId",
         "Type": "System.Int32",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.PoliciesController",
+    "Method": "GetPolicyCoverages",
+    "RelativePath": "api/policies/{id}/coverages",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -540,6 +587,22 @@
         "Name": "dto",
         "Type": "TravelInsurance.Application.Dtos.CalculatePremiumRequestDto",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelInsurance.WebApi.Controllers.FileUploadController",
+    "Method": "UploadFile",
+    "RelativePath": "api/upload",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

@@ -12,7 +12,9 @@ using TravelInsurance.Domain.Entities;
 using TravelInsurance.Infrastructure.Data;
 using TravelInsurance.Infrastructure.Repositories;
 using TravelInsurance.Infrastructure.Services;
+using TravelInsurance.WebApi.Middlewares;
 namespace TravelInsurance.WebApi
+
 {
     public class Program
     {
@@ -127,8 +129,10 @@ namespace TravelInsurance.WebApi
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseCors();
 
+            app.UseMiddleware<GlobalExceptionMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
 

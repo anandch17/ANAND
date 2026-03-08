@@ -12,6 +12,18 @@
             <p class="text-sm font-medium text-slate-500">Assign pending insurance claims to available Claim Officers.
             </p>
         </div>
+        <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
+            <button (click)="toggleView(false)" [class.bg-white]="!viewAll()" [class.shadow-sm]="!viewAll()"
+                [class.text-violet-600]="!viewAll()" class="px-4 py-1.5 rounded-lg text-sm font-bold transition-all"
+                [class.text-slate-500]="viewAll()">
+                Unassigned
+            </button>
+            <button (click)="toggleView(true)" [class.bg-white]="viewAll()" [class.shadow-sm]="viewAll()"
+                [class.text-violet-600]="viewAll()" class="px-4 py-1.5 rounded-lg text-sm font-bold transition-all"
+                [class.text-slate-500]="!viewAll()">
+                All Claims
+            </button>
+        </div>
         <button (click)="loadData()" [disabled]="loading()"
             class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm active:scale-95 disabled:opacity-50">
             <svg class="w-4 h-4" [class.animate-spin]="loading()" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -20,6 +32,31 @@
             </svg>
             Refresh
         </button>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="mb-8 flex flex-col sm:flex-row gap-4">
+        <div class="flex-1 relative group">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+            <input type="text" (input)="onSearch($event)" placeholder="Search by name, ID or type..."
+                class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-violet-500/5 focus:border-violet-500 transition-all">
+        </div>
+        <div class="w-full sm:w-48">
+            <select (change)="onFilterChange($event)"
+                class="w-full pl-3 pr-10 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:border-violet-500 focus:ring-4 focus:ring-violet-500/10 transition-all cursor-pointer appearance-none">
+                <option value="">All Statuses</option>
+                <option value="Submitted">Submitted</option>
+                <option value="Under Review">Under Review</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Settled">Settled</option>
+            </select>
+        </div>
     </div>
 
     @if (loading()) {
@@ -39,7 +76,7 @@
     </div>
     } @else {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @for (c of claims(); track c.id) {
+        @for (c of filteredClaims(); track c.id) {
         <div
             class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
             <div class="p-5">
@@ -50,18 +87,26 @@
                             c.id.toString() | slice:0:8 }}</span>
                         <h3 class="font-bold text-slate-900 mt-1">{{ c.claimType }}</h3>
                     </div>
-                    <span class="text-sm font-bold text-sky-600">${{ c.claimAmount | number:'1.2-2' }}</span>
+                    <span class="text-sm font-bold text-sky-600">₹{{ c.claimAmount | number:'1.2-2' }}</span>
                 </div>
 
-                <div class="space-y-2 mb-6 text-sm">
+                <div class="space-y-2 mb-4 text-xs font-semibold">
                     <div class="flex justify-between">
-                        <span class="text-slate-500">Policy Holder</span>
-                        <span class="font-semibold text-slate-800">{{ c.customerName }}</span>
+                        <span class="text-slate-400 uppercase">Policy Holder</span>
+                        <span class="text-slate-800">{{ c.customerName }}</span>
+                    </div>
+                    <div class="flex justify-between mt-1">
+                        <span class="text-slate-400 uppercase">Status</span>
+                        <span [class.text-sky-600]="c.status === 'Submitted'"
+                            [class.text-amber-600]="c.status === 'Under Review'"
+                            [class.text-emerald-600]="c.status === 'Approved' || c.status === 'Settled'"
+                            [class.text-red-600]="c.status === 'Rejected'" class="font-extrabold">{{ c.status }}</span>
                     </div>
                 </div>
 
+                @if (c.status === 'Submitted') {
                 <div class="border-t border-slate-100 pt-4">
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Assign
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Assign
                         Officer</label>
                     <div class="relative">
                         <select (change)="assignClaim(c.id, $event)" [disabled]="assigning() === c.id"
@@ -85,6 +130,7 @@
                         </div>
                     </div>
                 </div>
+                }
             </div>
         </div>
         }

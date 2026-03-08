@@ -3,36 +3,80 @@
   "WorkspaceRootPath": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{704F5398-FD02-493D-A87E-98A39287B823}|TravelInsurance.Application.Tests\\TravelInsurance.Application.Tests.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.application.tests\\services\\policyservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{704F5398-FD02-493D-A87E-98A39287B823}|TravelInsurance.Application.Tests\\TravelInsurance.Application.Tests.csproj|solutionrelative:travelinsurance.application.tests\\services\\policyservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.application\\common\\appexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|solutionrelative:travelinsurance.application\\common\\appexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|solutionrelative:travelinsurance.application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.webapi\\controllers\\policiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|solutionrelative:travelinsurance.webapi\\controllers\\policiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.application\\services\\planservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|solutionrelative:travelinsurance.application\\services\\planservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.application\\services\\policyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|solutionrelative:travelinsurance.application\\services\\policyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D632ADE-C33E-4E58-B283-12F9578BC122}|TravelInsurance.Infrastructure\\TravelInsurance.Infrastructure.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.infrastructure\\migrations\\20260302202243_newvariables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D632ADE-C33E-4E58-B283-12F9578BC122}|TravelInsurance.Infrastructure\\TravelInsurance.Infrastructure.csproj|solutionrelative:travelinsurance.infrastructure\\migrations\\20260302202243_newvariables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.application\\common\\errorrespose.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|solutionrelative:travelinsurance.application\\common\\errorrespose.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|solutionrelative:travelinsurance.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.webapi\\controllers\\planscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|solutionrelative:travelinsurance.webapi\\controllers\\planscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.webapi\\middlewares\\globalexceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|solutionrelative:travelinsurance.webapi\\middlewares\\globalexceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.webapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|solutionrelative:travelinsurance.webapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|solutionrelative:travelinsurance.application\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.application\\services\\claimservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|solutionrelative:travelinsurance.application\\services\\claimservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|solutionrelative:travelinsurance.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.webapi\\travelinsurance.webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|solutionrelative:travelinsurance.webapi\\travelinsurance.webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.application\\travelinsurance.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|solutionrelative:travelinsurance.application\\travelinsurance.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.application\\interfaces\\services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|solutionrelative:travelinsurance.application\\interfaces\\services\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|solutionrelative:travelinsurance.application\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|solutionrelative:travelinsurance.webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.webapi\\controllers\\destinationriskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|solutionrelative:travelinsurance.webapi\\controllers\\destinationriskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D632ADE-C33E-4E58-B283-12F9578BC122}|TravelInsurance.Infrastructure\\TravelInsurance.Infrastructure.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.infrastructure\\migrations\\20260302202243_newvariables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D632ADE-C33E-4E58-B283-12F9578BC122}|TravelInsurance.Infrastructure\\TravelInsurance.Infrastructure.csproj|solutionrelative:travelinsurance.infrastructure\\migrations\\20260302202243_newvariables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.webapi\\controllers\\planscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12A28BEF-3DC9-4E1D-8415-51264A7D7E96}|TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj|solutionrelative:travelinsurance.webapi\\controllers\\planscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{54FD8AF9-21E0-4C1D-95C5-BBBEA270AF20}|TravelInsurance.Application\\TravelInsurance.Application.csproj|d:\\hartford_training_projects\\capstoneproject\\travelinsurancemanagementsystem\\travelinsurance.application\\interfaces\\services\\ipolicyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,15 +90,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
             },
             {
               "$type": "Bookmark",
@@ -65,12 +105,141 @@
               "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PolicyServiceTests.cs",
+              "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application.Tests\\Services\\PolicyServiceTests.cs",
+              "RelativeDocumentMoniker": "TravelInsurance.Application.Tests\\Services\\PolicyServiceTests.cs",
+              "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application.Tests\\Services\\PolicyServiceTests.cs",
+              "RelativeToolTip": "TravelInsurance.Application.Tests\\Services\\PolicyServiceTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-05T07:13:15.208Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "TravelInsurance.Application\\Services\\UserService.cs",
+              "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Services\\UserService.cs",
+              "RelativeToolTip": "TravelInsurance.Application\\Services\\UserService.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAMwEUAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T11:52:58.114Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PlanService.cs",
+              "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Services\\PlanService.cs",
+              "RelativeDocumentMoniker": "TravelInsurance.Application\\Services\\PlanService.cs",
+              "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Services\\PlanService.cs",
+              "RelativeToolTip": "TravelInsurance.Application\\Services\\PlanService.cs",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAwwH0AAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T11:47:01.863Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ClaimService.cs",
+              "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Services\\ClaimService.cs",
+              "RelativeDocumentMoniker": "TravelInsurance.Application\\Services\\ClaimService.cs",
+              "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Services\\ClaimService.cs",
+              "RelativeToolTip": "TravelInsurance.Application\\Services\\ClaimService.cs",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAowJcAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T11:38:19.454Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GlobalExceptionMiddleware.cs",
+              "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\Middlewares\\GlobalExceptionMiddleware.cs",
+              "RelativeDocumentMoniker": "TravelInsurance.WebApi\\Middlewares\\GlobalExceptionMiddleware.cs",
+              "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\Middlewares\\GlobalExceptionMiddleware.cs",
+              "RelativeToolTip": "TravelInsurance.WebApi\\Middlewares\\GlobalExceptionMiddleware.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAuwEwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T11:31:26.05Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "TravelInsurance.WebApi.csproj",
+              "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj",
+              "RelativeDocumentMoniker": "TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj",
+              "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj",
+              "RelativeToolTip": "TravelInsurance.WebApi\\TravelInsurance.WebApi.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-04T11:31:01.378Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AppException.cs",
+              "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Common\\AppException.cs",
+              "RelativeDocumentMoniker": "TravelInsurance.Application\\Common\\AppException.cs",
+              "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Common\\AppException.cs",
+              "RelativeToolTip": "TravelInsurance.Application\\Common\\AppException.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T11:29:10.011Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ErrorRespose.cs",
+              "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Common\\ErrorRespose.cs",
+              "RelativeDocumentMoniker": "TravelInsurance.Application\\Common\\ErrorRespose.cs",
+              "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Common\\ErrorRespose.cs",
+              "RelativeToolTip": "TravelInsurance.Application\\Common\\ErrorRespose.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T11:28:35.499Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "TravelInsurance.Application.csproj",
+              "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\TravelInsurance.Application.csproj",
+              "RelativeDocumentMoniker": "TravelInsurance.Application\\TravelInsurance.Application.csproj",
+              "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\TravelInsurance.Application.csproj",
+              "RelativeToolTip": "TravelInsurance.Application\\TravelInsurance.Application.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-04T11:27:29.411Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\appsettings.json",
+              "RelativeDocumentMoniker": "TravelInsurance.WebApi\\appsettings.json",
+              "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\appsettings.json",
+              "RelativeToolTip": "TravelInsurance.WebApi\\appsettings.json",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABUAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-03T18:50:06.743Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "DestinationRiskController.cs",
+              "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\Controllers\\DestinationRiskController.cs",
+              "RelativeDocumentMoniker": "TravelInsurance.WebApi\\Controllers\\DestinationRiskController.cs",
+              "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\Controllers\\DestinationRiskController.cs",
+              "RelativeToolTip": "TravelInsurance.WebApi\\Controllers\\DestinationRiskController.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAgwC8AAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-03T16:10:05.32Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "20260302202243_newvariables.cs",
               "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Infrastructure\\Migrations\\20260302202243_newvariables.cs",
               "RelativeDocumentMoniker": "TravelInsurance.Infrastructure\\Migrations\\20260302202243_newvariables.cs",
@@ -78,24 +247,23 @@
               "RelativeToolTip": "TravelInsurance.Infrastructure\\Migrations\\20260302202243_newvariables.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-02T20:22:44.877Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-02T20:22:44.877Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\Program.cs",
               "RelativeDocumentMoniker": "TravelInsurance.WebApi\\Program.cs",
               "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\Program.cs",
               "RelativeToolTip": "TravelInsurance.WebApi\\Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACAAAABDAAAAAAAAAA==",
+              "ViewState": "AgIAAHMAAAAAAAAAAAAQwIYAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-02T17:37:32.233Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 18,
               "Title": "PlansController.cs",
               "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\Controllers\\PlansController.cs",
               "RelativeDocumentMoniker": "TravelInsurance.WebApi\\Controllers\\PlansController.cs",
@@ -107,56 +275,55 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "TravelInsurance.WebApi\\Controllers\\AuthController.cs",
               "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\Controllers\\AuthController.cs",
               "RelativeToolTip": "TravelInsurance.WebApi\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAQwCoAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAADAAAAAAAAAAAAA3wD0AAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-02T09:16:28.228Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 14,
               "Title": "IAuthService.cs",
               "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Interfaces\\Services\\IAuthService.cs",
               "RelativeDocumentMoniker": "TravelInsurance.Application\\Interfaces\\Services\\IAuthService.cs",
               "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Interfaces\\Services\\IAuthService.cs",
               "RelativeToolTip": "TravelInsurance.Application\\Interfaces\\Services\\IAuthService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAewA0AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-02T09:16:09.224Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "AuthService.cs",
               "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Services\\AuthService.cs",
               "RelativeDocumentMoniker": "TravelInsurance.Application\\Services\\AuthService.cs",
               "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Services\\AuthService.cs",
               "RelativeToolTip": "TravelInsurance.Application\\Services\\AuthService.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAqwDcAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAI0AAAAAAAAAAAAjwIYAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-02T09:11:48.257Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "PoliciesController.cs",
               "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\Controllers\\PoliciesController.cs",
               "RelativeDocumentMoniker": "TravelInsurance.WebApi\\Controllers\\PoliciesController.cs",
               "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi\\Controllers\\PoliciesController.cs",
               "RelativeToolTip": "TravelInsurance.WebApi\\Controllers\\PoliciesController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBcAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-02T04:34:02.335Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-02T04:34:02.335Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 19,
               "Title": "IPolicyService.cs",
               "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Interfaces\\Services\\IPolicyService.cs",
               "RelativeDocumentMoniker": "TravelInsurance.Application\\Interfaces\\Services\\IPolicyService.cs",
@@ -168,16 +335,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "PolicyService.cs",
               "DocumentMoniker": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Services\\PolicyService.cs",
               "RelativeDocumentMoniker": "TravelInsurance.Application\\Services\\PolicyService.cs",
               "ToolTip": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application\\Services\\PolicyService.cs",
               "RelativeToolTip": "TravelInsurance.Application\\Services\\PolicyService.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAwwDIAAAADAAAAAAAAAA==",
+              "ViewState": "AgIAAF4BAAAAAAAAAAAmwGkBAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-02T04:29:22.861Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-02T04:29:22.861Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
             }
           ]
         }

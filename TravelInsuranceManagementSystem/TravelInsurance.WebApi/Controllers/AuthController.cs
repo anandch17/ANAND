@@ -1,6 +1,7 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using TravelInsurance.Application.Common;
 using TravelInsurance.Application.Interfaces.Services;
 using static TravelInsurance.Application.Dtos.AuthDto;
 
@@ -54,11 +55,11 @@ namespace TravelInsurance.WebApi.Controllers
                 var response = await client.GetStringAsync($"https://www.google.com/recaptcha/api/siteverify?secret={secretKey}&response={dto.CaptchaToken}");
                 var json = JsonSerializer.Deserialize<JsonElement>(response);
                 if (!json.TryGetProperty("success", out var success) || !success.GetBoolean())
-                    return BadRequest(new { message = "Captcha verification failed." });
+                    throw new AppException("Captcha verification failed.", 400);
             }
             else if (!string.IsNullOrEmpty(secretKey) && string.IsNullOrEmpty(dto.CaptchaToken))
             {
-                return BadRequest(new { message = "Captcha is required." });
+                throw new AppException("Captcha required.", 404);
             }
 
             var token = await _authService.LoginAsync(dto);

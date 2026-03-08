@@ -176,5 +176,17 @@ namespace TravelInsurance.WebApi.Controllers
             var result = await _policyService.GetMyPoliciesAsync(customerId);
             return Ok(result);
         }
+
+        // =========================================================
+        // CUSTOMER: Get coverages for a specific policy's plan
+        // GET /api/policies/{id}/coverages
+        // =========================================================
+        [Authorize(Roles = "Customer")]
+        [HttpGet("{id}/coverages")]
+        public async Task<IActionResult> GetPolicyCoverages(int id)
+        {
+            var result = await _policyService.GetPolicyCoveragesAsync(id);
+            return Ok(result);
+        }
     }
 }

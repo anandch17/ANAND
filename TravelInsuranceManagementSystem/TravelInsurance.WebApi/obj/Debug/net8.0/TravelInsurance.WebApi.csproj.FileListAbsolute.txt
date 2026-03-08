@@ -312,4 +312,10 @@ D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\Tr
 D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.WebApi\obj\Debug\net8.0\TravelInsurance.WebApi.genruntimeconfig.cache
 D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.WebApi\obj\Debug\net8.0\ref\TravelInsurance.WebApi.dll
 D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.WebApi\obj\Debug\net8.0\TravelInsurance.WebApi.sourcelink.json
+D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.WebApi\bin\Debug\net8.0\TravelInsurance.WebApi.staticwebassets.runtime.json
+D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.WebApi\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.WebApi\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.WebApi\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.WebApi\bin\Debug\net8.0\SendGrid.dll
+D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.WebApi\bin\Debug\net8.0\StarkbankEcdsa.dll
 D:\Hartford_Training_Projects\CapstoneProject\TravelInsuranceManagementSystem\TravelInsurance.WebApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

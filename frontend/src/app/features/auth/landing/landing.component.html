@@ -3,146 +3,154 @@
 ════════════════════════════════════════════════ -->
 <nav
   class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[5vw] py-4 border-b border-blue-600/10 transition-all duration-300"
-  [class.shadow-lg]="isScrolled"
-  style="background: rgba(235,244,255,0.88); backdrop-filter: blur(20px);">
+  [class.shadow-lg]="isScrolled" style="background: rgba(235,244,255,0.88); backdrop-filter: blur(20px);">
 
   <!-- Logo -->
   <a href="#" class="flex items-center gap-2 no-underline">
-    <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
-         style="background: linear-gradient(135deg, #2563EB, #06B6D4)">🛡️</div>
-    <span class="text-xl font-bold tracking-tight text-slate-900"
-          style="font-family:'Playfair Display',serif">
-      Sky<span class="text-blue-600">Shield</span>
-    </span>
+    <div
+      class="w-10 h-10 bg-sky-600 rounded-xl flex items-center justify-center text-white font-bold text-xl mr-3 shadow-sm">
+      T
+    </div>
+    <span
+      class="font-display font-bold text-xl tracking-tight text-slate-800 underline-offset-4 decoration-sky-500/30">Travel<span
+        class="text-sky-600">Secure</span></span>
   </a>
 
   <!-- Nav Links (desktop) -->
   <ul class="hidden lg:flex items-center gap-8 list-none m-0 p-0">
     <li *ngFor="let link of navLinks">
       <a (click)="scrollTo(link.id)"
-         class="text-slate-500 text-sm font-medium hover:text-blue-600 transition-colors duration-200 cursor-pointer no-underline">
+        class="text-slate-500 text-sm font-medium hover:text-blue-600 transition-colors duration-200 cursor-pointer no-underline">
         {{ link.label }}
       </a>
     </li>
   </ul>
 
   <!-- CTA -->
- <div class="flex items-center gap-3">
-  <a routerLink="/login"
-     class="px-5 py-2 rounded-full text-sm font-medium text-blue-600 no-underline transition-all duration-200 hover:bg-blue-50"
-     style="border: 1.5px solid #2563EB">Log In</a>
+  <div class="flex items-center gap-3">
+    <a routerLink="/login"
+      class="px-5 py-2 rounded-full text-sm font-medium text-blue-600 no-underline transition-all duration-200 hover:bg-blue-50"
+      style="border: 1.5px solid #2563EB">Log In</a>
 
-  <a routerLink="/login"
-     class="px-5 py-2 rounded-full text-sm font-semibold text-white no-underline transition-all duration-200 hover:-translate-y-0.5"
-     style="background: linear-gradient(135deg,#2563EB,#0EA5E9); box-shadow: 0 4px 18px rgba(37,99,235,.25)">
-    Get a Quote
-  </a>
-</div>
+    <a routerLink="/login"
+      class="px-5 py-2 rounded-full text-sm font-semibold text-white no-underline transition-all duration-200 hover:-translate-y-0.5"
+      style="background: linear-gradient(135deg,#2563EB,#0EA5E9); box-shadow: 0 4px 18px rgba(37,99,235,.25)">
+      Get a Quote
+    </a>
+  </div>
 </nav>
 
 
 <!-- ═══════════════════════════════════════════════
      HERO
 ════════════════════════════════════════════════ -->
-<section class="relative min-h-screen flex flex-col items-center justify-center px-[5vw] pt-36 pb-24 text-center overflow-hidden"
-         style="background: #EBF4FF;">
+<section
+  class="relative min-h-screen flex flex-col items-center justify-center px-[5vw] pt-36 pb-24 text-center overflow-hidden"
+  style="background: #EBF4FF;">
 
   <!-- Dot-grid overlay -->
   <div class="absolute inset-0 pointer-events-none"
-       style="background-image: radial-gradient(circle, rgba(37,99,235,0.07) 1px, transparent 1px); background-size: 38px 38px;"></div>
+    style="background-image: radial-gradient(circle, rgba(37,99,235,0.07) 1px, transparent 1px); background-size: 38px 38px;">
+  </div>
 
   <!-- Floating Orbs -->
   <div class="absolute rounded-full pointer-events-none"
-       style="width:520px;height:520px;background:radial-gradient(circle,#93C5FD,#BFDBFE);top:-120px;left:-140px;filter:blur(80px);opacity:.45;animation:floatOrb 8s ease-in-out infinite alternate;"></div>
+    style="width:520px;height:520px;background:radial-gradient(circle,#93C5FD,#BFDBFE);top:-120px;left:-140px;filter:blur(80px);opacity:.45;animation:floatOrb 8s ease-in-out infinite alternate;">
+  </div>
   <div class="absolute rounded-full pointer-events-none"
-       style="width:380px;height:380px;background:radial-gradient(circle,#67E8F9,#A5F3FC);top:10%;right:-100px;filter:blur(80px);opacity:.45;animation:floatOrb 8s ease-in-out infinite alternate;animation-delay:-3s;"></div>
+    style="width:380px;height:380px;background:radial-gradient(circle,#67E8F9,#A5F3FC);top:10%;right:-100px;filter:blur(80px);opacity:.45;animation:floatOrb 8s ease-in-out infinite alternate;animation-delay:-3s;">
+  </div>
   <div class="absolute rounded-full pointer-events-none"
-       style="width:280px;height:280px;background:radial-gradient(circle,#BAE6FD,#E0F2FE);bottom:10%;left:15%;filter:blur(80px);opacity:.45;animation:floatOrb 8s ease-in-out infinite alternate;animation-delay:-5s;"></div>
+    style="width:280px;height:280px;background:radial-gradient(circle,#BAE6FD,#E0F2FE);bottom:10%;left:15%;filter:blur(80px);opacity:.45;animation:floatOrb 8s ease-in-out infinite alternate;animation-delay:-5s;">
+  </div>
 
   <!-- Planes -->
   <div class="absolute text-3xl pointer-events-none opacity-10"
-       style="top:20%;left:-60px;animation:flyPlane 14s linear infinite;">✈️</div>
+    style="top:20%;left:-60px;animation:flyPlane 14s linear infinite;">✈️</div>
   <div class="absolute text-3xl pointer-events-none opacity-10"
-       style="top:60%;left:-60px;animation:flyPlane 20s linear infinite;animation-delay:-7s;">✈️</div>
+    style="top:60%;left:-60px;animation:flyPlane 20s linear infinite;animation-delay:-7s;">✈️</div>
 
   <!-- Badge -->
-  <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest text-blue-600 mb-6"
-       style="background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.2);animation:fadeUp 0.7s ease both;">
-    <span class="w-2 h-2 rounded-full shrink-0"
-          style="background:#06B6D4;animation:pulseDot 2s infinite;"></span>
+  <div
+    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest text-blue-600 mb-6"
+    style="background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.2);animation:fadeUp 0.7s ease both;">
+    <span class="w-2 h-2 rounded-full shrink-0" style="background:#06B6D4;animation:pulseDot 2s infinite;"></span>
     Trusted by 2M+ Travelers Worldwide
   </div>
 
   <!-- Headline -->
   <h1 class="font-black leading-[1.04] tracking-tight max-w-4xl text-slate-900"
-      style="font-family:'Playfair Display',serif;font-size:clamp(3rem,7vw,6.5rem);animation:fadeUp 0.8s 0.1s ease both;">
+    style="font-family:'Playfair Display',serif;font-size:clamp(3rem,7vw,6.5rem);animation:fadeUp 0.8s 0.1s ease both;">
     Travel Worry-Free,<br>We've Got You
-    <span style="background:linear-gradient(135deg,#2563EB,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;"> Covered</span>
+    <span
+      style="background:linear-gradient(135deg,#2563EB,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+      Covered</span>
   </h1>
 
   <!-- Subheading -->
   <p class="text-slate-500 max-w-xl leading-relaxed mt-5"
-     style="font-size:clamp(1rem,2vw,1.2rem);animation:fadeUp 0.8s 0.2s ease both;">
-    Comprehensive travel insurance that protects every adventure — from flight cancellations to medical emergencies, we're with you every step of the journey.
+    style="font-size:clamp(1rem,2vw,1.2rem);animation:fadeUp 0.8s 0.2s ease both;">
+    Comprehensive travel insurance that protects every adventure — from flight cancellations to medical emergencies,
+    we're with you every step of the journey.
   </p>
 
   <!-- Buttons -->
-  <div class="flex flex-wrap gap-4 justify-center mt-10"
-       style="animation:fadeUp 0.8s 0.3s ease both;">
+  <div class="flex flex-wrap gap-4 justify-center mt-10" style="animation:fadeUp 0.8s 0.3s ease both;">
     <a (click)="scrollTo('plans')"
-       class="px-9 py-3.5 text-white rounded-full font-semibold cursor-pointer no-underline transition-all duration-300 hover:-translate-y-1"
-       style="background:linear-gradient(135deg,#2563EB,#0EA5E9);box-shadow:0 8px 32px rgba(37,99,235,.3)">
+      class="px-9 py-3.5 text-white rounded-full font-semibold cursor-pointer no-underline transition-all duration-300 hover:-translate-y-1"
+      style="background:linear-gradient(135deg,#2563EB,#0EA5E9);box-shadow:0 8px 32px rgba(37,99,235,.3)">
       Explore Plans →
     </a>
     <a (click)="scrollTo('how')"
-       class="px-9 py-3.5 text-blue-600 rounded-full font-semibold cursor-pointer no-underline transition-all duration-300 hover:bg-white hover:-translate-y-1"
-       style="background:rgba(255,255,255,0.7);border:1.5px solid rgba(37,99,235,0.25);backdrop-filter:blur(8px)">
+      class="px-9 py-3.5 text-blue-600 rounded-full font-semibold cursor-pointer no-underline transition-all duration-300 hover:bg-white hover:-translate-y-1"
+      style="background:rgba(255,255,255,0.7);border:1.5px solid rgba(37,99,235,0.25);backdrop-filter:blur(8px)">
       How It Works
     </a>
   </div>
 
   <!-- Search Widget -->
-  <div class="mt-14 w-full max-w-3xl rounded-2xl p-6 flex flex-wrap gap-4 items-end"
-       style="background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border:1px solid rgba(37,99,235,0.12);box-shadow:0 20px 60px rgba(37,99,235,.1);animation:fadeUp 0.9s 0.45s ease both;">
+  <!-- <div class="mt-14 w-full max-w-3xl rounded-2xl p-6 flex flex-wrap gap-4 items-end"
+    style="background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border:1px solid rgba(37,99,235,0.12);box-shadow:0 20px 60px rgba(37,99,235,.1);animation:fadeUp 0.9s 0.45s ease both;">
 
     <div class="flex-1 min-w-[140px]">
       <label class="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-1.5">Destination</label>
       <input type="text" placeholder="Where are you going?" [(ngModel)]="searchForm.destination"
-             class="w-full px-3.5 py-2.5 rounded-xl text-sm text-slate-800 bg-white outline-none transition-colors duration-200 focus:ring-2 focus:ring-blue-500/30"
-             style="border:1.5px solid rgba(37,99,235,0.12);">
+        class="w-full px-3.5 py-2.5 rounded-xl text-sm text-slate-800 bg-white outline-none transition-colors duration-200 focus:ring-2 focus:ring-blue-500/30"
+        style="border:1.5px solid rgba(37,99,235,0.12);">
     </div>
     <div class="flex-1 min-w-[140px]">
-      <label class="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-1.5">Departure Date</label>
+      <label class="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-1.5">Departure
+        Date</label>
       <input type="date" [(ngModel)]="searchForm.departure"
-             class="w-full px-3.5 py-2.5 rounded-xl text-sm text-slate-800 bg-white outline-none transition-colors duration-200 focus:ring-2 focus:ring-blue-500/30"
-             style="border:1.5px solid rgba(37,99,235,0.12);">
+        class="w-full px-3.5 py-2.5 rounded-xl text-sm text-slate-800 bg-white outline-none transition-colors duration-200 focus:ring-2 focus:ring-blue-500/30"
+        style="border:1.5px solid rgba(37,99,235,0.12);">
     </div>
     <div class="flex-1 min-w-[140px]">
       <label class="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-1.5">Return Date</label>
       <input type="date" [(ngModel)]="searchForm.returnDate"
-             class="w-full px-3.5 py-2.5 rounded-xl text-sm text-slate-800 bg-white outline-none transition-colors duration-200 focus:ring-2 focus:ring-blue-500/30"
-             style="border:1.5px solid rgba(37,99,235,0.12);">
+        class="w-full px-3.5 py-2.5 rounded-xl text-sm text-slate-800 bg-white outline-none transition-colors duration-200 focus:ring-2 focus:ring-blue-500/30"
+        style="border:1.5px solid rgba(37,99,235,0.12);">
     </div>
     <div class="flex-1 min-w-[140px]">
       <label class="block text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-1.5">Travelers</label>
       <select [(ngModel)]="searchForm.travelers"
-              class="w-full px-3.5 py-2.5 rounded-xl text-sm text-slate-800 bg-white outline-none transition-colors duration-200"
-              style="border:1.5px solid rgba(37,99,235,0.12);">
+        class="w-full px-3.5 py-2.5 rounded-xl text-sm text-slate-800 bg-white outline-none transition-colors duration-200"
+        style="border:1.5px solid rgba(37,99,235,0.12);">
         <option>1 Traveler</option>
         <option>2 Travelers</option>
         <option>3-5 Travelers</option>
         <option>Family Pack</option>
       </select>
     </div>
-    <button class="px-7 py-2.5 text-white rounded-xl font-semibold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
-            style="background:linear-gradient(135deg,#2563EB,#0EA5E9);box-shadow:0 6px 20px rgba(37,99,235,.3)">
+    <button
+      class="px-7 py-2.5 text-white rounded-xl font-semibold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
+      style="background:linear-gradient(135deg,#2563EB,#0EA5E9);box-shadow:0 6px 20px rgba(37,99,235,.3)">
       Get Quote ✦
     </button>
-  </div>
+  </div> -->
 
   <!-- Stats -->
-  <div class="flex flex-wrap gap-12 justify-center mt-12"
-       style="animation:fadeUp 0.9s 0.5s ease both;">
+  <div class="flex flex-wrap gap-12 justify-center mt-12" style="animation:fadeUp 0.9s 0.5s ease both;">
     <div class="text-center" *ngFor="let stat of stats">
       <div class="text-3xl font-bold text-blue-600" style="font-family:'Playfair Display',serif">{{ stat.val }}</div>
       <div class="text-xs text-slate-500 font-medium mt-1">{{ stat.label }}</div>
@@ -156,23 +164,26 @@
 ════════════════════════════════════════════════ -->
 <section class="py-24 px-[5vw] bg-white" id="features">
   <div class="flex flex-col items-center text-center mb-16">
-    <span class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 mb-4">Coverage</span>
+    <span
+      class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 mb-4">Coverage</span>
     <h2 class="font-extrabold text-slate-900 tracking-tight"
-        style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem)">
+      style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem)">
       Everything You Need,<br>Nothing You Don't
     </h2>
-    <p class="text-slate-500 mt-3 max-w-lg text-center leading-relaxed">Flexible coverage designed for modern travelers — from weekend getaways to month-long expeditions.</p>
+    <p class="text-slate-500 mt-3 max-w-lg text-center leading-relaxed">Flexible coverage designed for modern travelers
+      — from weekend getaways to month-long expeditions.</p>
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
     <div *ngFor="let f of features"
-         class="reveal group relative rounded-2xl p-8 border border-blue-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_48px_rgba(37,99,235,0.1)] hover:border-blue-300/40 overflow-hidden"
-         style="background:#EBF4FF;">
+      class="reveal group relative rounded-2xl p-8 border border-blue-600/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_48px_rgba(37,99,235,0.1)] hover:border-blue-300/40 overflow-hidden"
+      style="background:#EBF4FF;">
       <!-- Top gradient border on hover -->
-      <div class="absolute top-0 left-0 right-0 h-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-           style="background:linear-gradient(90deg,#2563EB,#06B6D4)"></div>
+      <div
+        class="absolute top-0 left-0 right-0 h-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style="background:linear-gradient(90deg,#2563EB,#06B6D4)"></div>
       <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-5"
-           [style]="'background:' + f.iconBg">{{ f.icon }}</div>
+        [style]="'background:' + f.iconBg">{{ f.icon }}</div>
       <h3 class="font-bold text-xl text-slate-900 mb-2" style="font-family:'Playfair Display',serif">{{ f.title }}</h3>
       <p class="text-slate-500 text-sm leading-relaxed">{{ f.desc }}</p>
     </div>
@@ -185,47 +196,46 @@
 ════════════════════════════════════════════════ -->
 <section class="py-24 px-[5vw]" id="plans" style="background:#EBF4FF;">
   <div class="flex flex-col items-center text-center mb-14">
-    <span class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 mb-4">Pricing</span>
+    <span
+      class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 mb-4">Pricing</span>
     <h2 class="font-extrabold text-slate-900 tracking-tight"
-        style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem)">Simple, Transparent Plans</h2>
-    <p class="text-slate-500 mt-3 max-w-md text-center leading-relaxed">No hidden fees. Cancel anytime. Choose the plan that fits your journey.</p>
+      style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem)">Simple, Transparent Plans</h2>
+    <p class="text-slate-500 mt-3 max-w-md text-center leading-relaxed">No hidden fees. Cancel anytime. Choose the plan
+      that fits your journey.</p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto items-start">
-    <div *ngFor="let plan of plans"
-         class="reveal relative rounded-3xl p-10 transition-all duration-300"
-         [style]="plan.featured
+    <div *ngFor="let plan of plans" class="reveal relative rounded-3xl p-10 transition-all duration-300" [style]="plan.featured
            ? 'background:linear-gradient(145deg,#2563EB,#1d4ed8);color:#fff;box-shadow:0 24px 60px rgba(37,99,235,.35);transform:scale(1.04)'
            : 'background:#fff;border:1px solid rgba(37,99,235,0.1)'">
 
       <!-- Popular badge -->
       <div *ngIf="plan.badge"
-           class="absolute -top-4 left-1/2 -translate-x-1/2 text-white text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full whitespace-nowrap"
-           style="background:linear-gradient(90deg,#06B6D4,#0891B2)">{{ plan.badge }}</div>
+        class="absolute -top-4 left-1/2 -translate-x-1/2 text-white text-[11px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full whitespace-nowrap"
+        style="background:linear-gradient(90deg,#06B6D4,#0891B2)">{{ plan.badge }}</div>
 
       <p class="text-[11px] font-bold uppercase tracking-widest mb-3"
-         [style.color]="plan.featured ? '#BAE6FD' : '#94A3B8'">{{ plan.name }}</p>
+        [style.color]="plan.featured ? '#BAE6FD' : '#94A3B8'">{{ plan.name }}</p>
 
-      <div class="font-black text-5xl leading-none mb-1"
-           style="font-family:'Playfair Display',serif"
-           [style.color]="plan.featured ? '#fff' : '#0F172A'">
+      <div class="font-black text-5xl leading-none mb-1" style="font-family:'Playfair Display',serif"
+        [style.color]="plan.featured ? '#fff' : '#0F172A'">
         <sup class="text-xl font-semibold">$</sup>{{ plan.price }}
         <span class="text-base font-normal opacity-60">/trip</span>
       </div>
 
-      <p class="text-sm mt-2 mb-7 opacity-70"
-         [style.color]="plan.featured ? '#E0F2FE' : '#64748B'">{{ plan.desc }}</p>
+      <p class="text-sm mt-2 mb-7 opacity-70" [style.color]="plan.featured ? '#E0F2FE' : '#64748B'">{{ plan.desc }}</p>
 
       <ul class="flex flex-col gap-3 mb-8 list-none p-0">
         <li *ngFor="let feat of plan.features" class="flex items-center gap-3 text-sm">
           <span class="w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0"
-                [style]="plan.featured ? 'background:rgba(255,255,255,0.15);color:#BAE6FD' : 'background:#DBEAFE;color:#2563EB'">✓</span>
+            [style]="plan.featured ? 'background:rgba(255,255,255,0.15);color:#BAE6FD' : 'background:#DBEAFE;color:#2563EB'">✓</span>
           <span [style.color]="plan.featured ? '#fff' : '#334155'">{{ feat }}</span>
         </li>
       </ul>
 
-      <button class="w-full py-3.5 rounded-full font-semibold text-sm transition-all duration-300 cursor-pointer border-0"
-              [style]="plan.featured
+      <button
+        class="w-full py-3.5 rounded-full font-semibold text-sm transition-all duration-300 cursor-pointer border-0"
+        [style]="plan.featured
                 ? 'background:#fff;color:#1E40AF;box-shadow:0 4px 18px rgba(0,0,0,.12)'
                 : 'background:transparent;border:1.5px solid rgba(37,99,235,0.3);color:#2563EB'">
         Get Started
@@ -242,17 +252,20 @@
   <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
     <div>
-      <span class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 mb-4">Process</span>
+      <span
+        class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 mb-4">Process</span>
       <h2 class="font-extrabold text-slate-900 tracking-tight leading-tight"
-          style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem)">
+        style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem)">
         Get Covered in<br>3 Simple Steps
       </h2>
-      <p class="text-slate-500 mt-3 leading-relaxed max-w-md">From browsing to boarding — get insured in under 5 minutes.</p>
+      <p class="text-slate-500 mt-3 leading-relaxed max-w-md">From browsing to boarding — get insured in under 5
+        minutes.</p>
 
       <div class="flex flex-col gap-8 mt-10">
         <div *ngFor="let step of steps" class="reveal flex gap-5 items-start">
           <div class="w-11 h-11 rounded-xl shrink-0 flex items-center justify-center text-white font-bold text-base"
-               style="background:linear-gradient(135deg,#2563EB,#0EA5E9);box-shadow:0 6px 18px rgba(37,99,235,.25)">{{ step.num }}</div>
+            style="background:linear-gradient(135deg,#2563EB,#0EA5E9);box-shadow:0 6px 18px rgba(37,99,235,.25)">{{
+            step.num }}</div>
           <div>
             <h4 class="font-semibold text-slate-900 mb-1">{{ step.title }}</h4>
             <p class="text-slate-500 text-sm leading-relaxed">{{ step.desc }}</p>
@@ -262,11 +275,15 @@
     </div>
 
     <!-- Visual card -->
-    <div class="reveal relative rounded-3xl p-12 flex flex-col items-center justify-center text-center min-h-[380px] overflow-hidden border border-blue-200/50"
-         style="background:linear-gradient(145deg,#EBF4FF,#C8E1FF);">
-      <div class="absolute inset-0" style="background:radial-gradient(circle at 60% 40%,rgba(37,99,235,.08) 0%,transparent 70%)"></div>
-      <span class="text-8xl leading-none relative" style="animation:floatGlobe 4s ease-in-out infinite alternate;">🌍</span>
-      <div class="font-bold text-xl text-blue-900 mt-6 relative" style="font-family:'Playfair Display',serif">Your Adventure, Protected</div>
+    <div
+      class="reveal relative rounded-3xl p-12 flex flex-col items-center justify-center text-center min-h-[380px] overflow-hidden border border-blue-200/50"
+      style="background:linear-gradient(145deg,#EBF4FF,#C8E1FF);">
+      <div class="absolute inset-0"
+        style="background:radial-gradient(circle at 60% 40%,rgba(37,99,235,.08) 0%,transparent 70%)"></div>
+      <span class="text-8xl leading-none relative"
+        style="animation:floatGlobe 4s ease-in-out infinite alternate;">🌍</span>
+      <div class="font-bold text-xl text-blue-900 mt-6 relative" style="font-family:'Playfair Display',serif">Your
+        Adventure, Protected</div>
       <div class="text-sm text-slate-500 mt-2 relative">Coverage active from the moment you leave home</div>
     </div>
   </div>
@@ -278,20 +295,22 @@
 ════════════════════════════════════════════════ -->
 <section class="py-24 px-[5vw]" id="testimonials" style="background:#EBF4FF;">
   <div class="flex flex-col items-center text-center mb-14">
-    <span class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 mb-4">Reviews</span>
+    <span
+      class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 mb-4">Reviews</span>
     <h2 class="font-extrabold text-slate-900 tracking-tight"
-        style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem)">Loved by Travelers</h2>
-    <p class="text-slate-500 mt-3 max-w-sm text-center leading-relaxed">Real stories from real adventurers who trusted SkyShield.</p>
+      style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem)">Loved by Travelers</h2>
+    <p class="text-slate-500 mt-3 max-w-sm text-center leading-relaxed">Real stories from real adventurers who trusted
+      SkyShield.</p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
     <div *ngFor="let t of testimonials"
-         class="reveal bg-white border border-blue-600/10 rounded-2xl p-7 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(37,99,235,0.09)]">
+      class="reveal bg-white border border-blue-600/10 rounded-2xl p-7 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_18px_40px_rgba(37,99,235,0.09)]">
       <div class="text-amber-400 text-lg tracking-widest mb-4">★★★★★</div>
       <blockquote class="text-slate-700 text-sm leading-relaxed italic mb-5">"{{ t.quote }}"</blockquote>
       <div class="flex items-center gap-3">
         <div class="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold shrink-0 text-base"
-             [style]="'background:' + t.avatarBg">{{ t.initials }}</div>
+          [style]="'background:' + t.avatarBg">{{ t.initials }}</div>
         <div>
           <div class="font-semibold text-slate-900 text-sm">{{ t.name }}</div>
           <div class="text-xs text-slate-500">{{ t.role }}</div>
@@ -307,13 +326,14 @@
 ════════════════════════════════════════════════ -->
 <section class="py-16 px-[5vw] bg-white">
   <div class="max-w-5xl mx-auto flex flex-col items-center text-center reveal">
-    <span class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 mb-4">Partners</span>
-    <h2 class="font-extrabold text-slate-900 tracking-tight text-3xl"
-        style="font-family:'Playfair Display',serif">Trusted &amp; Certified By</h2>
+    <span
+      class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 mb-4">Partners</span>
+    <h2 class="font-extrabold text-slate-900 tracking-tight text-3xl" style="font-family:'Playfair Display',serif">
+      Trusted &amp; Certified By</h2>
     <div class="flex flex-wrap justify-center gap-4 mt-8">
       <div *ngFor="let p of partners"
-           class="px-6 py-3 rounded-xl text-slate-400 font-bold text-sm tracking-wide transition-all duration-200 hover:text-blue-600 hover:border-blue-600 cursor-default"
-           style="border:1.5px solid rgba(37,99,235,0.12);">
+        class="px-6 py-3 rounded-xl text-slate-400 font-bold text-sm tracking-wide transition-all duration-200 hover:text-blue-600 hover:border-blue-600 cursor-default"
+        style="border:1.5px solid rgba(37,99,235,0.12);">
         {{ p }}
       </div>
     </div>
@@ -325,12 +345,13 @@
      CTA BANNER
 ════════════════════════════════════════════════ -->
 <section class="relative py-24 px-[5vw] text-center text-white overflow-hidden"
-         style="background:linear-gradient(135deg,#2563EB 0%,#1d4ed8 50%,#0369a1 100%);">
+  style="background:linear-gradient(135deg,#2563EB 0%,#1d4ed8 50%,#0369a1 100%);">
   <div class="absolute inset-0 pointer-events-none"
-       style="background-image:radial-gradient(circle,rgba(255,255,255,0.06) 1px,transparent 1px);background-size:30px 30px;"></div>
+    style="background-image:radial-gradient(circle,rgba(255,255,255,0.06) 1px,transparent 1px);background-size:30px 30px;">
+  </div>
   <div class="relative flex flex-col items-center">
     <h2 class="font-extrabold max-w-2xl text-center leading-tight tracking-tight"
-        style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.5rem)">
+      style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.5rem)">
       Ready to Travel Without Limits?
     </h2>
     <p class="text-lg opacity-80 max-w-md text-center mt-4 mb-10 leading-relaxed">
@@ -338,13 +359,13 @@
     </p>
     <div class="flex flex-wrap gap-4 justify-center">
       <a href="#"
-         class="px-9 py-3.5 bg-white-500 text-blue-700 font-bold rounded-full text-base no-underline transition-all duration-300 hover:-translate-y-1"
-         style="box-shadow:0 8px 30px rgba(0,0,0,.15)">
+        class="px-9 py-3.5  text-white font-bold rounded-full text-base no-underline transition-all duration-300 hover:-translate-y-1"
+        style="box-shadow:0 8px 30px rgba(0,0,0,.15)">
         Get My Free Quote →
       </a>
       <a href="#"
-         class="px-9 py-3.5 text-white font-semibold rounded-full text-base no-underline transition-all duration-300 hover:bg-white/10 hover:-translate-y-1"
-         style="border:2px solid rgba(255,255,255,0.4)">
+        class="px-9 py-3.5 text-white font-semibold rounded-full text-base no-underline transition-all duration-300 hover:bg-white/10 hover:-translate-y-1"
+        style="border:2px solid rgba(255,255,255,0.4)">
         Talk to an Expert
       </a>
     </div>
@@ -357,16 +378,15 @@
 ════════════════════════════════════════════════ -->
 <footer class="bg-slate-900 text-slate-400 pt-20 pb-8 px-[5vw]" id="contact">
   <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 pb-12"
-       style="border-bottom:1px solid rgba(255,255,255,0.08)">
+    style="border-bottom:1px solid rgba(255,255,255,0.08)">
 
     <!-- Brand -->
     <div>
       <a href="#" class="flex items-center gap-2 no-underline mb-4">
         <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
-             style="background:linear-gradient(135deg,#2563EB,#06B6D4)">🛡️</div>
-        <span class="text-xl font-bold tracking-tight text-white"
-              style="font-family:'Playfair Display',serif">
-          Sky<span class="text-blue-400">Shield</span>
+          style="background:linear-gradient(135deg,#2563EB,#06B6D4)">T</div>
+        <span class="text-xl font-bold tracking-tight text-white" style="font-family:'Playfair Display',serif">
+          Travel<span class="text-blue-400">Secure</span>
         </span>
       </a>
       <p class="text-sm leading-relaxed max-w-[240px]">
@@ -374,8 +394,8 @@
       </p>
       <div class="flex gap-2 mt-6">
         <button *ngFor="let s of ['𝕏','in','📘','📸']"
-                class="w-9 h-9 rounded-lg flex items-center justify-center text-sm cursor-pointer transition-all duration-200 hover:text-blue-400"
-                style="border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05)">{{ s }}</button>
+          class="w-9 h-9 rounded-lg flex items-center justify-center text-sm cursor-pointer transition-all duration-200 hover:text-blue-400"
+          style="border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05)">{{ s }}</button>
       </div>
     </div>
 
@@ -384,7 +404,8 @@
       <h4 class="text-white text-xs font-bold uppercase tracking-[.08em] mb-5">Coverage</h4>
       <ul class="flex flex-col gap-3 list-none p-0 m-0">
         <li *ngFor="let link of footerCoverage">
-          <a href="#" class="text-slate-400 no-underline text-sm hover:text-blue-400 transition-colors duration-200">{{ link }}</a>
+          <a href="#" class="text-slate-400 no-underline text-sm hover:text-blue-400 transition-colors duration-200">{{
+            link }}</a>
         </li>
       </ul>
     </div>
@@ -394,7 +415,8 @@
       <h4 class="text-white text-xs font-bold uppercase tracking-[.08em] mb-5">Company</h4>
       <ul class="flex flex-col gap-3 list-none p-0 m-0">
         <li *ngFor="let link of footerCompany">
-          <a href="#" class="text-slate-400 no-underline text-sm hover:text-blue-400 transition-colors duration-200">{{ link }}</a>
+          <a href="#" class="text-slate-400 no-underline text-sm hover:text-blue-400 transition-colors duration-200">{{
+            link }}</a>
         </li>
       </ul>
     </div>
@@ -404,7 +426,8 @@
       <h4 class="text-white text-xs font-bold uppercase tracking-[.08em] mb-5">Support</h4>
       <ul class="flex flex-col gap-3 list-none p-0 m-0">
         <li *ngFor="let link of footerSupport">
-          <a href="#" class="text-slate-400 no-underline text-sm hover:text-blue-400 transition-colors duration-200">{{ link }}</a>
+          <a href="#" class="text-slate-400 no-underline text-sm hover:text-blue-400 transition-colors duration-200">{{
+            link }}</a>
         </li>
       </ul>
     </div>
@@ -414,9 +437,12 @@
   <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4 mt-8 text-xs">
     <span>© 2026 SkyShield Insurance. All rights reserved.</span>
     <div class="flex gap-6">
-      <a href="#" class="text-slate-400 hover:text-blue-400 no-underline transition-colors duration-200">Privacy Policy</a>
-      <a href="#" class="text-slate-400 hover:text-blue-400 no-underline transition-colors duration-200">Terms of Service</a>
-      <a href="#" class="text-slate-400 hover:text-blue-400 no-underline transition-colors duration-200">Cookie Preferences</a>
+      <a href="#" class="text-slate-400 hover:text-blue-400 no-underline transition-colors duration-200">Privacy
+        Policy</a>
+      <a href="#" class="text-slate-400 hover:text-blue-400 no-underline transition-colors duration-200">Terms of
+        Service</a>
+      <a href="#" class="text-slate-400 hover:text-blue-400 no-underline transition-colors duration-200">Cookie
+        Preferences</a>
     </div>
   </div>
 </footer>

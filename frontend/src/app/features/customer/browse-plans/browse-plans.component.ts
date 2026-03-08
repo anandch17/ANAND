@@ -4,10 +4,12 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { PlanService } from '../../../core/services/plan.service';
 import { PolicyService } from '../../../core/services/policy.service';
 import { UserService } from '../../../core/services/user.service';
+import { RiskService } from '../../../core/services/risk.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { OnInit } from '@angular/core';
 import { CardComponent } from '../../../shared/components/card/card.component';
 import type { BrowsePlanDto } from '../../../core/models/policy.model';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-browse-plans',
@@ -20,7 +22,9 @@ export class BrowsePlansComponent implements OnInit {
   private readonly planService = inject(PlanService);
   private readonly policyService = inject(PolicyService);
   private readonly userService = inject(UserService);
+  private readonly riskService = inject(RiskService);
   private readonly toast = inject(ToastService);
+  today = new Date().toISOString().split('T')[0];
 
   loading = signal(false);
   interestLoading = signal(false);
@@ -29,13 +33,16 @@ export class BrowsePlansComponent implements OnInit {
   destinationRisks = signal<any[]>([]);
   userDob = signal<string | null>(null);
   existingPolicies = signal<any[]>([]);
-  searchForm = this.fb.nonNullable.group({
-    coverageType: ['', Validators.required],
-    planType: ['', Validators.required],
-    destination: ['', Validators.required],
-    startDate: ['', Validators.required],
-    endDate: ['', Validators.required],
-  });
+ searchForm = this.fb.nonNullable.group(
+{
+  coverageType: ['', Validators.required],
+  planType: ['', Validators.required],
+  destination: ['', Validators.required],
+  startDate: ['', Validators.required],
+  endDate: ['', Validators.required],
+},
+{ validators: this.dateRangeValidator }
+);
 
   ngOnInit(): void {
     this.userService.getProfile().subscribe({
@@ -47,6 +54,11 @@ export class BrowsePlansComponent implements OnInit {
       error: (err: any) => {
         console.error('Failed to load profile', err);
       }
+    });
+
+    this.riskService.getAll().subscribe({
+      next: (list) => this.destinationRisks.set(list),
+      error: () => this.toast.error('Failed to load destinations')
     });
 
     this.loadExistingPolicies();
@@ -103,6 +115,20 @@ export class BrowsePlansComponent implements OnInit {
     'Adventure / Sports'
   ];
 
+dateRangeValidator(control: AbstractControl): ValidationErrors | null {
+
+  const start = control.get('startDate')?.value;
+  const end = control.get('endDate')?.value;
+
+  if (!start || !end) return null;
+
+  if (new Date(end) < new Date(start)) {
+    return { invalidDateRange: true };
+  }
+
+  return null;
+}
+
   get tripDays(): number {
     const { startDate, endDate } = this.searchForm.getRawValue();
     if (!startDate || !endDate) return 0;
@@ -139,10 +165,10 @@ export class BrowsePlansComponent implements OnInit {
         const age = this.userAge;
         if (age < 30) {
           // If student age (< 30), prioritize student plans
-          filtered = filtered.sort((a, b) => a.planName.toLowerCase().includes('student') ? -1 : 1);
+          filtered = filtered.sort((a, b) => a.planType.toLowerCase().includes('student') ? -1 : 1);
         } else if (age >= 30 && age <= 50) {
           // If standard age (30-50), prioritize regular/standard plans
-          filtered = filtered.sort((a, b) => (a.planName.toLowerCase().includes('standard') || a.planName.toLowerCase().includes('regular')) ? -1 : 1);
+          filtered = filtered.sort((a, b) => (a.planType.toLowerCase().includes('standard') || a.planName.toLowerCase().includes('regular')) ? -1 : 1);
         } else {
           // If senior age (> 50), prioritize senior plans
           filtered = filtered.sort((a, b) => a.planName.toLowerCase().includes('senior') ? -1 : 1);
@@ -190,7 +216,7 @@ export class BrowsePlansComponent implements OnInit {
   }
 
   expressInterest(plan: BrowsePlanDto): void {
-    const age = this.userAge;
+    const age = this.userAge; 
 
     // 1. Student Plan Age Limit (38)
     if (plan.planName.toLowerCase().includes('student') && age > 38) {

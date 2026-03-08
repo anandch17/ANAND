@@ -18,10 +18,10 @@ export class RegisterComponent {
 
   loading = signal(false);
   form = this.fb.nonNullable.group({
-    username: ['', Validators.required],
+    username: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-    aadharNo: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    aadharNo: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
     dateOfBirth: ['', Validators.required],
   });
 

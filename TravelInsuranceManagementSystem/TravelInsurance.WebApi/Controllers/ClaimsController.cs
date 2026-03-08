@@ -33,7 +33,7 @@ namespace TravelInsurance.WebApi.Controllers
 
 
         [Authorize(Roles = "Customer")]
-        [HttpPost("claims")]
+        [HttpPost]
         public async Task<IActionResult> RaiseClaim(RaiseClaimDto dto)
         {
             int customerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
@@ -45,7 +45,7 @@ namespace TravelInsurance.WebApi.Controllers
 
 
         [Authorize(Roles = "Customer")]
-        [HttpGet("claims")]
+        [HttpGet]
         public async Task<IActionResult> GetMyClaims()
         {
             int customerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
@@ -58,7 +58,7 @@ namespace TravelInsurance.WebApi.Controllers
        
 
         [Authorize(Roles = "ClaimOfficer")]
-        [HttpPatch("claims/{claimId}/review")]
+        [HttpPatch("{claimId}/review")]
         public async Task<IActionResult> ReviewClaim(int claimId, ReviewClaimDto dto)
         {
             int officerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
@@ -69,7 +69,7 @@ namespace TravelInsurance.WebApi.Controllers
         }
 
         [Authorize(Roles = "ClaimOfficer")]
-        [HttpPatch("claims/{claimId}/settle")]
+        [HttpPatch("{claimId}/settle")]
         public async Task<IActionResult> SettleClaim(int claimId, SettleClaimDto dto)
         {
             int officerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
@@ -99,5 +99,9 @@ namespace TravelInsurance.WebApi.Controllers
             int officerId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             return Ok(await _claimService.GetOfficerPerformanceAsync(officerId));
         }
+        [Authorize(Roles = "Admin")]
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllClaims()
+            => Ok(await _claimService.GetAllClaimsAsync());
     }
 }

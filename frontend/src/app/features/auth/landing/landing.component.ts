@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './landing.component.html',
   // No styleUrls — all styles are inline or Tailwind
 })
@@ -22,18 +22,18 @@ export class LandingComponent implements OnInit, OnDestroy {
   };
 
   navLinks = [
-    { label: 'Coverage',    id: 'features'      },
-    { label: 'Plans',       id: 'plans'         },
-    { label: 'How It Works',id: 'how'           },
-    { label: 'Reviews',     id: 'testimonials'  },
-    { label: 'Contact',     id: 'contact'       },
+    { label: 'Coverage', id: 'features' },
+    { label: 'Plans', id: 'plans' },
+    { label: 'How It Works', id: 'how' },
+    { label: 'Reviews', id: 'testimonials' },
+    { label: 'Contact', id: 'contact' },
   ];
 
   stats = [
-    { val: '2M+',   label: 'Policies Issued'   },
-    { val: '180+',  label: 'Countries Covered' },
-    { val: '99.2%', label: 'Claims Approved'   },
-    { val: '24/7',  label: 'Support Available' },
+    { val: '2M+', label: 'Policies Issued' },
+    { val: '180+', label: 'Countries Covered' },
+    { val: '99.2%', label: 'Claims Approved' },
+    { val: '24/7', label: 'Support Available' },
   ];
 
   features = [
@@ -167,8 +167,8 @@ export class LandingComponent implements OnInit, OnDestroy {
   partners = ['Lloyd\'s of London', 'IRDAI Certified', 'IATA Partner', 'ISO 27001', 'PCI DSS Secure', 'GDPR Compliant'];
 
   footerCoverage = ['Medical Emergency', 'Trip Cancellation', 'Baggage Loss', 'Adventure Sports', 'Annual Plans'];
-  footerCompany  = ['About Us', 'How It Works', 'Careers', 'Press', 'Blog'];
-  footerSupport  = ['File a Claim', 'FAQs', 'Contact Us', 'Emergency Line', 'Partner Portal'];
+  footerCompany = ['About Us', 'How It Works', 'Careers', 'Press', 'Blog'];
+  footerSupport = ['File a Claim', 'FAQs', 'Contact Us', 'Emergency Line', 'Partner Portal'];
 
   private observer!: IntersectionObserver;
 

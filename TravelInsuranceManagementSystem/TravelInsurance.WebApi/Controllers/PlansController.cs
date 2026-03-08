@@ -67,5 +67,12 @@ namespace TravelInsurance.WebApi.Controllers
             if (plan == null) return NotFound();
             return Ok(plan);
         }
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, CreatePlanDto dto)
+        {
+            await _planService.UpdatePlanAsync(id, dto);
+            return Ok(new { success = true, message = "Plan updated successfully" });
+        }
     }
 }

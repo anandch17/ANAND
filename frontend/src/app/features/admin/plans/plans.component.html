@@ -34,12 +34,12 @@
       <div class="bg-slate-50 rounded-xl p-4 text-sm space-y-2">
         <div class="flex justify-between">
           <span class="text-slate-500">Base Price</span>
-          <span class="font-bold">${{ p.premiumRule.basePrice }}</span>
+          <span class="font-bold">₹{{ p.premiumRule.basePrice }}</span>
         </div>
 
         <div class="flex justify-between">
           <span class="text-slate-500">Per Day Rate</span>
-          <span class="font-bold">${{ p.premiumRule.perDayRate }}</span>
+          <span class="font-bold">₹{{ p.premiumRule.perDayRate }}</span>
         </div>
 
         <div class="text-xs text-slate-500 pt-2 border-t">
@@ -56,7 +56,7 @@
         @for (c of p.coverages; track c.coverageName) {
         <div class="flex justify-between bg-slate-50 rounded-lg px-3 py-2">
           <span>{{ c.coverageName }}</span>
-          <span class="font-bold">${{ c.coverageAmount }}</span>
+          <span class="font-bold">₹{{ c.coverageAmount }}</span>
         </div>
         }
       </div>

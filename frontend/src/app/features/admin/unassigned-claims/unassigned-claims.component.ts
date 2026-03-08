@@ -22,6 +22,12 @@ export class UnassignedClaimsComponent {
     claims = signal<ClaimListDto[]>([]);
     officers = signal<UserResponseDto[]>([]);
     assigning = signal<number | null>(null);
+    viewAll = signal(false);
+    statusFilter = signal('');
+    searchQuery = signal('');
+
+    allClaims = signal<ClaimListDto[]>([]);
+    filteredClaims = signal<ClaimListDto[]>([]);
 
     constructor() {
         this.loadData();
@@ -34,6 +40,7 @@ export class UnassignedClaimsComponent {
             next: (data) => {
                 this.claims.set(data);
                 this.checkLoading();
+                this.applyFilters();
             },
             error: () => this.toast.error('Failed to load claims')
         });
@@ -45,6 +52,44 @@ export class UnassignedClaimsComponent {
             },
             error: () => this.toast.error('Failed to load officers')
         });
+
+        this.claimService.getAllClaims().subscribe({
+            next: (data) => {
+                this.allClaims.set(data);
+                this.applyFilters();
+            }
+        });
+    }
+
+    toggleView(all: boolean) {
+        this.viewAll.set(all);
+        this.applyFilters();
+    }
+
+    onFilterChange(event: Event) {
+        this.statusFilter.set((event.target as HTMLSelectElement).value);
+        this.applyFilters();
+    }
+
+    onSearch(event: Event) {
+        this.searchQuery.set((event.target as HTMLInputElement).value.toLowerCase());
+        this.applyFilters();
+    }
+
+    applyFilters() {
+        const source = this.viewAll() ? this.allClaims() : this.claims();
+        const status = this.statusFilter();
+        const query = this.searchQuery();
+
+        this.filteredClaims.set(source.filter(c => {
+            const matchesStatus = status ? c.status === status : true;
+            const matchesQuery = query ? (
+                c.customerName.toLowerCase().includes(query) ||
+                c.id.toString().includes(query) ||
+                c.claimType.toLowerCase().includes(query)
+            ) : true;
+            return matchesStatus && matchesQuery;
+        }));
     }
 
     private checkLoading() {
@@ -64,6 +109,8 @@ export class UnassignedClaimsComponent {
             next: () => {
                 this.toast.success('Claim assigned successfully');
                 this.claims.update(list => list.filter(c => c.id !== claimId));
+                this.allClaims.update(list => list.map(c => c.id === claimId ? { ...c, status: 'Under Review' } : c));
+                this.applyFilters();
                 this.assigning.set(null);
             },
             error: () => {

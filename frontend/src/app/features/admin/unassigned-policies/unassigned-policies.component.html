@@ -100,7 +100,7 @@
           <div>
             <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Premium</p>
             <div class="flex items-center gap-2">
-              <p class="font-bold text-slate-900 text-lg">${{ p.premiumAmount | number:'1.2-2' }}</p>
+              <p class="font-bold text-slate-900 text-lg">₹{{ p.premiumAmount | number:'1.2-2' }}</p>
               @if (p.ageMultiplier && p.ageMultiplier !== 1) {
               <span
                 class="text-[10px] font-bold bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded border border-slate-200">

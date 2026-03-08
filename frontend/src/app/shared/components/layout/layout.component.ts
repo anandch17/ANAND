@@ -22,8 +22,8 @@ const DASHBOARD_LINKS: Record<string, NavLink[]> = {
     { path: '/admin/analytics', label: 'Analytics Console', icon: 'reports' },
     { path: '/admin/users', label: 'User Directory', icon: 'customers' },
     { path: '/admin/plans', label: 'Plan Catalog', icon: 'policy' },
-    { path: '/admin/unassigned-policies', label: 'Unassigned Queue', icon: 'policies' },
-    { path: '/admin/unassigned-claims', label: 'Claims Router', icon: 'claims' },
+    { path: '/admin/unassigned-policies', label: 'Policies', icon: 'policies' },
+    { path: '/admin/unassigned-claims', label: 'Claims', icon: 'claims' },
     { path: '/admin/risk-management', label: 'Risk Factors', icon: 'policy' },
   ],
   Customer: [

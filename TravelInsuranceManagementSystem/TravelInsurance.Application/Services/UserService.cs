@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TravelInsurance.Application.Common;
 using TravelInsurance.Application.Dtos;
 using TravelInsurance.Application.Interfaces.Repositories;
 using TravelInsurance.Application.Interfaces.Services;
@@ -21,8 +22,8 @@ namespace TravelInsurance.Application.Services
         public async Task ActivateUserAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
-            if (user == null) throw new Exception("User not found");
-            if (user.IsActive) throw new Exception("Already active");
+            if (user == null) throw new AppException("User not found",404);
+            if (user.IsActive) throw new AppException("Already active",400);
 
             user.IsActive = true;
             await _userRepository.UpdateAsync(user);
@@ -31,8 +32,8 @@ namespace TravelInsurance.Application.Services
         public async Task DeactivateUserAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
-            if (user == null) throw new Exception("User not found");
-            if (!user.IsActive) throw new Exception("Already inactive");
+            if (user == null) throw new AppException("User not found",404);
+            if (!user.IsActive) throw new AppException("Already inactive", 401);
 
             user.IsActive = false;
             await _userRepository.UpdateAsync(user);
@@ -66,7 +67,7 @@ namespace TravelInsurance.Application.Services
         public async Task<AuthDto.UserProfileDto> GetProfileAsync(int userId)
         {
             var user = await _userRepository.GetByIdAsync(userId);
-            if (user == null) throw new Exception("User not found");
+            if (user == null) throw new AppException("User not found",404);
 
             return new AuthDto.UserProfileDto(
                 user.Id,

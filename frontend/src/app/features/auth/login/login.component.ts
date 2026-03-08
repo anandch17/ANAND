@@ -23,7 +23,7 @@ export class LoginComponent {
   loading = signal(false);
   form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(5)]],
     recaptcha: ['', Validators.required],
   });
 

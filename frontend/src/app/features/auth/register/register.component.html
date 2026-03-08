@@ -12,12 +12,21 @@
         class="w-full pl-11 pr-4 py-3 text-[15px] font-medium text-slate-900 bg-slate-50 border border-slate-200 rounded-xl placeholder-slate-400 hover:bg-white hover:border-sky-300 focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all duration-200"
         placeholder="John Doe" />
     </div>
-    @if (form.get('username')?.invalid && form.get('username')?.touched) {
+    @if (form.get('username')?.touched) {
+    @if (form.get('username')?.hasError('required')) {
     <p class="text-[0.8125rem] text-red-500 font-medium mt-1 flex items-center gap-1"><svg fill="none"
         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
         <path stroke-linecap="round" stroke-linejoin="round"
           d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-      </svg>Name is required.</p>
+      </svg>Full name is required.</p>
+    }
+    @if (form.get('username')?.hasError('minlength')) {
+    <p class="text-[0.8125rem] text-red-500 font-medium mt-1 flex items-center gap-1"><svg fill="none"
+        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>Name must be at least 2 characters.</p>
+    }
     }
   </div>
 
@@ -34,12 +43,21 @@
         class="w-full pl-11 pr-4 py-3 text-[15px] font-medium text-slate-900 bg-slate-50 border border-slate-200 rounded-xl placeholder-slate-400 hover:bg-white hover:border-sky-300 focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all duration-200"
         placeholder="you@example.com" />
     </div>
-    @if (form.get('email')?.invalid && form.get('email')?.touched) {
+    @if (form.get('email')?.touched) {
+    @if (form.get('email')?.hasError('required')) {
     <p class="text-[0.8125rem] text-red-500 font-medium mt-1 flex items-center gap-1"><svg fill="none"
         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
         <path stroke-linecap="round" stroke-linejoin="round"
           d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-      </svg>Valid email is required.</p>
+      </svg>Email is required.</p>
+    }
+    @if (form.get('email')?.hasError('email')) {
+    <p class="text-[0.8125rem] text-red-500 font-medium mt-1 flex items-center gap-1"><svg fill="none"
+        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>Enter a valid email address.</p>
+    }
     }
   </div>
 
@@ -57,12 +75,21 @@
           class="w-full pl-11 pr-4 py-3 text-[15px] font-medium text-slate-900 bg-slate-50 border border-slate-200 rounded-xl placeholder-slate-400 hover:bg-white hover:border-sky-300 focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all duration-200"
           placeholder="••••••••" />
       </div>
-      @if (form.get('password')?.invalid && form.get('password')?.touched) {
+      @if (form.get('password')?.touched) {
+      @if (form.get('password')?.hasError('required')) {
       <p class="text-[0.8125rem] text-red-500 font-medium mt-1 flex items-center gap-1"><svg fill="none"
           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
           <path stroke-linecap="round" stroke-linejoin="round"
             d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-        </svg>Required.</p>
+        </svg>Password is required.</p>
+      }
+      @if (form.get('password')?.hasError('minlength')) {
+      <p class="text-[0.8125rem] text-red-500 font-medium mt-1 flex items-center gap-1"><svg fill="none"
+          viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>Password must be at least 6 characters.</p>
+      }
       }
     </div>
 
@@ -93,17 +120,26 @@
         class="w-full pl-11 pr-4 py-3 text-[15px] font-medium text-slate-900 bg-slate-50 border border-slate-200 rounded-xl placeholder-slate-400 hover:bg-white hover:border-sky-300 focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all duration-200"
         placeholder="1234 5678 9012" />
     </div>
-    @if (form.get('aadharNo')?.invalid && form.get('aadharNo')?.touched) {
+    @if (form.get('aadharNo')?.touched) {
+    @if (form.get('aadharNo')?.hasError('required')) {
     <p class="text-[0.8125rem] text-red-500 font-medium mt-1 flex items-center gap-1"><svg fill="none"
         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
         <path stroke-linecap="round" stroke-linejoin="round"
           d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
       </svg>Aadhar number is required.</p>
     }
+    @if (form.get('aadharNo')?.hasError('pattern')) {
+    <p class="text-[0.8125rem] text-red-500 font-medium mt-1 flex items-center gap-1"><svg fill="none"
+        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>Aadhar must be exactly 12 digits.</p>
+    }
+    }
   </div>
 
   <button type="submit" [disabled]="form.invalid || loading()"
-    class="w-full mt-2 py-3.5 px-4 text-[15px] font-bold text-white bg-gradient-to-r from-sky-500 to-sky-600 rounded-xl hover:from-sky-600 hover:to-sky-700 focus:outline-none focus:ring-4 focus:ring-sky-500/20 shadow-lg shadow-sky-500/30 disabled:opacity-60 disabled:shadow-none disabled:cursor-not-allowed transition-all duration-200">
+    class="w-full mt-2 py-3.5 px-4 text-[15px] font-bold text-white bg-blue-500 rounded-xl hover:from-sky-600 hover:to-sky-700 focus:outline-none focus:ring-4 focus:ring-sky-500/20 shadow-lg shadow-sky-500/30 disabled:opacity-60 disabled:shadow-none disabled:cursor-not-allowed transition-all duration-200">
     {{ loading() ? 'Creating account...' : 'Create Account' }}
   </button>
 </form>

@@ -109,5 +109,12 @@ namespace TravelInsurance.Infrastructure.Repositories
                 .Where(c => c.AssignedOfficerId == officerId)
                 .ToListAsync();
         }
+        public async Task<IEnumerable<Claim>> GetAllClaimsAsync()
+        {
+            return await _context.Claims
+                .Include(c => c.Policy)
+                .ThenInclude(p => p.Customer)
+                .ToListAsync();
+        }
     }
 }

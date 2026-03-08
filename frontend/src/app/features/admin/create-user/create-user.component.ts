@@ -1,4 +1,4 @@
-import { Component, inject, signal, Input, Output, EventEmitter,OnInit } from '@angular/core';
+import { Component, inject, signal, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
@@ -12,30 +12,36 @@ import { CardComponent } from '../../../shared/components/card/card.component';
   templateUrl: './create-user.component.html',
 })
 export class CreateUserComponent implements OnInit {
-   @Input() defaultRole: 'Agent' | 'ClaimOfficer' = 'Agent';
-@Output() created = new EventEmitter<void>();
+  @Input() defaultRole: 'Agent' | 'ClaimOfficer' = 'Agent';
+  @Output() created = new EventEmitter<void>();
   private readonly fb = inject(FormBuilder);
   private readonly auth = inject(AuthService);
   private readonly toast = inject(ToastService);
- 
+  today = new Date().toISOString().split('T')[0];
+  minDate: string = (() => {
+    const date = new Date();
+    date.setFullYear(date.getFullYear() - 100);
+    return date.toISOString().split('T')[0];
+  })();
 
- 
+
+
   loading = signal(false);
   form = this.fb.nonNullable.group({
     role: ['Agent' as 'Agent' | 'ClaimOfficer', Validators.required],
-    username: ['', Validators.required],
+    username: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-    aadharNo: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    aadharNo: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
     dateOfBirth: ['', Validators.required],
     commissionRate: [0],
   });
 
-   ngOnInit(): void {
-  this.form.patchValue({
-    role: this.defaultRole
-  });
-}
+  ngOnInit(): void {
+    this.form.patchValue({
+      role: this.defaultRole
+    });
+  }
 
 
   onSubmit(): void {
@@ -54,8 +60,8 @@ export class CreateUserComponent implements OnInit {
     this.auth.adminRegister(dto).subscribe({
       next: () => {
         this.toast.success('User created.');
-this.created.emit();
-this.loading.set(false);
+        this.created.emit();
+        this.loading.set(false);
       },
       error: (err) => {
         this.toast.error(err.error?.message ?? err.message ?? 'Failed to create user');

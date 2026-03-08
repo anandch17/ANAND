@@ -68,4 +68,8 @@ export class PolicyService {
   getMyPolicies(): Observable<PolicyResponseDto[]> {
     return this.http.get<PolicyResponseDto[]>(API_ENDPOINTS.policies.myPolicies);
   }
+
+  getPolicyCoverages(policyId: number): Observable<{ coverageType: string; coverageAmount: number }[]> {
+    return this.http.get<{ coverageType: string; coverageAmount: number }[]>(API_ENDPOINTS.policies.coverages(policyId));
+  }
 }

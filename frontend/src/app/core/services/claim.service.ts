@@ -53,4 +53,8 @@ export class ClaimService {
   getOfficerPerformance(): Observable<ClaimOfficerPerformance> {
     return this.http.get<ClaimOfficerPerformance>(API_ENDPOINTS.claims.officerPerformance);
   }
+
+  getAllClaims(): Observable<ClaimListDto[]> {
+    return this.http.get<ClaimListDto[]>(API_ENDPOINTS.claims.base + '/all');
+  }
 }

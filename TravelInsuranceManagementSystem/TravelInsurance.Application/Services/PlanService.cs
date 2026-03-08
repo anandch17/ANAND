@@ -1,4 +1,5 @@
-﻿using TravelInsurance.Application.Dtos;
+﻿using TravelInsurance.Application.Common;
+using TravelInsurance.Application.Dtos;
 using TravelInsurance.Application.Interfaces.Repositories;
 using TravelInsurance.Application.Interfaces.Services;
 using TravelInsurance.Domain.Entities;
@@ -72,8 +73,8 @@ namespace TravelInsurance.Application.Services {
         public async Task ActivatePlanAsync(int id)
         {
             var plan = await _planRepository.GetByIdAsync(id);
-            if (plan == null) throw new Exception("Plan not found");
-            if (plan.IsActive) throw new Exception("Already active");
+            if (plan == null) throw new AppException("Plan not found", 404);
+            if (plan.IsActive) throw new AppException("Already active", 401);
 
             plan.IsActive = true;
             await _planRepository.UpdateAsync(plan);
@@ -82,8 +83,8 @@ namespace TravelInsurance.Application.Services {
         public async Task DeactivatePlanAsync(int id)
         {
             var plan = await _planRepository.GetByIdAsync(id);
-            if (plan == null) throw new Exception("Plan not found");
-            if (!plan.IsActive) throw new Exception("Already inactive");
+            if (plan == null) throw new AppException("Plan not found", 404);
+            if (!plan.IsActive) throw new AppException("Already inactive",400);
 
             plan.IsActive = false;
             await _planRepository.UpdateAsync(plan);
@@ -117,6 +118,40 @@ namespace TravelInsurance.Application.Services {
                     p.PremiumRule.PerDayRate
                 )
             );
+        }
+
+        public async Task UpdatePlanAsync(int id, CreatePlanDto dto)
+        {
+            var plan = await _planRepository.GetByIdAsync(id);
+            if (plan == null) throw new AppException("Plan not found",404);
+
+            plan.PolicyName = dto.PlanName;
+            plan.PlanType = dto.PlanType;
+            plan.MaxCoverageAmount = dto.MaxCoverageAmount;
+            plan.IsActive = dto.IsActive;
+
+            // Update Premium Rule
+            if (plan.PremiumRule != null)
+            {
+                plan.PremiumRule.BasePrice = dto.PremiumRule.BasePrice;
+                plan.PremiumRule.PerDayRate = dto.PremiumRule.PerDayRate;
+                plan.PremiumRule.AgeBelow30Multiplier = dto.PremiumRule.AgeBelow30Multiplier;
+                plan.PremiumRule.AgeBetween30And50Multiplier = dto.PremiumRule.AgeBetween30And50Multiplier;
+                plan.PremiumRule.AgeAbove50Multiplier = dto.PremiumRule.AgeAbove50Multiplier;
+            }
+
+            // Update Coverages
+            plan.Coverages.Clear();
+            foreach (var c in dto.Coverages)
+            {
+                plan.Coverages.Add(new Coverage
+                {
+                    CoverageType = c.CoverageName,
+                    CoverageAmount = c.CoverageAmount
+                });
+            }
+
+            await _planRepository.UpdateAsync(plan);
         }
     }
 }

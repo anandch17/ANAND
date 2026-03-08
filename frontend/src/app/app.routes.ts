@@ -8,7 +8,8 @@ export const routes: Routes = [
   { path: 'login', loadComponent: () => import('./features/auth/login-page/login-page.component').then((m) => m.LoginPageComponent) },
   { path: 'forgot-password', loadComponent: () => import('./features/auth/forgot-password/forgot-password.component').then((m) => m.ForgotPasswordComponent) },
   { path: 'reset-password', loadComponent: () => import('./features/auth/reset-password/reset-password.component').then((m) => m.ResetPasswordComponent) },
-  { path: 'access-denied', loadComponent: () => import('./features/auth/access-denied/access-denied.component').then((m) => m.AccessDeniedComponent) },
+  { path: 'error', loadComponent: () => import('./features/error/error-page.component').then((m) => m.ErrorPageComponent) },
+  { path: 'access-denied', redirectTo: '/error', pathMatch: 'full' },
   {
     path: 'customer',
     canActivate: [authGuard, roleGuard(['Customer'])],
@@ -16,7 +17,7 @@ export const routes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'browse-plans' },
       { path: 'browse-plans', loadComponent: () => import('./features/customer/browse-plans/browse-plans.component').then((m) => m.BrowsePlansComponent) },
-      { path: 'payment-pending', loadComponent: () => import('./features/customer/payment-pending/payment-pending.component').then((m) => m.PaymentPendingComponent) },
+      // { path: 'payment-pending', loadComponent: () => import('./features/customer/payment-pending/payment-pending.component').then((m) => m.PaymentPendingComponent) },
       { path: 'active-policies', loadComponent: () => import('./features/customer/active-policies/active-policies.component').then((m) => m.ActivePoliciesComponent) },
       { path: 'claims', loadComponent: () => import('./features/customer/claims/claims.component').then((m) => m.ClaimsComponent) },
     ],

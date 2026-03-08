@@ -30,6 +30,7 @@ export const API_ENDPOINTS = {
     agentPending: `${API_BASE_URL}/policies/agent/pending`,
     agentSold: `${API_BASE_URL}/policies/agent/sold`,
     myPolicies: `${API_BASE_URL}/policies/my-policies`,
+    coverages: (id: number) => `${API_BASE_URL}/policies/${id}/coverages`,
   },
   plans: {
     base: `${API_BASE_URL}/plans`,
@@ -40,14 +41,14 @@ export const API_ENDPOINTS = {
   },
   claims: {
     base: `${API_BASE_URL}/claims`,
-    raise: `${API_BASE_URL}/claims/claims`,
-    myClaims: `${API_BASE_URL}/claims/claims`,
+    raise: `${API_BASE_URL}/claims`,
+    myClaims: `${API_BASE_URL}/claims`,
     unassigned: `${API_BASE_URL}/claims/unassigned`,
     assigned: `${API_BASE_URL}/claims/assigned`,
     officerAssigned: `${API_BASE_URL}/claims/officer/assigned`,
     assignOfficer: (id: number) => `${API_BASE_URL}/claims/${id}/assign-officer`,
-    review: (claimId: number) => `${API_BASE_URL}/claims/claims/${claimId}/review`,
-    settle: (claimId: number) => `${API_BASE_URL}/claims/claims/${claimId}/settle`,
+    review: (claimId: number) => `${API_BASE_URL}/claims/${claimId}/review`,
+    settle: (claimId: number) => `${API_BASE_URL}/claims/${claimId}/settle`,
     officerPerformance: `${API_BASE_URL}/claims/officer/performance`,
   },
   premium: {
@@ -56,5 +57,8 @@ export const API_ENDPOINTS = {
   destinationRisk: {
     base: `${API_BASE_URL}/destination-risk`,
     byId: (id: number) => `${API_BASE_URL}/destination-risk/${id}`,
+  },
+  upload: {
+    file: `${API_BASE_URL}/upload`,
   },
 } as const;

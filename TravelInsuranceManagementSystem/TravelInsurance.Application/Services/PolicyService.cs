@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TravelInsurance.Application.Common;
 using TravelInsurance.Application.Dtos;
 using TravelInsurance.Application.Interfaces.Repositories;
 using TravelInsurance.Application.Interfaces.Services;
@@ -16,24 +17,26 @@ namespace TravelInsurance.Application.Services
         private readonly IPolicyRepository _policyRepo;
         private readonly IPremiumCalculationService _premiumService;
         private readonly IUserRepository _userRepo;
+        private readonly IEmailService _email;
 
         public PolicyService(
             IPolicyRepository policyRepo,
             IPremiumCalculationService premiumService,
-            IUserRepository userRepo)
+            IUserRepository userRepo,
+            IEmailService email)
         {
             _policyRepo = policyRepo;
             _premiumService = premiumService;
             _userRepo = userRepo;
+            _email = email;
         }
-
 
         public async Task<PolicyList> GetByPolicyIdAsync(int policyId)
         {
             var policy = await _policyRepo.GetPolicyWithDetailsAsync(policyId);
 
             if (policy == null)
-                throw new Exception("Policy not found");
+                throw new AppException("Policy not found",404);
 
             return new PolicyList(
                 policy.Id,
@@ -51,10 +54,10 @@ namespace TravelInsurance.Application.Services
         public async Task<int> CreatePolicyRequestAsync(int customerId, CreatePolicyRequestDto dto)
         {
             var customer = await _userRepo.GetByIdAsync(customerId);
-            if (customer == null) throw new Exception("Customer not found");
+            if (customer == null) throw new AppException("Customer not found",404);
 
             if (customer.DateOfBirth == null)
-                throw new Exception("Date of birth is required to purchase a policy.");
+                throw new AppException("Date of birth is required to purchase a policy.", 400);
 
             // 1. Calculate current age
             int currentAge = DateTime.Now.Year - customer.DateOfBirth.Value.Year;
@@ -67,7 +70,7 @@ namespace TravelInsurance.Application.Services
             // 3. Student Plan Age Limit (38)
             if (plan.PolicyName.Contains("Student", StringComparison.OrdinalIgnoreCase) && currentAge > 38)
             {
-                throw new Exception("Age limit exceeded. Student plans are only available for individuals aged 38 or below.");
+                throw new AppException("Age limit exceeded. Student plans are only available for individuals aged 38 or below.",400);
             }
 
             // 4. Age Category Duplication Check
@@ -87,7 +90,7 @@ namespace TravelInsurance.Application.Services
 
             if (duplicate != null)
             {
-                throw new Exception($"You already have an active or pending policy for '{plan.PolicyName}' in your current age category ({ (currentCategory == 1 ? "<30" : currentCategory == 2 ? "30-50" : ">50") }). You can purchase this plan again once you enter a different age category.");
+                throw new AppException($"You already have an active or pending policy for '{plan.PolicyName}' in your current age category ({ (currentCategory == 1 ? "<30" : currentCategory == 2 ? "30-50" : ">50") }). You can purchase this plan again once you enter a different age category.",400);
             }
 
 
@@ -127,12 +130,12 @@ namespace TravelInsurance.Application.Services
             var policy = await _policyRepo.GetByIdAsync(policyId);
 
             if (policy == null || policy.Status != "PendingAgentApproval")
-                throw new Exception("Invalid policy state");
+                throw new AppException("Invalid policy state",400);
 
             var customer = await _userRepo.GetByIdAsync(policy.CustomerId);
 
             if (customer.DateOfBirth == null)
-                throw new Exception("Date of birth missing");
+                throw new AppException("Date of birth missing",400);
 
             int age = DateTime.Now.Year - customer.DateOfBirth.Value.Year;
             int days = (policy.EndDate - policy.StartDate).Days;
@@ -150,6 +153,29 @@ namespace TravelInsurance.Application.Services
             policy.Status = "PaymentPending";
 
             await _policyRepo.SaveChangesAsync();
+
+            // Email the customer about policy approval
+            var planName = policy.InsurancePlan?.PolicyName ?? "your plan";
+            var html = $@"
+<div style='font-family:sans-serif;max-width:600px;margin:auto;'>
+  <div style='background:linear-gradient(135deg,#10b981,#059669);padding:32px;border-radius:12px 12px 0 0;'>
+    <h1 style='color:white;margin:0;font-size:24px;'>🎉 Policy Approved!</h1>
+    <p style='color:#d1fae5;margin:8px 0 0;'>TravelSecure — Great news!</p>
+  </div>
+  <div style='background:#f8fafc;padding:32px;border-radius:0 0 12px 12px;border:1px solid #e2e8f0;'>
+    <p style='color:#475569;'>Hello <strong>{customer.Name}</strong>,</p>
+    <p style='color:#475569;'>Your insurance policy has been reviewed and <strong>approved</strong> by your agent. You can now proceed with payment to activate it.</p>
+    <div style='background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:16px;margin:16px 0;'>
+      <p style='margin:4px 0;color:#064e3b;'><strong>Policy ID:</strong> #{policyId}</p>
+      <p style='margin:4px 0;color:#064e3b;'><strong>Plan:</strong> {planName}</p>
+      <p style='margin:4px 0;color:#064e3b;'><strong>Status:</strong> Payment Pending</p>
+      <p style='margin:4px 0;color:#064e3b;'><strong>Premium:</strong> ₹{calculationResult.FinalPremium:N2}</p>
+    </div>
+    <p style='color:#475569;'>Please log in to your account to complete the payment and activate your coverage.</p>
+  </div>
+</div>";
+
+            await _email.SendHtmlEmailAsync(customer.Email, $"Your Policy #{policyId} Has Been Approved", html);
         }
 
         public async Task<List<PaymentPendingPolicyDto>> GetPaymentPendingPoliciesAsync(int customerId)
@@ -162,13 +188,13 @@ namespace TravelInsurance.Application.Services
             var policy = await _policyRepo.GetByIdAsync(policyId);
 
             if (policy == null)
-                throw new Exception("Policy not found");
+                throw new AppException("Policy not found", 404);
 
             if (policy.CustomerId != customerId)
-                throw new Exception("Unauthorized access");
+                throw new AppException("Unauthorized access", 401);
 
             if (policy.Status != "PaymentPending")
-                throw new Exception("Policy not ready for payment");
+                throw new AppException("Policy not ready for payment",400);
 
             // Create payment record
             var payment = new Payment
@@ -204,7 +230,7 @@ namespace TravelInsurance.Application.Services
             var policy = await _policyRepo.GetByIdAsync(policyId);
 
             if (policy.Status != "Active")
-                throw new Exception("Only active policies can be renewed");
+                throw new AppException("Only active policies can be renewed", 400);
 
             policy.EndDate = policy.EndDate.AddMonths(6);
 
@@ -213,20 +239,41 @@ namespace TravelInsurance.Application.Services
 
         public async Task AssignAgentAsync(int policyId, int agentId)
         {
-
             var policy = await _policyRepo.GetByIdAsync(policyId);
-            if (policy == null) throw new Exception("Policy not found");
+            if (policy == null) throw new AppException("Policy not found",404);
             if (policy.AgentId != null && policy.Status != "Interested" && policy.Status != "PendingAgentApproval") 
-                throw new Exception("Already assigned");
+                throw new AppException("Already assigned", 400);
 
             var agent = await _userRepo.GetByIdAsync(agentId);
             if (agent == null || agent.Role != "Agent")
-                throw new Exception("Invalid agent");
+                throw new AppException("Invalid agent", 401);
 
             policy.AgentId = agentId;
             policy.Status = "PendingAgentApproval";
 
             await _policyRepo.UpdateAsync(policy);
+
+            // Email the assigned agent
+            var planName = policy.InsurancePlan?.PolicyName ?? "a travel insurance plan";
+            var html = $@"
+<div style='font-family:sans-serif;max-width:600px;margin:auto;'>
+  <div style='background:linear-gradient(135deg,#f59e0b,#d97706);padding:32px;border-radius:12px 12px 0 0;'>
+    <h1 style='color:white;margin:0;font-size:24px;'>New Policy Assigned</h1>
+    <p style='color:#fef3c7;margin:8px 0 0;'>TravelSecure &mdash; Agent Portal</p>
+  </div>
+  <div style='background:#f8fafc;padding:32px;border-radius:0 0 12px 12px;border:1px solid #e2e8f0;'>
+    <p style='color:#475569;'>Hello <strong>{agent.Name}</strong>,</p>
+    <p style='color:#475569;'>A new policy has been assigned to you for review and approval.</p>
+    <div style='background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:16px;margin:16px 0;'>
+      <p style='margin:4px 0;color:#78350f;'><strong>Policy ID:</strong> #{policyId}</p>
+      <p style='margin:4px 0;color:#78350f;'><strong>Plan:</strong> {planName}</p>
+      <p style='margin:4px 0;color:#78350f;'><strong>Status:</strong> Pending Your Approval</p>
+    </div>
+    <p style='color:#475569;'>Please log in to the agent portal to review the policy details and approve or request changes.</p>
+  </div>
+</div>";
+
+            await _email.SendHtmlEmailAsync(agent.Email, $"New Policy #{policyId} Assigned to You", html);
         }
 
 
@@ -324,6 +371,16 @@ namespace TravelInsurance.Application.Services
                 InterestedPolicies: agentPolicies.Count(p => p.Status == "Interested"),
                 TotalPremiumGenerated: agentPolicies.Where(p => p.Status == "Active").Sum(p => p.PremiumAmount)
             );
+        }
+
+        public async Task<List<CoverageDto>> GetPolicyCoveragesAsync(int policyId)
+        {
+            var policy = await _policyRepo.GetPolicyWithDetailsAsync(policyId);
+            if (policy == null) throw new AppException("Policy not found",404);
+
+            return policy.InsurancePlan.Coverages
+                .Select(c => new CoverageDto(c.CoverageType, c.CoverageAmount))
+                .ToList();
         }
     }
 }

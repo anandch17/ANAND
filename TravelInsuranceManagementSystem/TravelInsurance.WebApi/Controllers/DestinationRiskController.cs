@@ -7,7 +7,7 @@ namespace TravelInsurance.WebApi.Controllers
 {
     [Route("api/destination-risk")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    
     public class DestinationRiskController : ControllerBase
     {
         private readonly IDestinationRiskRepository _riskRepository;
@@ -18,6 +18,7 @@ namespace TravelInsurance.WebApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> GetAll()
         {
             var risks = await _riskRepository.GetAllAsync();
@@ -25,6 +26,7 @@ namespace TravelInsurance.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(DestinationRisk risk)
         {
             await _riskRepository.AddAsync(risk);
@@ -33,6 +35,7 @@ namespace TravelInsurance.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, DestinationRisk risk)
         {
             if (id != risk.Id) return BadRequest();
@@ -42,6 +45,7 @@ namespace TravelInsurance.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             await _riskRepository.DeleteAsync(id);
