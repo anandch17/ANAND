@@ -74,7 +74,8 @@ namespace TravelInsurance.Application.Services
                 user.Name,
                 user.Email,
                 user.Role,
-                user.DateOfBirth
+                user.DateOfBirth,
+                user.CommissionRate
             );
         }
     }

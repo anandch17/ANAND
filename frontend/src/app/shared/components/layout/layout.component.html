@@ -20,7 +20,7 @@
           </div>
           <div class="hidden sm:ml-10 sm:flex sm:space-x-8">
             @for (link of navLinks; track link.path) {
-            <a [routerLink]="link.path"
+            <a [routerLink]="link.path" [target]="link.target || '_self'"
               routerLinkActive="text-sky-600 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-sky-600"
               [routerLinkActiveOptions]="{exact: true}"
               class="relative border-transparent text-slate-500 hover:text-slate-900 inline-flex items-center px-1 pt-1 text-[14px] font-bold transition-all duration-200">

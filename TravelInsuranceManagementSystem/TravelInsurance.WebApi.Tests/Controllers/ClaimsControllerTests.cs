@@ -34,7 +34,7 @@ public class ClaimsControllerTests
     [Fact]
     public async Task RaiseClaim_ValidData_ReturnsOk()
     {
-        var dto = new RaiseClaimDto(10, "Medical", 5000, new List<string> { "doc.png" });
+        var dto = new RaiseClaimDto(10, "Medical", "Incident description", 5000, new List<string> { "doc.png" });
         var response = new ClaimResponseDto(1, "Medical", 5000, "Pending");
         _claimService.Setup(s => s.RaiseClaimAsync(1, dto)).ReturnsAsync(response);
 

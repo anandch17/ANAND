@@ -63,6 +63,13 @@
                 class="font-bold text-slate-800 text-[15px] bg-slate-50 border border-slate-200 py-2 px-3 rounded-lg inline-block">
                 {{ claim()!.claimType }}</p>
             </div>
+
+            <div class="mt-4">
+              <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Incident Description</p>
+              <p class="text-[14px] text-slate-700 leading-relaxed bg-slate-50 border border-slate-100 p-3 rounded-lg">
+                {{ claim()!.description || 'No description provided.' }}
+              </p>
+            </div>
           </div>
 
           <div class="space-y-6">
@@ -139,8 +146,17 @@
     <!-- Moderation / Actions Area -->
     <div class="p-6 md:p-8 bg-slate-50/50">
       @if (claim()!.status === ClaimStatus.Submitted || claim()!.status === ClaimStatus.UnderReview) {
-      <div class="flex flex-col">
+      <div class="flex flex-col" [formGroup]="reviewForm">
         <h3 class="text-[13px] font-bold text-slate-600 uppercase tracking-widest mb-4">Moderation Actions</h3>
+
+        <div class="mb-4">
+          <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">Review Notes
+            (Optional)</label>
+          <textarea formControlName="reviewNotes" rows="3"
+            class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none resize-none"
+            placeholder="Add notes about your decision..."></textarea>
+        </div>
+
         <div class="flex flex-wrap gap-3">
           <button type="button" (click)="review('Approved')" [disabled]="submitting()"
             class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 bg-emerald-600 font-semibold text-white text-[15px] px-8 py-3.5 rounded-xl shadow-md hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-500/30 disabled:opacity-50 disabled:shadow-none transition-all transform active:scale-95">

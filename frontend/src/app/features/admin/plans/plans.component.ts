@@ -1,4 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule, DecimalPipe, SlicePipe, UpperCasePipe } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { PlanService } from '../../../core/services/plan.service';
@@ -63,9 +64,25 @@ export class PlansComponent {
     }),
   });
 
+  // Reactive form value signal
+  formValue = toSignal(this.form.valueChanges, { initialValue: this.form.value });
+
   get coverages(): FormArray {
     return this.form.get('coverages') as FormArray;
   }
+
+  // Reactive calculations for coverage limits
+  totalCoverage = computed(() => {
+    const val = this.formValue();
+    const rawCoverages = (val?.coverages as any[]) || [];
+    return rawCoverages.reduce((sum, c) => sum + (Number(c?.coverageAmount) || 0), 0);
+  });
+
+  isLimitExceeded = computed(() => {
+    const val = this.formValue();
+    const max = Number(val?.maxCoverageAmount) || 0;
+    return this.totalCoverage() > max;
+  });
 
   constructor() {
     this.fetchPlans();
@@ -126,7 +143,7 @@ export class PlansComponent {
   }
 
   createOrUpdate(): void {
-    if (this.form.invalid) return;
+    if (this.form.invalid || this.isLimitExceeded()) return;
 
     const raw = this.form.getRawValue();
 

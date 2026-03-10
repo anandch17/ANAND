@@ -61,8 +61,8 @@ export class PolicyService {
     return this.http.get<PolicyAssignmentDto[]>(API_ENDPOINTS.policies.agentSold);
   }
 
-  renewPolicy(policyId: number): Observable<{ message: string }> {
-    return this.http.patch<{ message: string }>(API_ENDPOINTS.policies.renew(policyId), {});
+  renewPolicy(policyId: number, extensionDays: number): Observable<{ message: string }> {
+    return this.http.patch<{ message: string }>(API_ENDPOINTS.policies.renew(policyId), { ExtensionDays: extensionDays });
   }
 
   getMyPolicies(): Observable<PolicyResponseDto[]> {

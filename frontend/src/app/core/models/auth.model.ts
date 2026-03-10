@@ -35,3 +35,12 @@ export interface ResetPasswordDto {
   token: string;
   newPassword: string;
 }
+
+export interface UserProfileDto {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  dateOfBirth?: string;
+  commissionRate?: number;
+}

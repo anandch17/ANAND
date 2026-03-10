@@ -7,6 +7,7 @@ export interface CreatePolicyRequestDto {
   destinationCountry: string;
   startDate: string; // ISO date
   endDate: string;
+  travelers?: any[];
 }
 
 export interface PolicyResponseDto {
@@ -19,6 +20,7 @@ export interface PolicyResponseDto {
   status: string;
   destinationCountry: string;
   ageMultiplier: number;
+  travelers?: any[];
 }
 
 export interface PolicyList {

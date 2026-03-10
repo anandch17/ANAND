@@ -1,300 +1,617 @@
+<!-- Outer container -->
 <div class="max-w-7xl mx-auto space-y-8 animate-fade-in-up">
-  <!-- Hero Section & Search -->
-  <div class="relative py-10">
-    <div class="max-w-3xl mb-12">
-      <h1 class="text-4xl sm:text-6xl font-display font-bold text-slate-900 leading-[1.1] tracking-tight mb-6">
-        Travel worry-free <br><span class="text-sky-600">everywhere.</span>
-      </h1>
-      <p class="text-lg sm:text-xl text-slate-500 font-medium leading-relaxed max-w-2xl">
-        Secure instant quotes with global coverage and seamless claims processing. <br class="hidden sm:block">
-        Choose from top-rated plans tailored for your journey.
-      </p>
+  <!-- Stepper UI -->
+  @if (currentStep() > 1 || selectedPlan()) {
+  <div class="mb-8 pt-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex items-center justify-between relative">
+        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-slate-200 z-0 rounded-full"></div>
+        <div
+          class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-sky-600 z-0 rounded-full transition-all duration-500"
+          [style.width]="currentStep() === 2 ? '50%' : (currentStep() === 3 ? '100%' : '0%')"></div>
+
+        <!-- Step 1 -->
+        <div class="relative z-10 flex flex-col items-center gap-2 cursor-pointer" (click)="cancelPurchase()">
+          <div
+            class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white bg-sky-600 border-4 border-white shadow-sm hover:scale-105 transition-transform">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Select Plan</span>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative z-10 flex flex-col items-center gap-2" [class.cursor-pointer]="currentStep() === 3"
+          (click)="currentStep() === 3 ? goBack() : null">
+          <div
+            class="w-10 h-10 rounded-full flex items-center justify-center font-bold border-4 border-white shadow-sm transition-colors duration-300"
+            [class.bg-sky-600]="currentStep() >= 2" [class.text-white]="currentStep() >= 2"
+            [class.bg-slate-200]="currentStep() < 2" [class.text-slate-500]="currentStep() < 2">
+            @if (currentStep() > 2) {
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            } @else {
+            2
+            }
+          </div>
+          <span class="text-xs font-bold uppercase tracking-wider transition-colors"
+            [class.text-sky-600]="currentStep() >= 2" [class.text-slate-400]="currentStep() < 2">Travelers</span>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative z-10 flex flex-col items-center gap-2">
+          <div
+            class="w-10 h-10 rounded-full flex items-center justify-center font-bold border-4 border-white shadow-sm transition-colors duration-300"
+            [class.bg-sky-600]="currentStep() === 3" [class.text-white]="currentStep() === 3"
+            [class.bg-slate-200]="currentStep() < 3" [class.text-slate-500]="currentStep() < 3">
+            3
+          </div>
+          <span class="text-xs font-bold uppercase tracking-wider transition-colors"
+            [class.text-sky-600]="currentStep() === 3" [class.text-slate-400]="currentStep() < 3">Review</span>
+        </div>
+      </div>
     </div>
+  </div>
+  }
 
-    <div
-      class="bg-white rounded-[2.5rem] p-8 sm:p-10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] border border-slate-200/60 relative z-20">
-      <form [formGroup]="searchForm" (ngSubmit)="search()" class="flex flex-col gap-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Coverage Type -->
-          <div class="space-y-2.5">
-            <label class="block text-[13px] font-bold uppercase tracking-widest text-slate-400 ml-1">Coverage
-              Type</label>
-            <div class="relative group">
-              <div
-                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <select formControlName="coverageType"
-                class="w-full pl-11 pr-4 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl text-[15px] font-semibold text-slate-900 focus:outline-none focus:ring-4 focus:ring-sky-500/5 focus:border-sky-500 focus:bg-white transition-all appearance-none cursor-pointer">
-                <option value="">Select Coverage</option>
-                @for (type of coverageTypes; track type) {
-                <option [value]="type">{{ type }}</option>
-                }
-              </select>
-            </div>
-          </div>
+  <!-- Step 1: Browse Plans -->
+  <div [class.hidden]="currentStep() !== 1">
+    <!-- Hero Section & Search -->
+    <div class="relative py-10">
+      <div class="max-w-3xl mb-12">
+        <h1 class="text-4xl sm:text-6xl font-display font-bold text-slate-900 leading-[1.1] tracking-tight mb-6">
+          Travel worry-free <br><span class="text-sky-600">everywhere.</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-slate-500 font-medium leading-relaxed max-w-2xl">
+          Secure instant quotes with global coverage and seamless claims processing. <br class="hidden sm:block">
+          Choose from top-rated plans tailored for your journey.
+        </p>
+      </div>
 
-          <!-- Plan Type -->
-          <div class="space-y-2.5">
-            <label class="block text-[13px] font-bold uppercase tracking-widest text-slate-400 ml-1">Plan Type</label>
-            <div class="relative group">
-              <div
-                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <select formControlName="planType"
-                class="w-full pl-11 pr-4 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl text-[15px] font-semibold text-slate-900 focus:outline-none focus:ring-4 focus:ring-sky-500/5 focus:border-sky-500 focus:bg-white transition-all appearance-none cursor-pointer">
-                <option value="">Select Type</option>
-                @for (type of planTypes; track type) {
-                <option [value]="type">{{ type }}</option>
-                }
-              </select>
-            </div>
-          </div>
-
-          <!-- Destination -->
-          <div class="space-y-2.5">
-            <label class="block text-[13px] font-bold uppercase tracking-widest text-slate-400 ml-1">Destination</label>
-            <div class="relative group">
-              <div
-                class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <select formControlName="destination"
-                class="w-full pl-11 pr-4 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl text-[15px] font-semibold text-slate-900 focus:outline-none focus:ring-4 focus:ring-sky-500/5 focus:border-sky-500 focus:bg-white transition-all appearance-none cursor-pointer">
-                <option value="">Select Destination</option>
-                @for (risk of destinationRisks(); track risk.id) {
-                <option [value]="risk.destination">{{ risk.destination }}</option>
-                }
-              </select>
-            </div>
-          </div>
-
-          <!-- Dates -->
-          <div class="col-span-1 sm:col-span-2 lg:col-span-3 grid grid-cols-2 gap-4 relative">
+      <div
+        class="bg-white rounded-[2.5rem] p-8 sm:p-10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] border border-slate-200/60 relative z-20">
+        <form [formGroup]="searchForm" (ngSubmit)="search()" class="flex flex-col gap-8">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Coverage Type -->
             <div class="space-y-2.5">
-              <label class="block text-[13px] font-bold uppercase tracking-widest text-slate-400 ml-1">Departure</label>
+              <label class="block text-[13px] font-bold uppercase tracking-widest text-slate-400 ml-1">Coverage
+                Type</label>
               <div class="relative group">
                 <div
                   class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors">
                   <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 </div>
-                <input formControlName="startDate" type="date" [min]="today"
-                  class="w-full pl-11 pr-3 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-[15px] font-semibold text-slate-900 focus:outline-none focus:ring-4 focus:ring-sky-500/5 focus:border-sky-500 focus:bg-white transition-all cursor-pointer hover:bg-slate-100/50" />
+                <select formControlName="coverageType"
+                  class="w-full pl-11 pr-4 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl text-[15px] font-semibold text-slate-900 focus:outline-none focus:ring-4 focus:ring-sky-500/5 focus:border-sky-500 focus:bg-white transition-all appearance-none cursor-pointer">
+                  <option value="">Select Coverage</option>
+                  @for (type of coverageTypes; track type) {
+                  <option [value]="type">{{ type }}</option>
+                  }
+                </select>
               </div>
             </div>
+
+            <!-- Plan Type -->
             <div class="space-y-2.5">
-              <label class="block text-[13px] font-bold uppercase tracking-widest text-slate-400 ml-1">Return</label>
+              <label class="block text-[13px] font-bold uppercase tracking-widest text-slate-400 ml-1">Plan Type</label>
               <div class="relative group">
-                <input formControlName="endDate" type="date" [min]="today"
-                  class="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-[15px] font-semibold text-slate-900 focus:outline-none focus:ring-4 focus:ring-sky-500/5 focus:border-sky-500 focus:bg-white transition-all cursor-pointer hover:bg-slate-100/50" />
+                <div
+                  class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <select formControlName="planType"
+                  class="w-full pl-11 pr-4 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl text-[15px] font-semibold text-slate-900 focus:outline-none focus:ring-4 focus:ring-sky-500/5 focus:border-sky-500 focus:bg-white transition-all appearance-none cursor-pointer">
+                  <option value="">Select Type</option>
+                  @for (type of planTypes; track type) {
+                  <option [value]="type">{{ type }}</option>
+                  }
+                </select>
               </div>
             </div>
-            @if (tripDays >= 0) {
-            <div
-              class="absolute -bottom-6 left-1 text-[11px] font-bold text-sky-600 uppercase tracking-widest flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              Journey Duration: <span class="text-sky-800">{{ tripDays }} Days</span>
+
+            <!-- Destination -->
+            <div class="space-y-2.5">
+              <label
+                class="block text-[13px] font-bold uppercase tracking-widest text-slate-400 ml-1">Destination</label>
+              <div class="relative group">
+                <div
+                  class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <select formControlName="destination"
+                  class="w-full pl-11 pr-4 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl text-[15px] font-semibold text-slate-900 focus:outline-none focus:ring-4 focus:ring-sky-500/5 focus:border-sky-500 focus:bg-white transition-all appearance-none cursor-pointer">
+                  <option value="">Select Destination</option>
+                  @for (risk of destinationRisks(); track risk.id) {
+                  <option [value]="risk.destination">{{ risk.destination }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+
+            <!-- Dates -->
+            <div class="col-span-1 sm:col-span-2 lg:col-span-3 grid grid-cols-2 gap-4 relative">
+              <div class="space-y-2.5">
+                <label
+                  class="block text-[13px] font-bold uppercase tracking-widest text-slate-400 ml-1">Departure</label>
+                <div class="relative group">
+                  <div
+                    class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <input formControlName="startDate" type="date" [min]="today"
+                    class="w-full pl-11 pr-3 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-[15px] font-semibold text-slate-900 focus:outline-none focus:ring-4 focus:ring-sky-500/5 focus:border-sky-500 focus:bg-white transition-all cursor-pointer hover:bg-slate-100/50" />
+                </div>
+              </div>
+              <div class="space-y-2.5">
+                <label class="block text-[13px] font-bold uppercase tracking-widest text-slate-400 ml-1">Return</label>
+                <div class="relative group">
+                  <input formControlName="endDate" type="date" [min]="today" [max]="maxEndDate"
+                    class="w-full px-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-[15px] font-semibold text-slate-900 focus:outline-none focus:ring-4 focus:ring-sky-500/5 focus:border-sky-500 focus:bg-white transition-all cursor-pointer hover:bg-slate-100/50" />
+                </div>
+              </div>
+              @if (tripDays >= 0) {
+              <div
+                class="absolute -bottom-6 left-1 text-[11px] font-bold text-sky-600 uppercase tracking-widest flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Journey Duration: <span class="text-sky-800">{{ tripDays }} Days</span>
+              </div>
+              }
+            </div>
+
+          </div>
+
+          <button type="submit" [disabled]="loading()"
+            class="w-full lg:w-max px-12 py-4.5 bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:ring-sky-500/20 text-white font-bold rounded-2xl shadow-lg shadow-sky-600/20 transition-all duration-300 flex items-center justify-center gap-3 transform active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100 lg:self-end">
+            @if (loading()) {
+            <svg class="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none">
+              </circle>
+              <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+              </path>
+            </svg>
+            Fetching Best Rates...
+            } @else {
+            <span class="uppercase tracking-widest text-xs">Search Available Plans</span>
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+            </svg>
+            }
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    @if (loading()) {
+    <div class="flex justify-center items-center py-20">
+      <div class="animate-bounce p-4 rounded-full bg-sky-100 shadow-[0_0_20px_rgba(14,165,233,0.3)]">
+        <div class="w-10 h-10 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    </div>
+    } @else if (plans().length === 0 && searched()) {
+    <div class="bg-white rounded-2xl p-12 text-center border border-slate-200 shadow-sm max-w-2xl mx-auto mt-8">
+      <div
+        class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100 ring-8 ring-slate-50/50">
+        <svg class="w-10 h-10 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
+      </div>
+      <h3 class="text-xl font-display font-bold text-slate-800 mb-2">No Plans Available</h3>
+      <p class="text-slate-500 font-medium">We couldn't find any plans matching your specific criteria. Try adjusting
+        your
+        coverage type or destination.</p>
+    </div>
+    } @else if (plans().length > 0) {
+    <div class="mt-8 pt-4">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-display font-bold text-slate-800">Showing <span class="text-sky-600">{{ plans().length
+            }}
+            plans</span></h2>
+        <div class="text-sm font-medium text-slate-500 bg-white px-4 py-2 border border-slate-200 rounded-lg shadow-sm">
+          Sorted by Recommended</div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto items-stretch">
+        @for (plan of plans(); track plan.planId; let idx = $index) {
+        <div class="flex flex-col h-full bg-slate-50 rounded-3xl border transition-all duration-300 relative group"
+          [ngClass]="{
+            'border-2 border-slate-800 shadow-xl scale-100 lg:scale-105 z-10 bg-white': idx === 1 || plans().length === 1,
+            'border-slate-200 shadow-sm hover:shadow-md mt-0 lg:mt-4 mb-0 lg:mb-4 lg:z-0': idx !== 1 && plans().length > 1
+          }">
+
+          <!-- Recommended Badge -->
+          @if (idx === 1 || plans().length === 1) {
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
+            <span
+              class="bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-md text-[11px] font-bold uppercase tracking-widest border border-emerald-200 shadow-sm whitespace-nowrap">
+              Recommended
+            </span>
+          </div>
+          }
+
+          <!-- Header -->
+          <div class="p-5 rounded-t-3xl"
+            [ngClass]="{'bg-slate-900 text-white': idx === 1 || plans().length === 1, 'text-slate-900': idx !== 1 && plans().length > 1}">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h3 class="text-xl font-display font-bold mb-1 flex items-center gap-2">
+                  {{ plan.planName }}
+                  @if (idx === 1 || plans().length === 1) {
+                  <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  }
+                </h3>
+              </div>
+
+              <div class="text-right shrink-0 ml-3 flex items-center mt-1">
+                @if (plan.calculatedPremium) {
+                <span class="text-xl lg:text-2xl font-display font-black tracking-tight"
+                  [ngClass]="{'text-white': idx === 1 || plans().length === 1, 'text-slate-900': idx !== 1 && plans().length > 1}">
+                  ₹{{ plan.calculatedPremium | number:'1.0-0' }}
+                </span>
+                <span
+                  class="ml-2 w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-colors"
+                  [ngClass]="{'border-amber-500 bg-amber-500': idx === 1 || plans().length === 1, 'border-slate-300 bg-transparent group-hover:border-sky-500': idx !== 1 && plans().length > 1}">
+                  @if (idx === 1 || plans().length === 1) {
+                  <svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  }
+                </span>
+                } @else {
+                <div class="animate-pulse h-6 w-16 bg-slate-200 rounded shrink-0"
+                  [ngClass]="{'bg-slate-700': idx === 1 || plans().length === 1}"></div>
+                }
+              </div>
+            </div>
+
+            @if (idx === 1 || plans().length === 1) {
+            <div class="mt-2 flex justify-end">
+              
             </div>
             }
           </div>
 
+          <!-- Medical Cover -->
+          <div class="px-5 py-2.5 flex items-center justify-between"
+            [ngClass]="{'bg-orange-500 text-white': idx === 1 || plans().length === 1, 'bg-slate-300 text-slate-800': idx !== 1 && plans().length > 1}">
+            <span class="font-bold text-[15px]">Medical cover</span>
+            <div
+              class="bg-white text-slate-800 px-3 py-1 rounded shadow-sm text-sm font-bold flex items-center gap-2 border border-slate-100 cursor-pointer hover:bg-slate-50 transition-colors">
+              @if (plan.dynamicCoverages && plan.dynamicCoverages.length > 0) {
+              ₹{{ plan.dynamicCoverages[0]!.coverageAmount | number:'1.0-0' }}
+              } @else {
+              ₹0
+              }
+            </div>
+          </div>
+
+          <!-- Benefits -->
+          <div class="p-5 flex-1 bg-white flex flex-col justify-between rounded-b-3xl">
+            <div>
+              <p class="text-[13px] font-bold text-slate-800 mb-3">{{ plan.dynamicCoverages?.length || 0 }} benefits
+                includes:</p>
+              <ul class="space-y-2.5 w-full">
+                @for (cov of plan.dynamicCoverages; track cov.coverageType; let i = $index) {
+                @if (i !== 0) {
+                <li class="flex items-start gap-2.5 text-[12px] font-medium text-slate-600">
+                  <div class="mt-0.5 w-4 h-4 flex items-center justify-center shrink-0 text-sky-500">
+                    <svg class="w-full h-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span class="leading-snug">{{ cov.coverageType }} upto <strong class="text-slate-800 font-bold">₹{{
+                      cov.coverageAmount | number:'1.0-0'
+                      }}</strong></span>
+                </li>
+                }
+                }
+              </ul>
+              <button class="mt-3 text-sky-600 font-bold text-[11px] w-full text-left hover:underline">See all</button>
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-slate-100">
+              @if (PLAN_VALIDATION_RULES[plan.planType]?.maxAge !== undefined && userAge >
+              (PLAN_VALIDATION_RULES[plan.planType].maxAge || 0)) {
+              <p class="text-[10px] font-bold text-red-600 leading-tight mb-2 text-center">Age limit exceeded (Max {{
+                PLAN_VALIDATION_RULES[plan.planType].maxAge }})
+              </p>
+              } @else if (PLAN_VALIDATION_RULES[plan.planType]?.minAge !== undefined && userAge <
+                (PLAN_VALIDATION_RULES[plan.planType].minAge || 0)) { <p
+                class="text-[10px] font-bold text-red-600 leading-tight mb-2 text-center">Age limit not met (Min {{
+                PLAN_VALIDATION_RULES[plan.planType].minAge }})
+                </p>
+                }
+
+                <button type="button" (click)="goToTravelerStep(plan)" [disabled]="interestLoading() || 
+                           (PLAN_VALIDATION_RULES[plan.planType]?.maxAge !== undefined && userAge > (PLAN_VALIDATION_RULES[plan.planType].maxAge || 0)) || 
+                           (PLAN_VALIDATION_RULES[plan.planType]?.minAge !== undefined && userAge < (PLAN_VALIDATION_RULES[plan.planType].minAge || 0)) || 
+                           !plan.calculatedPremium || isPlanProceedDisabled(plan.planId)"
+                  class="w-full py-2.5 bg-slate-900 border-2 border-slate-900 text-white rounded-lg text-[13px] font-bold shadow-sm hover:bg-white hover:text-slate-900 disabled:opacity-50 transition-all flex items-center justify-center gap-2">
+                  @if (getPlanStatus(plan.planId)) {
+                  {{ getPlanStatus(plan.planId) }}
+                  } @else {
+                  Choose Plan
+                  }
+                </button>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Step 2: Traveler Details -->
+  <div [class.hidden]="currentStep() !== 2" class="max-w-4xl mx-auto space-y-6">
+    @if (selectedPlan()) {
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
+      <div class="bg-sky-50 px-6 py-4 border-b border-sky-100 flex items-center justify-between">
+        <div>
+          <h3 class="font-display font-bold text-slate-800 text-lg">Travelers Information</h3>
+          <p class="text-sm text-slate-500">Provide details for all individuals covered by the {{
+            selectedPlan()?.planName }}.</p>
+        </div>
+        <button type="button" (click)="addTraveler()"
+          class="hidden sm:flex items-center gap-1.5 px-4 py-2 bg-white border border-slate-200 text-sm font-bold text-sky-600 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-sm">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg> Add Traveler
+        </button>
+      </div>
+
+      <div class="p-6 sm:p-8 pt-6" [formGroup]="travelerForm">
+        <div formArrayName="travelers" class="space-y-6">
+          @for (traveler of travelers.controls; track $index) {
+          <div [formGroupName]="$index"
+            class="relative group p-6 border-2 border-slate-100 rounded-2xl bg-white hover:border-sky-100 transition-colors">
+            <!-- Traveler Header -->
+            <div class="flex items-center justify-between mb-5">
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold tracking-tight">
+                  #{{ $index + 1 }}
+                </div>
+                <h4 class="font-bold text-slate-700">{{ $index === 0 ? 'Primary Traveler' : 'Additional Traveler' }}
+                </h4>
+              </div>
+
+              @if ($index > 0) {
+              <button type="button" (click)="removeTraveler($index)"
+                class="text-slate-400 hover:text-red-500 hover:bg-red-50 p-2 rounded-xl transition-colors sm:opacity-0 group-hover:opacity-100"
+                title="Remove traveler">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+              }
+            </div>
+
+            <!-- Traveler Form Fields -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
+              <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Full Name</label>
+                <input type="text" formControlName="fullName"
+                  class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all placeholder:text-slate-400"
+                  placeholder="E.g. John Doe">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Date of
+                  Birth</label>
+                <input type="date" formControlName="dateOfBirth" [max]="today"
+                  class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all">
+                @if (travelers.at($index).hasError('tooYoung')) {
+                <span class="text-xs text-red-500 mt-1 font-medium block">Too young for this plan (Min: {{
+                  travelers.at($index).getError('tooYoung').required }})</span>
+                }
+                @if (travelers.at($index).hasError('tooOld')) {
+                <span class="text-xs text-red-500 mt-1 font-medium block">Too old for this plan (Max: {{
+                  travelers.at($index).getError('tooOld').required }})</span>
+                }
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Aadhar / Passport
+                  Number</label>
+                <input type="text" formControlName="aadharcard" (input)="onAadharInput($event, $index)"
+                  class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all placeholder:text-slate-400"
+                  placeholder="Valid ID number">
+                @if (travelers.at($index).get('aadharcard')?.invalid && travelers.at($index).get('aadharcard')?.touched)
+                {
+                <span class="text-xs text-red-500 mt-1.5 font-medium block flex items-center gap-1">
+                  <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Valid number required
+                </span>
+                }
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Traveler
+                  Type</label>
+                <select formControlName="travelerType"
+                  class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all appearance-none cursor-pointer">
+                  @for (type of travelerTypes; track type) {
+                  <option [value]="type">{{ type }}</option>
+                  }
+                </select>
+              </div>
+              @if ($index > 0) {
+              <div class="sm:col-span-2">
+                <div class="sm:w-1/2 sm:pr-3">
+                  <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Relationship to
+                    Primary</label>
+                  <input type="text" formControlName="relationship"
+                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all placeholder:text-slate-400"
+                    placeholder="E.g. Spouse, Child, Friend">
+                </div>
+              </div>
+              }
+            </div>
+          </div>
+          }
         </div>
 
-        <button type="submit" [disabled]="loading()"
-          class="w-full lg:w-max px-12 py-4.5 bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:ring-sky-500/20 text-white font-bold rounded-2xl shadow-lg shadow-sky-600/20 transition-all duration-300 flex items-center justify-center gap-3 transform active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100 lg:self-end">
-          @if (loading()) {
-          <svg class="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none">
-            </circle>
-            <path class="opacity-75" fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-            </path>
-          </svg>
-          Fetching Best Rates...
-          } @else {
-          <span class="uppercase tracking-widest text-xs">Search Available Plans</span>
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-          </svg>
-          }
+        <button type="button" (click)="addTraveler()"
+          class="sm:hidden mt-6 w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-50 border border-slate-200 text-sm font-bold text-sky-600 rounded-xl hover:bg-slate-100 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg> Add Another Traveler
         </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Results Section -->
-  @if (loading()) {
-  <div class="flex justify-center items-center py-20">
-    <div class="animate-bounce p-4 rounded-full bg-sky-100 shadow-[0_0_20px_rgba(14,165,233,0.3)]">
-      <div class="w-10 h-10 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
-    </div>
-  </div>
-  } @else if (plans().length === 0 && searched()) {
-  <div class="bg-white rounded-2xl p-12 text-center border border-slate-200 shadow-sm max-w-2xl mx-auto mt-8">
-    <div
-      class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100 ring-8 ring-slate-50/50">
-      <svg class="w-10 h-10 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-          d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-      </svg>
-    </div>
-    <h3 class="text-xl font-display font-bold text-slate-800 mb-2">No Plans Available</h3>
-    <p class="text-slate-500 font-medium">We couldn't find any plans matching your specific criteria. Try adjusting your
-      coverage type or destination.</p>
-  </div>
-  } @else if (plans().length > 0) {
-  <div class="mt-8 pt-4">
-    <div class="flex items-center justify-between mb-6">
-      <h2 class="text-2xl font-display font-bold text-slate-800">Showing <span class="text-sky-600">{{ plans().length }}
-          plans</span></h2>
-      <div class="text-sm font-medium text-slate-500 bg-white px-4 py-2 border border-slate-200 rounded-lg shadow-sm">
-        Sorted by Recommended</div>
+      </div>
     </div>
 
-    <div class="space-y-4">
-      @for (plan of plans(); track plan.planId) {
-      <div
-        class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-[0_8px_30px_rgba(14,165,233,0.12)] hover:border-sky-300 transition-all duration-300 overflow-hidden group">
-        <div class="flex flex-col md:flex-row">
-          <!-- Left side (Provider / Plan Info) -->
-          <div
-            class="p-6 md:w-[35%] border-b md:border-b-0 md:border-r border-slate-100 flex flex-col justify-between bg-gradient-to-br from-white to-sky-50/30">
+    <!-- Actions Step 2 -->
+    <div class="flex items-center justify-between pt-2">
+      <button type="button" (click)="goBack()"
+        class="px-6 py-3 font-bold text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 hover:text-slate-900 transition-colors">
+        Back to Plans
+      </button>
+      <button type="button" (click)="goToReviewStep()"
+        [disabled]="travelerForm.invalid || (selectedPlan() && travelers.length < (PLAN_VALIDATION_RULES[selectedPlan()!.planType]?.min || 1))"
+        class="px-8 py-3 font-bold text-white bg-sky-600 rounded-xl hover:bg-sky-700 shadow-md shadow-sky-600/20 transition-all disabled:opacity-50 disabled:shadow-none flex items-center gap-2">
+        Continue to Review
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+    }
+  </div>
+
+  <!-- Step 3: Review & Confirm -->
+  <div [class.hidden]="currentStep() !== 3" class="max-w-4xl mx-auto space-y-6">
+    @if (selectedPlan()) {
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
+      <div class="p-6 sm:p-8 space-y-8">
+        <!-- Plan Summary -->
+        <div
+          class="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between pb-8 border-b border-slate-100">
+          <div class="flex items-center gap-4">
+            <div
+              class="w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center shadow-md text-white font-display text-3xl font-bold shrink-0">
+              {{ selectedPlan()?.planName?.charAt(0) }}
+            </div>
             <div>
-              <div class="flex justify-between items-start mb-4">
-                <div
-                  class="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center shadow-md">
-                  <span class="text-white font-bold text-xl">T</span>
-                </div>
-                <div
-                  class="bg-emerald-50 text-emerald-700 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-emerald-100">
-                  Recommended</div>
-              </div>
-              <h3 class="text-xl font-bold text-slate-900 leading-tight">{{ plan.planName }}</h3>
-              <p class="text-sm font-medium text-slate-500 mt-1 flex items-center gap-1.5 line-clamp-1">
-                <svg class="w-4 h-4 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                  stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-                Travel {{ plan.planType }} - Premium
-              </p>
+              <h3 class="text-2xl font-display font-bold text-slate-900 leading-tight">{{ selectedPlan()?.planName }}
+              </h3>
+              <p class="text-slate-500 font-medium mt-1">Travel {{ selectedPlan()?.planType }}</p>
             </div>
           </div>
-
-          <!-- Middle details -->
-          <div class="p-6 md:w-[45%] flex flex-col justify-center">
-            <div class="grid grid-cols-2 gap-y-4 gap-x-6">
-              @if (plan.dynamicCoverages && plan.dynamicCoverages.length > 0) {
-              @for (cov of plan.dynamicCoverages; track cov.coverageType) {
-              <div class="flex items-start gap-3">
-                <div class="mt-0.5 rounded-full bg-emerald-100 p-0.5 text-emerald-600 shrink-0">
-                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <div>
-                  <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wide">{{ cov.coverageType }}</p>
-                  <p class="text-[15px] font-bold text-slate-800">${{ cov.coverageAmount | number:'1.0-0' }}</p>
-                </div>
-              </div>
-              }
-              } @else {
-              <!-- Fallback/Skeleton while calculating -->
-              <div class="flex items-start gap-3 animate-pulse">
-                <div class="w-5 h-5 rounded-full bg-slate-100 shrink-0"></div>
-                <div class="space-y-1">
-                  <div class="h-2 w-16 bg-slate-100 rounded"></div>
-                  <div class="h-4 w-24 bg-slate-200 rounded"></div>
-                </div>
-              </div>
-              <div class="flex items-start gap-3 animate-pulse">
-                <div class="w-5 h-5 rounded-full bg-slate-100 shrink-0"></div>
-                <div class="space-y-1">
-                  <div class="h-2 w-16 bg-slate-100 rounded"></div>
-                  <div class="h-4 w-24 bg-slate-200 rounded"></div>
-                </div>
-              </div>
-              }
-            </div>
-            <!-- Mini link -->
-            <!-- <button type="button"
-              class="text-sm font-semibold text-sky-600 hover:underline mt-4 text-left self-start inline-flex items-center gap-1 group-hover:text-sky-700 transition-colors">
-              View all features <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </button> -->
+          <div class="text-left sm:text-right">
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Total Premium</p>
+            <p class="text-4xl font-display font-bold text-slate-900">${{ selectedPlan()?.calculatedPremium |
+              number:'1.2-2' }}</p>
           </div>
+        </div>
 
-          <!-- Right action pane -->
-          <div
-            class="p-6 md:w-[20%] flex flex-col justify-center items-center md:items-end border-t md:border-t-0 md:border-l border-slate-100 bg-slate-50/50">
-            <div class="text-center md:text-right w-full">
-              @if (plan.calculatedPremium) {
-              <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wide mb-1">Estimated Premium</p>
-              <div class="flex items-baseline justify-center md:justify-end gap-1 mb-4">
-                <p class="text-3xl font-display font-bold text-slate-900">${{ plan.calculatedPremium |
-                  number:'1.2-2' }}</p>
-              </div>
-              } @else {
-              <div class="animate-pulse flex flex-col items-center md:items-end mb-4">
-                <div class="h-2 w-20 bg-slate-100 rounded mb-2"></div>
-                <div class="h-8 w-24 bg-slate-100 rounded"></div>
-              </div>
-              }
-
-              @if (plan.planName.toLowerCase().includes('student') && userAge > 29) {
-              <div class="mb-3 p-2 bg-red-50 border border-red-100 rounded-lg">
-                <p class="text-[10px] font-bold text-red-600 leading-tight">Age limit exceeded for Student plans (Max
-                  29)</p>
-              </div>
-              }
-
-              <button type="button" (click)="expressInterest(plan)"
-                [disabled]="interestLoading() || (plan.planType.toLowerCase().includes('student') && userAge > 29) || !plan.calculatedPremium || isPlanProceedDisabled(plan.planId)"
-                class="w-full flex items-center justify-center gap-2 rounded-xl bg-sky-600 px-5 py-3.5 text-[15px] font-bold text-white hover:bg-sky-700 focus:ring-4 focus:ring-sky-500/20 shadow-md shadow-sky-600/20 disabled:opacity-60 disabled:shadow-none transition-all duration-200 group-hover:-translate-y-0.5 transform">
-                @if (getPlanStatus(plan.planId)) {
-                {{ getPlanStatus(plan.planId) }}
-                } @else {
-                Proceed
-                }
-
-                @if (interestLoading()) {
-                <svg class="animate-spin h-4 w-4 ml-1 text-white" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none">
-                  </circle>
-                  <path class="opacity-75" fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                  </path>
-                </svg>
-                } @else if (!getPlanStatus(plan.planId)) {
-                <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                </svg>
-                }
-              </button>
+        <!-- Trip Details -->
+        <div>
+          <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">Trip Details</h4>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 p-5 bg-slate-50 rounded-2xl border border-slate-100">
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Destination</p>
+              <p class="font-semibold text-slate-800">{{ searchForm.get('destination')?.value }}</p>
             </div>
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Start Date</p>
+              <p class="font-semibold text-slate-800">{{ searchForm.get('startDate')?.value | date:'mediumDate' }}</p>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">End Date</p>
+              <p class="font-semibold text-slate-800">{{ searchForm.get('endDate')?.value | date:'mediumDate' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Travelers Outline -->
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Travelers ({{ travelers.length }})
+            </h4>
+            <button (click)="goBack()" class="text-sm font-bold text-sky-600 hover:text-sky-700 hover:underline">Edit
+              Travelers</button>
+          </div>
+          <div class="border border-slate-100 rounded-2xl divide-y divide-slate-100">
+            @for (traveler of travelers.getRawValue(); track $index) {
+            <div
+              class="p-4 sm:px-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 hover:bg-slate-50 transition-colors">
+              <div>
+                <p class="font-bold text-slate-800">{{ traveler.fullName }}</p>
+                <div class="flex items-center gap-2 mt-1">
+                  <span
+                    class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+                    [ngClass]="{'bg-sky-100 text-sky-700': traveler.travelerType === 'Adult',
+                                                 'bg-emerald-100 text-emerald-700': traveler.travelerType === 'Student',
+                                                 'bg-purple-100 text-purple-700': traveler.travelerType === 'Senior',
+                                                 'bg-amber-100 text-amber-700': traveler.travelerType === 'Child'}">
+                    {{ traveler.travelerType }}
+                  </span>
+                  @if (traveler.relationship) {
+                  <span class="text-xs font-medium text-slate-500">&bull; {{ traveler.relationship }}</span>
+                  }
+                </div>
+              </div>
+              <div class="text-left sm:text-right">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">ID / Passport</p>
+                <p class="text-sm font-mono text-slate-600">{{ traveler.aadharcard }}</p>
+              </div>
+            </div>
+            }
           </div>
         </div>
       </div>
-      }
     </div>
+
+    <!-- Actions Step 3 -->
+    <div class="flex items-center justify-between pt-2">
+      <button type="button" (click)="goBack()"
+        class="px-6 py-3 font-bold text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 hover:text-slate-900 transition-colors">
+        Back to Travelers
+      </button>
+      <button type="button" (click)="confirmPurchase()" [disabled]="interestLoading()"
+        class="px-8 py-3 font-bold text-white bg-sky-600 rounded-xl hover:bg-sky-700 shadow-md shadow-sky-600/20 transition-all disabled:opacity-50 disabled:shadow-none flex items-center gap-2">
+        @if (interestLoading()) {
+        <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+          <path class="opacity-75" fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+          </path>
+        </svg>
+        Processing...
+        } @else {
+        Confirm & Submit Plan Interest
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        }
+      </button>
+    </div>
+    }
   </div>
-  }
 </div>

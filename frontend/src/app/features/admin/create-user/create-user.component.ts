@@ -32,7 +32,7 @@ export class CreateUserComponent implements OnInit {
     username: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
-    aadharNo: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
+    aadharNo: ['', [Validators.required, Validators.pattern(/^\d{4} \d{4} \d{4}$/)]],
     dateOfBirth: ['', Validators.required],
     commissionRate: [0],
   });
@@ -41,6 +41,16 @@ export class CreateUserComponent implements OnInit {
     this.form.patchValue({
       role: this.defaultRole
     });
+  }
+
+  onAadharInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/\D/g, '');
+    if (value.length > 12) value = value.slice(0, 12);
+
+    const formatted = value.match(/.{1,4}/g)?.join(' ') ?? value;
+    input.value = formatted;
+    this.form.controls.aadharNo.setValue(formatted, { emitEvent: false });
   }
 
 
@@ -53,7 +63,7 @@ export class CreateUserComponent implements OnInit {
       email: raw.email,
       password: raw.password,
       role: raw.role,
-      aadharNo: raw.aadharNo,
+      aadharNo: raw.aadharNo.replace(/\s/g, ''),
       dateOfBirth: new Date(raw.dateOfBirth).toISOString(),
       commissionRate: raw.role === 'Agent' ? raw.commissionRate : null,
     };
@@ -69,4 +79,5 @@ export class CreateUserComponent implements OnInit {
       },
     });
   }
+
 }

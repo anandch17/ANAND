@@ -27,6 +27,10 @@ export class ReviewClaimComponent {
   loading = signal(true);
   submitting = signal(false);
 
+  reviewForm = this.fb.nonNullable.group({
+    reviewNotes: [''],
+  });
+
   settleForm = this.fb.nonNullable.group({
     settledAmount: [0, [Validators.required, Validators.min(0)]],
   });
@@ -46,6 +50,15 @@ export class ReviewClaimComponent {
       next: (list) => {
         const c = list.find((x) => x.id === id) ?? null;
         this.claim.set(c);
+        if (c?.baseSettlementAmount) {
+          this.settleForm.patchValue({ settledAmount: c.baseSettlementAmount });
+        }
+        if (c?.settledAmount) {
+          this.settleForm.patchValue({ settledAmount: c.settledAmount });
+        }
+        if (c?.reviewNotes) {
+          this.reviewForm.patchValue({ reviewNotes: c.reviewNotes });
+        }
         this.loading.set(false);
       },
       error: () => this.loading.set(false),
@@ -56,14 +69,16 @@ export class ReviewClaimComponent {
     const id = this.claimId();
     if (id == null) return;
     this.submitting.set(true);
-    this.claimService.reviewClaim(id, { status }).subscribe({
+    const reviewNotes = this.reviewForm.getRawValue().reviewNotes;
+
+    this.claimService.reviewClaim(id, { status, reviewNotes }).subscribe({
       next: () => {
-        this.toast.success('Claim reviewed.');
+        this.toast.success(`Claim ${status.toLowerCase()}.`);
         this.loadClaim(id);
         this.submitting.set(false);
       },
       error: (err) => {
-        this.toast.error(err.error?.message ?? 'Failed');
+        this.toast.error(err.error?.message ?? 'Failed to review claim');
         this.submitting.set(false);
       },
     });

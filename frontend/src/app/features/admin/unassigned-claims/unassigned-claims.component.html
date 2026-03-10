@@ -46,16 +46,19 @@
             <input type="text" (input)="onSearch($event)" placeholder="Search by name, ID or type..."
                 class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-violet-500/5 focus:border-violet-500 transition-all">
         </div>
-        <div class="w-full sm:w-48">
-            <select (change)="onFilterChange($event)"
-                class="w-full pl-3 pr-10 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:outline-none focus:border-violet-500 focus:ring-4 focus:ring-violet-500/10 transition-all cursor-pointer appearance-none">
-                <option value="">All Statuses</option>
-                <option value="Submitted">Submitted</option>
-                <option value="Under Review">Under Review</option>
-                <option value="Approved">Approved</option>
-                <option value="Rejected">Rejected</option>
-                <option value="Settled">Settled</option>
-            </select>
+        <div class="flex flex-wrap items-center gap-2">
+            @for (status of ['All', 'Submitted', 'Under Review', 'Approved', 'Rejected', 'Settled']; track status) {
+            <button (click)="setFilter(status === 'All' ? '' : status)"
+                [class.bg-violet-600]="statusFilter() === (status === 'All' ? '' : status)"
+                [class.text-white]="statusFilter() === (status === 'All' ? '' : status)"
+                [class.border-transparent]="statusFilter() === (status === 'All' ? '' : status)"
+                [class.bg-white]="statusFilter() !== (status === 'All' ? '' : status)"
+                [class.text-slate-600]="statusFilter() !== (status === 'All' ? '' : status)"
+                [class.border-slate-200]="statusFilter() !== (status === 'All' ? '' : status)"
+                class="px-4 py-2 text-sm font-semibold rounded-xl border transition-all hover:shadow-md active:scale-95">
+                {{ status === 'All' ? 'All Statuses' : status }}
+            </button>
+            }
         </div>
     </div>
 
@@ -63,7 +66,7 @@
     <div class="flex justify-center items-center py-20">
         <div class="animate-spin rounded-full h-12 w-12 border-4 border-violet-500 border-t-transparent"></div>
     </div>
-    } @else if (claims().length === 0) {
+    } @else if (filteredClaims().length === 0) {
     <div class="bg-white rounded-2xl p-12 text-center border border-slate-200 shadow-sm">
         <div
             class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100">
@@ -90,21 +93,57 @@
                     <span class="text-sm font-bold text-sky-600">₹{{ c.claimAmount | number:'1.2-2' }}</span>
                 </div>
 
-                <div class="space-y-2 mb-4 text-xs font-semibold">
-                    <div class="flex justify-between">
-                        <span class="text-slate-400 uppercase">Policy Holder</span>
-                        <span class="text-slate-800">{{ c.customerName }}</span>
+                <div class="space-y-3 mb-4 text-xs font-semibold">
+                    <div class="flex justify-between items-center bg-slate-50/50 p-2 rounded-lg">
+                        <span class="text-slate-400 uppercase tracking-tight">Policy Holder</span>
+                        <span class="text-slate-800 flex items-center gap-1">
+                            <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            {{ c.customerName }}
+                        </span>
                     </div>
-                    <div class="flex justify-between mt-1">
-                        <span class="text-slate-400 uppercase">Status</span>
-                        <span [class.text-sky-600]="c.status === 'Submitted'"
-                            [class.text-amber-600]="c.status === 'Under Review'"
-                            [class.text-emerald-600]="c.status === 'Approved' || c.status === 'Settled'"
-                            [class.text-red-600]="c.status === 'Rejected'" class="font-extrabold">{{ c.status }}</span>
+                    <div class="flex justify-between items-center bg-slate-50/50 p-2 rounded-lg">
+                        <span class="text-slate-400 uppercase tracking-tight">Plan Name</span>
+                        <span class="text-sky-700 bg-sky-50 px-2 py-0.5 rounded border border-sky-100">{{ c.planName
+                            }}</span>
                     </div>
+                    <div class="flex justify-between items-center bg-slate-50/50 p-2 rounded-lg">
+                        <span class="text-slate-400 uppercase tracking-tight">Status</span>
+                        <span [class.bg-sky-100]="c.status === 'Submitted'"
+                            [class.text-sky-700]="c.status === 'Submitted'"
+                            [class.bg-amber-100]="c.status === 'Under Review'"
+                            [class.text-amber-700]="c.status === 'Under Review'"
+                            [class.bg-emerald-100]="c.status === 'Approved' || c.status === 'Settled'"
+                            [class.text-emerald-700]="c.status === 'Approved' || c.status === 'Settled'"
+                            [class.bg-rose-100]="c.status === 'Rejected'"
+                            [class.text-rose-700]="c.status === 'Rejected'"
+                            class="px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider font-bold shadow-sm">
+                            {{ c.status }}
+                        </span>
+                    </div>
+
+                    @if (c.settledAmount) {
+                    <div
+                        class="flex justify-between items-center bg-emerald-50/50 p-2 rounded-lg border border-emerald-100">
+                        <span class="text-emerald-600 uppercase tracking-tight">Settled Amount</span>
+                        <span class="text-emerald-700 font-bold">₹{{ c.settledAmount | number:'1.2-2' }}</span>
+                    </div>
+                    }
+                    @if (c.reviewNotes) {
+                    <div class="mt-2 p-3 bg-slate-50 rounded-xl border border-slate-100 relative group/notes">
+                        <svg class="w-4 h-4 text-slate-300 absolute -top-2 -left-1 bg-white rounded-full"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H9.01705C7.91248 16 7.01705 16.8954 7.01705 18V21H14.017ZM17.017 21V18C17.017 15.2386 14.7785 13 12.017 13H9.01705C6.25562 13 4.01705 15.2386 4.01705 18V21H17.017ZM10.517 11C12.45 11 14.017 9.433 14.017 7.5C14.017 5.567 12.45 4 10.517 4C8.58405 4 7.01705 5.567 7.01705 7.5C7.01705 9.433 8.58405 11 10.517 11Z" />
+                        </svg>
+                        <p class="text-slate-600 text-[11px] italic leading-relaxed pl-2">"{{ c.reviewNotes }}"</p>
+                    </div>
+                    }
                 </div>
 
-                @if (c.status === 'Submitted') {
+                @if (c.status === 'Submitted' || c.status === 'Under Review') {
                 <div class="border-t border-slate-100 pt-4">
                     <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Assign
                         Officer</label>

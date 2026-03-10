@@ -24,10 +24,19 @@ public class ClaimServiceTests
     [Fact]
     public async Task RaiseClaimAsync_ValidData_SavesClaimAndReturnsDto()
     {
-        var policy = new Policy { Id = 1, CustomerId = 1, Status = "Active" };
-        _policyRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(policy);
+        var policy = new Policy { 
+            Id = 1, 
+            CustomerId = 1, 
+            Status = "Active",
+            InsurancePlan = new InsurancePlan { 
+                Coverages = new List<Coverage> { 
+                    new Coverage { CoverageType = "Medical", CoverageAmount = 10000 } 
+                } 
+            }
+        };
+        _policyRepo.Setup(r => r.GetPolicyWithDetailsAsync(1)).ReturnsAsync(policy);
 
-        var result = await _service.RaiseClaimAsync(1, new RaiseClaimDto(1, "Medical", 5000, new List<string>()));
+        var result = await _service.RaiseClaimAsync(1, new RaiseClaimDto(1, "Medical", "Test incident", 5000, new List<string>()));
 
         Assert.Equal("Submitted", result.Status);
         _claimRepo.Verify(r => r.AddAsync(It.IsAny<Claim>()), Times.Once);

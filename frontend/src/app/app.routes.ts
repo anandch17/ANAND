@@ -17,7 +17,7 @@ export const routes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'browse-plans' },
       { path: 'browse-plans', loadComponent: () => import('./features/customer/browse-plans/browse-plans.component').then((m) => m.BrowsePlansComponent) },
-      // { path: 'payment-pending', loadComponent: () => import('./features/customer/payment-pending/payment-pending.component').then((m) => m.PaymentPendingComponent) },
+      { path: 'payment-pending', loadComponent: () => import('./features/customer/payment-pending/payment-pending.component').then((m) => m.PaymentPendingComponent) },
       { path: 'active-policies', loadComponent: () => import('./features/customer/active-policies/active-policies.component').then((m) => m.ActivePoliciesComponent) },
       { path: 'claims', loadComponent: () => import('./features/customer/claims/claims.component').then((m) => m.ClaimsComponent) },
     ],

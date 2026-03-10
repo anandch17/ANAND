@@ -9,6 +9,7 @@ namespace TravelInsurance.Application.Dtos
     public record RaiseClaimDto(
     int PolicyId,
     string ClaimType,
+    string? Description,
     decimal ClaimAmount,
     List<string> DocumentUrls
 );
@@ -18,7 +19,9 @@ namespace TravelInsurance.Application.Dtos
        string ClaimType,
        decimal ClaimAmount,
        string Status,
-       List<string> DocumentUrls
+       List<string> DocumentUrls,
+       string? ReviewNotes = null,
+       decimal? SettledAmount = null
    );
     public record ClaimResponseDto(
     int ClaimId,
@@ -28,7 +31,9 @@ namespace TravelInsurance.Application.Dtos
 );
 
     public record ReviewClaimDto(
-    string Status // Approved / Rejected
+    string Status, // Approved / Rejected
+    string? ReviewNotes,
+    decimal SettledAmount
 );
 
     public record SettleClaimDto(

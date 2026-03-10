@@ -11,10 +11,12 @@ namespace TravelInsurance.Domain.Entities
         public int PolicyId { get; set; }
 
         public string ClaimType { get; set; } = default!;
+        public string? Description { get; set; }
         public decimal ClaimAmount { get; set; }
         public string Status { get; set; } = default!;
 
         public decimal? SettledAmount { get; set; }
+        public string? ReviewNotes { get; set; }
         public DateTime? SettledDate { get; set; }
 
         public int? AssignedOfficerId { get; set; }

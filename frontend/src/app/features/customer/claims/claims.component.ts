@@ -65,7 +65,7 @@ export class ClaimsComponent {
     );
     console.log(match?.coverageAmount);
     return match ? match.coverageAmount : null;
-    
+
   });
 
   /** True when entered amount > coverage limit */
@@ -83,6 +83,7 @@ export class ClaimsComponent {
     policyId: [0, [Validators.required, Validators.min(1)]],
     claimType: ['', Validators.required],
     claimAmount: [0, [Validators.required, Validators.min(1)]],
+    description: ['', [Validators.required, Validators.maxLength(1000)]],
   });
 
   constructor() {
@@ -152,7 +153,7 @@ export class ClaimsComponent {
     this.policyCoverages.set([]);
     this.selectedClaimType.set('');
     this.enteredAmount.set(0);
-    this.raiseForm.reset({ policyId: 0, claimType: '', claimAmount: 0 });
+    this.raiseForm.reset({ policyId: 0, claimType: '', claimAmount: 0, description: '' });
     this.loadActivePolicies();
   }
 
@@ -180,7 +181,7 @@ export class ClaimsComponent {
 
     const files = this.selectedFiles();
     if (files.length === 0) {
-      this.doSubmit(raw.policyId, raw.claimType, raw.claimAmount, []);
+      this.doSubmit(raw.policyId, raw.claimType, raw.claimAmount, raw.description, []);
       return;
     }
 
@@ -188,7 +189,7 @@ export class ClaimsComponent {
     forkJoin(files.map(f => this.uploadService.uploadFile(f))).subscribe({
       next: (responses) => {
         this.uploading.set(false);
-        this.doSubmit(raw.policyId, raw.claimType, raw.claimAmount, responses.map(r => r.url));
+        this.doSubmit(raw.policyId, raw.claimType, raw.claimAmount, raw.description, responses.map(r => r.url));
       },
       error: () => {
         this.uploading.set(false);
@@ -198,14 +199,14 @@ export class ClaimsComponent {
     });
   }
 
-  private doSubmit(policyId: number, claimType: string, claimAmount: number, documentUrls: string[]): void {
-    this.claimService.raiseClaim({ policyId, claimType, claimAmount, documentUrls }).subscribe({
+  private doSubmit(policyId: number, claimType: string, claimAmount: number, description: string, documentUrls: string[]): void {
+    this.claimService.raiseClaim({ policyId, claimType, claimAmount, description, documentUrls }).subscribe({
       next: () => {
         this.toast.success('Claim submitted successfully!');
         this.loadClaims();
         this.showRaiseForm.set(false);
         this.selectedFiles.set([]);
-        this.raiseForm.reset({ policyId: 0, claimType: '', claimAmount: 0 });
+        this.raiseForm.reset({ policyId: 0, claimType: '', claimAmount: 0, description: '' });
         this.submitting.set(false);
       },
       error: (err) => {

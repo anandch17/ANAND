@@ -1,4 +1,6 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# =========================
+# Angular / Node
+# =========================
 
 # Compiled output
 /dist
@@ -6,12 +8,21 @@
 /out-tsc
 /bazel-out
 
-# Node
+# Node modules
 /node_modules
 npm-debug.log
 yarn-error.log
 
-# IDEs and editors
+# Angular cache
+/.angular/cache
+
+# Coverage
+/coverage
+
+# =========================
+# IDEs and Editors
+# =========================
+
 .idea/
 .project
 .classpath
@@ -20,25 +31,49 @@ yarn-error.log
 .settings/
 *.sublime-workspace
 
-# Visual Studio Code
+# VS Code
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-!.vscode/mcp.json
-.history/*
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-__screenshots__/
-
+# =========================
 # System files
+# =========================
+
 .DS_Store
 Thumbs.db
+
+# =========================
+# .NET
+# =========================
+
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# NuGet
+*.nupkg
+packages/
+
+# Test results
+TestResults/
+
+# =========================
+# Archives
+# =========================
+
+*.zip
+*.rar
+*.tar
+*.gz

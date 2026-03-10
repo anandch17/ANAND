@@ -27,10 +27,13 @@ namespace TravelInsurance.Infrastructure.Repositories
                 .Select(c => new ClaimListDto(
                     c.Id,
                     c.Policy.Id,          
-                    c.Policy.Customer.Name,         
+                    c.Policy.Customer.Name,
+                    c.Policy.PlanName,
                     c.ClaimType,
                     c.ClaimAmount,
-                    c.Status
+                    c.Status,
+                    c.ReviewNotes,
+                    c.SettledAmount
                 ))
                 .ToListAsync();
         }
@@ -44,11 +47,18 @@ namespace TravelInsurance.Infrastructure.Repositories
                    c.Id,
                    c.Policy.Id,
                    c.Policy.Customer.Name,
+                   c.Policy.PlanName,
                    c.ClaimType,
                    c.ClaimAmount,
                    c.Policy.Agent != null ? c.Policy.Agent.Name : "",
                    c.Status,
-                   c.Documents.Select(d => d.Url).ToList()
+                   c.Documents.Select(d => d.Url).ToList(),
+                   c.Policy.InsurancePlan.Coverages.FirstOrDefault(cov => cov.CoverageType == c.ClaimType) != null 
+                        ? c.Policy.InsurancePlan.Coverages.FirstOrDefault(cov => cov.CoverageType == c.ClaimType)!.CoverageAmount * 0.10m 
+                        : 0m,
+                   c.Description,
+                   c.ReviewNotes,
+                   c.SettledAmount
                ))
                .ToListAsync();
         }
@@ -62,11 +72,18 @@ namespace TravelInsurance.Infrastructure.Repositories
                     c.Id,
                     c.Policy.Id,
                     c.Policy.Customer.Name,
+                    c.Policy.PlanName,
                     c.ClaimType,
                     c.ClaimAmount,
                     c.Policy.Agent != null ? c.Policy.Agent.Name : "",
                     c.Status,
-                    c.Documents.Select(d => d.Url).ToList()
+                    c.Documents.Select(d => d.Url).ToList(),
+                    c.Policy.InsurancePlan.Coverages.FirstOrDefault(cov => cov.CoverageType == c.ClaimType) != null 
+                        ? c.Policy.InsurancePlan.Coverages.FirstOrDefault(cov => cov.CoverageType == c.ClaimType)!.CoverageAmount * 0.10m 
+                        : 0m,
+                    c.Description,
+                    c.ReviewNotes,
+                    c.SettledAmount
                 ))
                 .ToListAsync();
         }
@@ -92,15 +109,17 @@ namespace TravelInsurance.Infrastructure.Repositories
         public async Task<List<ClaimWithDocumentsDto>> GetCustomerClaimsAsync(int customerId)
         {
             return await _context.Claims
-     .Where(c => c.Policy.CustomerId == customerId)
-     .Select(c => new ClaimWithDocumentsDto(
-         c.Id,
-         c.ClaimType,
-         c.ClaimAmount,
-         c.Status,
-         c.Documents.Select(d => d.Url).ToList()
-     ))
-     .ToListAsync();
+                .Where(c => c.Policy.CustomerId == customerId)
+                .Select(c => new ClaimWithDocumentsDto(
+                    c.Id,
+                    c.ClaimType,
+                    c.ClaimAmount,
+                    c.Status,
+                    c.Documents.Select(d => d.Url).ToList(),
+                    c.ReviewNotes,
+                    c.SettledAmount
+                ))
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Claim>> GetClaimsByOfficerEntitiesAsync(int officerId)

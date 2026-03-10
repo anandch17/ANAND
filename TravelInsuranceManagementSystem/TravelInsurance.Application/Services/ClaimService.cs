@@ -33,8 +33,6 @@ namespace TravelInsurance.Application.Services
         {
             var claim = await _claimRepository.GetByIdAsync(claimId);
             if (claim == null) throw new AppException("Claim not found",404);
-            if (claim.AssignedOfficerId != null)
-                throw new AppException("Already assigned",400);
 
             var officer = await _userRepository.GetByIdAsync(officerId);
             if (officer == null || officer.Role != "ClaimOfficer")
@@ -111,6 +109,7 @@ namespace TravelInsurance.Application.Services
                 PolicyId = dto.PolicyId,
                 ClaimType = dto.ClaimType,
                 ClaimAmount = dto.ClaimAmount,
+                Description = dto.Description,
                 Status = "Submitted",
                 CreatedDate = DateTime.UtcNow
             };
@@ -146,7 +145,13 @@ namespace TravelInsurance.Application.Services
                 throw new AppException("Invalid state", 401);
 
             claim.Status = dto.Status;
-          
+            claim.ReviewNotes = dto.ReviewNotes;
+            
+            if (dto.Status == "Approved")
+            {
+                // Settle logic can also be called separately but we persist settled amount if provided
+                claim.SettledAmount = dto.SettledAmount;
+            }
 
             await _claimRepository.UpdateAsync(claim);
         }
@@ -188,9 +193,12 @@ namespace TravelInsurance.Application.Services
                 c.Id,
                 c.PolicyId,
                 c.Policy.Customer.Name,
+                c.Policy.PlanName,
                 c.ClaimType,
                 c.ClaimAmount,
-                c.Status
+                c.Status,
+                c.ReviewNotes,
+                c.SettledAmount
             ));
         }
     }

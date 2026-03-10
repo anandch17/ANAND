@@ -6,6 +6,7 @@ export interface RaiseClaimDto {
   policyId: number;
   claimType: string;
   claimAmount: number;
+  description?: string;
   documentUrls: string[];
 }
 
@@ -14,7 +15,10 @@ export interface ClaimWithDocumentsDto {
   claimType: string;
   claimAmount: number;
   status: string;
+  description?: string;
   documentUrls: string[];
+  reviewNotes?: string;
+  settledAmount?: number;
 }
 
 export interface ClaimResponseDto {
@@ -26,6 +30,8 @@ export interface ClaimResponseDto {
 
 export interface ReviewClaimDto {
   status: 'Approved' | 'Rejected';
+  reviewNotes?: string;
+  settledAmount?: number;
 }
 
 export interface SettleClaimDto {

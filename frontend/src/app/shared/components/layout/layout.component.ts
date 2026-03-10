@@ -15,6 +15,7 @@ export interface NavLink {
   path: string;
   label: string;
   icon: string;
+  target?: string;
 }
 
 const DASHBOARD_LINKS: Record<string, NavLink[]> = {
@@ -27,7 +28,7 @@ const DASHBOARD_LINKS: Record<string, NavLink[]> = {
     { path: '/admin/risk-management', label: 'Risk Factors', icon: 'policy' },
   ],
   Customer: [
-    { path: '/customer/browse-plans', label: 'Browse Plans', icon: 'policy' },
+    { path: '/customer/browse-plans', label: 'Browse Plans', icon: 'policy', target: '_blank' },
     { path: '/customer/active-policies', label: 'My Policies', icon: 'policies' },
     { path: '/customer/claims', label: 'Claim Center', icon: 'claims' },
     { path: '/customer/payment-pending', label: 'Pending Payments', icon: 'policy' },
@@ -66,7 +67,7 @@ const DASHBOARD_LINKS: Record<string, NavLink[]> = {
 // };
 
 const PORTAL_LINKS: NavLink[] = [
-  { path: '/customer/browse-plans', label: 'Browse Plans', icon: 'globe-alt' },
+  { path: '/customer/browse-plans', label: 'Browse Plans', icon: 'globe-alt', target: '_blank' },
   { path: '/customer/active-policies', label: 'My Policies', icon: 'shield-check' },
   { path: '/customer/claims', label: 'Claim Center', icon: 'document-magnifying-glass' },
   { path: '/customer/payment-pending', label: 'Pending Payments', icon: 'credit-card' },

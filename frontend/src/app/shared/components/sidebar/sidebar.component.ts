@@ -8,6 +8,7 @@ export interface SidebarItem {
   path: string;
   icon?: string;
   badge?: number | string;
+  target?: string;
 }
 
 @Component({

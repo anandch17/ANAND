@@ -43,8 +43,14 @@ namespace TravelInsurance.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PolicyId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ReviewNotes")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("SettledAmount")
                         .HasColumnType("decimal(18,2)");
@@ -195,14 +201,30 @@ namespace TravelInsurance.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<decimal>("AgeAbove50Multiplier")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AgeBelow30Multiplier")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AgeBetween30And50Multiplier")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("AgeMultiplier")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("AgentId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("BasePrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int?>("CoverageId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CoveragesJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -216,6 +238,20 @@ namespace TravelInsurance.Infrastructure.Migrations
 
                     b.Property<int>("InsurancePlanId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("MaxCoverageAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PerDayRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PlanName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PlanType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PremiumAmount")
                         .HasColumnType("decimal(18,2)");
@@ -275,6 +311,45 @@ namespace TravelInsurance.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("PremiumRules");
+                });
+
+            modelBuilder.Entity("TravelInsurance.Domain.Entities.Traveler", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Aadharcard")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PolicyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Relationship")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TravelerType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PolicyId");
+
+                    b.ToTable("Travelers");
                 });
 
             modelBuilder.Entity("TravelInsurance.Domain.Entities.User", b =>
@@ -428,6 +503,17 @@ namespace TravelInsurance.Infrastructure.Migrations
                     b.Navigation("InsurancePlan");
                 });
 
+            modelBuilder.Entity("TravelInsurance.Domain.Entities.Traveler", b =>
+                {
+                    b.HasOne("TravelInsurance.Domain.Entities.Policy", "Policy")
+                        .WithMany("Travelers")
+                        .HasForeignKey("PolicyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Policy");
+                });
+
             modelBuilder.Entity("TravelInsurance.Domain.Entities.Claim", b =>
                 {
                     b.Navigation("Documents");
@@ -452,6 +538,8 @@ namespace TravelInsurance.Infrastructure.Migrations
                     b.Navigation("Claims");
 
                     b.Navigation("Payments");
+
+                    b.Navigation("Travelers");
                 });
 
             modelBuilder.Entity("TravelInsurance.Domain.Entities.User", b =>

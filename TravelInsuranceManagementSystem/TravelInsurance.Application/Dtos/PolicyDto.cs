@@ -17,8 +17,17 @@ namespace TravelInsurance.Application.Dtos
     int PlanId,
     string DestinationCountry,
     DateTime StartDate,
-    DateTime EndDate
+    DateTime EndDate,
+    List<TravelerDto> Travelers
 );
+
+    public record TravelerDto(
+        string FullName,
+        DateTime DateOfBirth,
+        string Aadharcard,
+        string TravelerType,
+        string? Relationship
+    );
 
     public record ApprovePolicyDto(
     int PolicyId
@@ -33,7 +42,8 @@ namespace TravelInsurance.Application.Dtos
     decimal PremiumAmount,
     string Status,
     string DestinationCountry,
-    decimal AgeMultiplier
+    decimal AgeMultiplier,
+    List<TravelerDto>? Travelers = null
 );
     public record PolicyList(
        int Id,

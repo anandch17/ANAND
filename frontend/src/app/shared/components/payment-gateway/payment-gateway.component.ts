@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 
@@ -6,64 +6,67 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angu
     selector: 'app-payment-gateway',
     standalone: true,
     imports: [CommonModule, FormsModule, ReactiveFormsModule],
-    template: '',
+    templateUrl: './payment-gateway.component.html',
 })
 export class PaymentGatewayComponent {
     @Input() amount: number = 0;
-    @Input() planName: string = '';
+    @Input() planName: string = 'Secure Checkout';
     @Output() paymentSuccess = new EventEmitter<void>();
     @Output() close = new EventEmitter<void>();
+
+    private fb = inject(FormBuilder);
 
     processing = signal(false);
     success = signal(false);
 
-    // 
-    constructor(private fb: FormBuilder) { }
+    paymentForm = this.fb.group({
+        cardNumber: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]],
+        expiry: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)]],
+        cvv: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]],
+        cardHolder: ['', Validators.required],
+    });
 
+    onSubmit() {
+        if (this.paymentForm.invalid) return;
 
-    // paymentForm = this.fb.group({
-    //     cardNumber: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]],
-    //     expiry: ['', [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)]],
-    //     cvv: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]],
-    //     cardHolder: ['', Validators.required],
-    // });
+        this.processing.set(true);
 
-    // onSubmit() {
-    //     if (this.paymentForm.invalid) return;
+        // Simulate payment processing delay
+        setTimeout(() => {
+            this.processing.set(false);
+            this.success.set(true);
 
+            // Emit success after a brief delay so user sees the animated checkmark
+            setTimeout(() => {
+                this.paymentSuccess.emit();
+            }, 2500);
+        }, 2000);
+    }
 
-    //     this.processing.set(true);
+    onCancel() {
+        if (!this.processing() && !this.success()) {
+            this.close.emit();
+        }
+    }
 
-    //     // Simulate payment processing
-    //     setTimeout(() => {
-    //         this.processing.set(false);
-    //         this.success.set(true);
+    formatCardNumber(event: any) {
+        let value = event.target.value.replace(/\D/g, '');
+        if (value.length > 16) value = value.slice(0, 16);
 
-    //         // Emit success after a brief delay to show the success state
-    //         setTimeout(() => {
-    //             this.paymentSuccess.emit();
-    //         }, 2000);
-    //     }, 3000);
-    // }
+        // Form control stores the raw 16-digit number
+        this.paymentForm.patchValue({ cardNumber: value }, { emitEvent: false });
 
-    // onCancel() {
-    //     if (!this.processing()) {
-    //         this.close.emit();
-    //     }
-    // }
+        // The UI input field displays the number with spaces every 4 digits
+        let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+        event.target.value = formattedValue;
+    }
 
-    // formatCardNumber(event: any) {
-    //     let value = event.target.value.replace(/\D/g, '');
-    //     if (value.length > 16) value = value.slice(0, 16);
-    //     this.paymentForm.patchValue({ cardNumber: value }, { emitEvent: false });
-    // }
-
-    // formatExpiry(event: any) {
-    //     let value = event.target.value.replace(/\D/g, '');
-    //     if (value.length > 4) value = value.slice(0, 4);
-    //     if (value.length >= 2) {
-    //         value = value.slice(0, 2) + '/' + value.slice(2);
-    //     }
-    //     this.paymentForm.patchValue({ expiry: value }, { emitEvent: false });
-    // }
-}  
+    formatExpiry(event: any) {
+        let value = event.target.value.replace(/\D/g, '');
+        if (value.length > 4) value = value.slice(0, 4);
+        if (value.length >= 2) {
+            value = value.slice(0, 2) + '/' + value.slice(2);
+        }
+        this.paymentForm.patchValue({ expiry: value }, { emitEvent: false });
+    }
+}

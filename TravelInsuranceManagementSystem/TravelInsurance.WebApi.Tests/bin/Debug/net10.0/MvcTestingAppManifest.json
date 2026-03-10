@@ -1,6 +1,0 @@
-{
-  "TravelInsurance.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Application",
-  "TravelInsurance.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Domain",
-  "TravelInsurance.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.Infrastructure",
-  "TravelInsurance.WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\Hartford_Training_Projects\\CapstoneProject\\TravelInsuranceManagementSystem\\TravelInsurance.WebApi"
-}

@@ -72,18 +72,26 @@ export interface ClaimListDto {
   id: number;
   policyNumber: number;
   customerName: string;
+  planName: string;
   claimType: string;
   claimAmount: number;
   status: string;
+  reviewNotes?: string;
+  settledAmount?: number;
 }
 
 export interface AssignedClaimsDto {
   id: number;
   policyNumber: number;
   customerName: string;
+  planName: string;
   claimType: string;
   claimAmount: number;
   agentName: string;
   status: string;
   documentUrls: string[];
+  description?: string;
+  reviewNotes?: string;
+  baseSettlementAmount?: number;
+  settledAmount?: number;
 }

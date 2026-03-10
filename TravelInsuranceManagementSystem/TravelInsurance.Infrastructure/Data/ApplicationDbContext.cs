@@ -17,6 +17,7 @@ namespace TravelInsurance.Infrastructure.Data
         public DbSet<Claim> Claims { get; set; }
         public DbSet<ClaimDocument> ClaimDocuments { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Traveler> Travelers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -83,6 +84,15 @@ namespace TravelInsurance.Infrastructure.Data
                 .HasOne(p => p.Policy)
                 .WithMany(pol => pol.Payments)
                 .HasForeignKey(p => p.PolicyId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // -----------------------------
+            // POLICY → TRAVELERS (1-to-many)
+            // -----------------------------
+            modelBuilder.Entity<Traveler>()
+                .HasOne(t => t.Policy)
+                .WithMany(p => p.Travelers)
+                .HasForeignKey(t => t.PolicyId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // -----------------------------

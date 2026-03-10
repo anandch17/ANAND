@@ -41,7 +41,7 @@ namespace TravelInsurance.Application.Services
             return new PolicyList(
                 policy.Id,
                 policy.InsurancePlanId,
-                policy.InsurancePlan.PolicyName,
+                policy.PlanName,
                 policy.Customer.Name,
                 policy.StartDate,
                 policy.EndDate,
@@ -109,13 +109,31 @@ namespace TravelInsurance.Application.Services
             {
                 CustomerId = customerId,
                 InsurancePlanId = dto.PlanId,
+                PlanName = plan.PolicyName,
+                PlanType = plan.PlanType,
+                MaxCoverageAmount = plan.MaxCoverageAmount,
+                BasePrice = plan.PremiumRule?.BasePrice ?? 0,
+                PerDayRate = plan.PremiumRule?.PerDayRate ?? 0,
+                AgeBelow30Multiplier = plan.PremiumRule?.AgeBelow30Multiplier ?? 1.0m,
+                AgeBetween30And50Multiplier = plan.PremiumRule?.AgeBetween30And50Multiplier ?? 1.0m,
+                AgeAbove50Multiplier = plan.PremiumRule?.AgeAbove50Multiplier ?? 1.0m,
+                CoveragesJson = System.Text.Json.JsonSerializer.Serialize(plan.Coverages.Select(c => new { c.CoverageType, c.CoverageAmount })),
                 DestinationCountry = dto.DestinationCountry,
                 StartDate = dto.StartDate,
                 EndDate = dto.EndDate,
                 PremiumAmount = calculation.FinalPremium,
                 AgeMultiplier = calculation.AgeMultiplier,
                 PurchaseAge = currentAge,
-                Status = "Interested"
+                Status = "Interested",
+                Travelers = dto.Travelers?.Select(t => new Traveler
+                {
+                    FullName = t.FullName,
+                    DateOfBirth = t.DateOfBirth,
+                    Aadharcard = t.Aadharcard,
+                    TravelerType = t.TravelerType,
+                    Relationship = t.Relationship,
+                    CreatedAt = DateTime.UtcNow
+                }).ToList() ?? new List<Traveler>()
             };
 
             await _policyRepo.AddAsync(policy);
@@ -225,14 +243,17 @@ namespace TravelInsurance.Application.Services
         }
 
 
-        public async Task RenewPolicyAsync(int policyId)
+        public async Task RenewPolicyAsync(int policyId, int extensionDays)
         {
+            if (extensionDays <= 0 || extensionDays > 180)
+                throw new AppException("Extension must be between 1 and 180 days", 400);
+
             var policy = await _policyRepo.GetByIdAsync(policyId);
 
             if (policy.Status != "Active")
                 throw new AppException("Only active policies can be renewed", 400);
 
-            policy.EndDate = policy.EndDate.AddMonths(6);
+            policy.EndDate = policy.EndDate.AddDays(extensionDays);
 
             await _policyRepo.SaveChangesAsync();
         }
@@ -285,7 +306,7 @@ namespace TravelInsurance.Application.Services
                 .Where(p => p.AgentId == agentId && p.Status == "PendingAgentApproval")
                 .Select(p => new PolicyAssignmentDto(
                     p.Id,
-                    p.InsurancePlan.PolicyName,
+                    p.PlanName,
                     p.Customer.Name,
                     p.StartDate,
                     p.EndDate,
@@ -304,7 +325,7 @@ namespace TravelInsurance.Application.Services
                 .Where(p => p.AgentId == agentId && p.Status == "Active")
                 .Select(p => new PolicyAssignmentDto(
                     p.Id,
-                    p.InsurancePlan.PolicyName,
+                    p.PlanName,
                     p.Customer.Name,
                     p.StartDate,
                     p.EndDate,
@@ -329,7 +350,7 @@ namespace TravelInsurance.Application.Services
 
             return policies.Select(p => new PolicyAssignmentDto(
                 p.Id,
-                p.InsurancePlan.PolicyName,
+                p.PlanName,
                 p.Customer.Name,
                 p.StartDate,
                 p.EndDate,
@@ -349,13 +370,20 @@ namespace TravelInsurance.Application.Services
                 .Select(p => new PolicyResponseDto(
                     p!.Id,
                     p.InsurancePlanId,
-                    p.InsurancePlan?.PolicyName ?? "",
+                    p.PlanName,
                     p.StartDate,
                     p.EndDate,
                     p.PremiumAmount,
                     p.Status,
                     p.DestinationCountry,
-                    p.AgeMultiplier
+                    p.AgeMultiplier,
+                    p.Travelers?.Select(t => new TravelerDto(
+                        t.FullName,
+                        t.DateOfBirth,
+                        t.Aadharcard,
+                        t.TravelerType,
+                        t.Relationship
+                    )).ToList()
                 )).ToList();
         }
 
@@ -378,9 +406,15 @@ namespace TravelInsurance.Application.Services
             var policy = await _policyRepo.GetPolicyWithDetailsAsync(policyId);
             if (policy == null) throw new AppException("Policy not found",404);
 
-            return policy.InsurancePlan.Coverages
-                .Select(c => new CoverageDto(c.CoverageType, c.CoverageAmount))
-                .ToList();
+            if (string.IsNullOrWhiteSpace(policy.CoveragesJson) || policy.CoveragesJson == "[]")
+            {
+                // Fallback for extreme cases where old data somehow didn't migrate
+                return policy.InsurancePlan?.Coverages
+                    ?.Select(c => new CoverageDto(c.CoverageType, c.CoverageAmount))
+                    ?.ToList() ?? new List<CoverageDto>();
+            }
+
+            return System.Text.Json.JsonSerializer.Deserialize<List<CoverageDto>>(policy.CoveragesJson) ?? new List<CoverageDto>();
         }
     }
 }

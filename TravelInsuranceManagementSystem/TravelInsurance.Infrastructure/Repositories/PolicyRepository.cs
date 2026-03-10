@@ -29,6 +29,7 @@ namespace TravelInsurance.Infrastructure.Repositories
             return await _context.Policies
                 .Include(p => p.InsurancePlan)
                     .ThenInclude(ip => ip.Coverages)
+                .Include(p => p.Travelers)
                 .Where(p => p.CustomerId == customerId)
                 .ToListAsync();
         }
@@ -69,17 +70,25 @@ namespace TravelInsurance.Infrastructure.Repositories
         public async Task<List<PolicyResponseDto>> GetActivePoliciesAsync(int customerId)
         {
             return await _context.Policies
+                .Include(p => p.Travelers)
                 .Where(p => p.CustomerId == customerId && p.Status == "Active")
                 .Select(p => new PolicyResponseDto(
                     p.Id,
                     p.InsurancePlanId,
-                    p.InsurancePlan.PolicyName,
+                    p.PlanName,
                     p.StartDate,
                     p.EndDate,
                     p.PremiumAmount,
                     p.Status,
                     p.DestinationCountry,
-                    p.AgeMultiplier
+                    p.AgeMultiplier,
+                    p.Travelers.Select(t => new TravelerDto(
+                        t.FullName,
+                        t.DateOfBirth,
+                        t.Aadharcard,
+                        t.TravelerType,
+                        t.Relationship
+                    )).ToList()
                 ))
                 .ToListAsync();
         }
@@ -91,7 +100,7 @@ namespace TravelInsurance.Infrastructure.Repositories
                 .Select(p => new PaymentPendingPolicyDto(
                     p.Id,
                     p.InsurancePlanId,
-                    p.InsurancePlan.PolicyName,
+                    p.PlanName,
                     p.StartDate,
                     p.EndDate,
                     p.PremiumAmount,

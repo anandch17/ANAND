@@ -67,12 +67,14 @@ namespace TravelInsurance.WebApi.Controllers
         // CUSTOMER: Renew Policy
         // PATCH /api/policies/{policyId}/renew
         // =========================================================
+        public record RenewRequestDto(int ExtensionDays);
+
         [Authorize(Roles = "Customer")]
         [HttpPatch("{policyId}/renew")]
-        public async Task<IActionResult> Renew(int policyId)
+        public async Task<IActionResult> Renew(int policyId, [FromBody] RenewRequestDto dto)
         {
 
-            await _policyService.RenewPolicyAsync(policyId);
+            await _policyService.RenewPolicyAsync(policyId, dto.ExtensionDays);
 
             return Ok(new { Message = "Policy renewed successfully" });
         }

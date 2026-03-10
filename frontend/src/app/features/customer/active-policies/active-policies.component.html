@@ -8,8 +8,8 @@
       </svg>
     </div>
     <div>
-      <h1 class="text-2xl font-display font-bold text-slate-900 tracking-tight">Active Policies</h1>
-      <p class="text-sm font-medium text-slate-500">Manage your active coverage and file claims if needed.</p>
+      <h1 class="text-2xl font-display font-bold text-slate-900 tracking-tight">My Policies</h1>
+      <p class="text-sm font-medium text-slate-500">Manage your coverage history and file claims if needed.</p>
     </div>
   </div>
 
@@ -19,8 +19,21 @@
       <div class="w-10 h-10 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
     </div>
   </div>
-  } @else if (policies().length === 0) {
-  <div class="bg-white rounded-2xl p-12 text-center border border-slate-200 shadow-sm">
+  } @else {
+
+  <!-- Filter Buttons -->
+  <div class="mb-6 flex flex-wrap gap-2">
+    @for (filter of availableFilters; track filter) {
+    <button (click)="applyFilter(filter)" [class]="getFilterClass(filter, currentFilter() === filter)"
+      class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200">
+      {{ filter === 'PendingAgentApproval' ? 'Pending Approval' : filter === 'PaymentPending' ? 'Payment Pending' :
+      filter }}
+    </button>
+    }
+  </div>
+
+  @if (filteredPolicies().length === 0) {
+  <div class="bg-white rounded-2xl p-12 text-center border border-slate-200 shadow-sm animate-fade-in-up">
     <div
       class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100 ring-8 ring-slate-50/50">
       <svg class="w-10 h-10 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -28,8 +41,9 @@
           d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
       </svg>
     </div>
-    <h3 class="text-xl font-display font-bold text-slate-800 mb-2">No Active Policies found.</h3>
-    <p class="text-slate-500 font-medium mb-6">You don't have any active travel insurance policies at the moment.</p>
+    <h3 class="text-xl font-display font-bold text-slate-800 mb-2">No policies found matching {{ currentFilter() }}.
+    </h3>
+    <p class="text-slate-500 font-medium mb-6">You don't have any policies matching this status at the moment.</p>
     <a routerLink="/customer/browse-plans"
       class="inline-flex items-center gap-2 rounded-xl bg-sky-600 px-6 py-3 text-sm font-bold text-white hover:bg-sky-700 focus:ring-4 focus:ring-sky-500/20 shadow-md transition-all duration-200">
       Browse Plans
@@ -40,19 +54,41 @@
   </div>
   } @else {
   <div class="space-y-6">
-    @for (p of policies(); track p.id) {
+    @for (p of filteredPolicies(); track p.id) {
     <div
-      class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-[0_8px_30px_rgba(16,185,129,0.12)] hover:border-emerald-300 transition-all duration-300 overflow-hidden group">
+      class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-[0_8px_30px_rgba(16,185,129,0.12)] hover:border-emerald-300 transition-all duration-300 overflow-hidden group animate-fade-in-up">
       <div class="flex flex-col md:flex-row">
         <!-- Left Info -->
         <div
           class="p-6 md:w-2/3 border-b md:border-b-0 md:border-r border-slate-100 bg-gradient-to-br from-white to-slate-50/50">
           <div class="flex flex-wrap items-center gap-2 mb-4 mt-1">
+            @if(p.status === 'Active') {
             <span
               class="bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border border-emerald-200 shadow-sm flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               Active
             </span>
+            } @else if(p.status === 'Interested') {
+            <span
+              class="bg-indigo-100 text-indigo-800 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border border-indigo-200 shadow-sm flex items-center gap-1">
+              Interested
+            </span>
+            } @else if(p.status === 'PendingAgentApproval') {
+            <span
+              class="bg-amber-100 text-amber-800 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border border-amber-200 shadow-sm flex items-center gap-1">
+              Pending Approval
+            </span>
+            } @else if(p.status === 'PaymentPending') {
+            <span
+              class="bg-orange-100 text-orange-800 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border border-orange-200 shadow-sm flex items-center gap-1">
+              Payment Pending
+            </span>
+            } @else {
+            <span
+              class="bg-slate-200 text-slate-800 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md border border-slate-300 shadow-sm flex items-center gap-1">
+              {{ p.status }}
+            </span>
+            }
             <span
               class="text-[11px] font-bold text-slate-400 uppercase tracking-widest bg-slate-100 px-2 py-1 rounded border border-slate-200">Policy
               #{{ p.id }}</span>
@@ -99,13 +135,78 @@
               </p>
             </div>
           </div>
+
+          <!-- Travelers List -->
+          @if (p.travelers && p.travelers.length > 0) {
+          <div class="mt-5 pt-5 border-t border-slate-200/60">
+            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              Insured Travelers ({{ p.travelers.length }})
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              @for (t of p.travelers; track t.aadharcard) {
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 shadow-sm">
+                <div
+                  class="w-9 h-9 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-sm border border-sky-200 shrink-0">
+                  {{ t.fullName.charAt(0) }}
+                </div>
+                <div class="min-w-0 flex-1">
+                  <p class="text-[13px] font-bold text-slate-800 truncate mb-0.5" [title]="t.fullName">{{ t.fullName }}
+                  </p>
+                  <p class="text-[10px] font-bold text-slate-500 font-mono flex items-center gap-1 truncate">
+                    <span
+                      class="bg-sky-50 text-sky-600 px-1 py-0.5 rounded border border-sky-100 uppercase tracking-wider">{{
+                      t.travelerType }}</span>
+                    {{ formatAadhar(t.aadharcard) }}
+                  </p>
+                </div>
+              </div>
+              }
+            </div>
+          </div>
+          }
         </div>
 
         <!-- Right Action Box -->
         <div class="p-6 md:w-1/3 md:bg-slate-50 flex flex-col justify-center items-center text-center">
+          @if (p.status === 'Active') {
+          <div class="w-full mb-6 bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+            <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2 text-left">Renew or
+              Extend</label>
+            <div class="flex gap-2 mb-2">
+              <input type="number" [ngModel]="renewDays()[p.id]" (ngModelChange)="updateRenewDays(p.id, $event)" min="1"
+                max="180" step="1" pattern="\d*" placeholder="Days (max 180)"
+                class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all text-center">
+            </div>
+            <button (click)="renewPolicy(p)" [disabled]="renewing() === p.id"
+              class="w-full py-2 bg-emerald-100 text-emerald-700 border-2 border-emerald-200 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 font-bold rounded-lg text-sm shadow-sm transition-all flex items-center justify-center gap-2">
+              @if (renewing() === p.id) {
+              <svg class="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none">
+                </circle>
+                <path class="opacity-75" fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+              </svg>
+              Extending...
+              } @else {
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              Renew Policy
+              }
+            </button>
+          </div>
+          }
+
+          @if (p.status === 'Active' || p.status === 'Expired') {
           <div
-            class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-emerald-500 shadow-sm border border-slate-200 mb-4 group-hover:scale-110 transition-transform duration-300">
-            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            class="w-8 h-8 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center text-emerald-500 shadow-sm border border-slate-200 mb-4 group-hover:scale-110 transition-transform duration-300">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 md:w-6 md:h-6">
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
             </svg>
@@ -128,10 +229,40 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </a>
+          } @else if (p.status === 'Interested' || p.status === 'PendingAgentApproval') {
+          <div
+            class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-amber-500 shadow-sm border border-slate-200 mb-4 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <p class="text-[13px] font-medium text-slate-600 mb-4 px-2">Awaiting processing or agent approval.</p>
+          } @else if (p.status === 'PaymentPending') {
+          <div
+            class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-orange-500 shadow-sm border border-slate-200 mb-4 group-hover:scale-110 transition-transform duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+            </svg>
+          </div>
+          <p class="text-[13px] font-medium text-slate-600 mb-4 px-2">Complete payment to activate coverage.</p>
+          <button (click)="buyPolicy(p)"
+            class="w-full mb-3 flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-6 py-3 text-[14px] font-bold text-white hover:bg-orange-600 focus:ring-4 focus:ring-orange-500/20 shadow-md transition-all duration-200 transform active:scale-95">
+            Pay Premium
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </button>
+          }
         </div>
       </div>
     </div>
     }
   </div>
+  }
   }
 </div>

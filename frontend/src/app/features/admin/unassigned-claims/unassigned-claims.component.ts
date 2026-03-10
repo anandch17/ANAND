@@ -63,11 +63,17 @@ export class UnassignedClaimsComponent {
 
     toggleView(all: boolean) {
         this.viewAll.set(all);
+        if (!all && this.statusFilter() && this.statusFilter() !== 'Submitted') {
+            this.statusFilter.set('');
+        }
         this.applyFilters();
     }
 
-    onFilterChange(event: Event) {
-        this.statusFilter.set((event.target as HTMLSelectElement).value);
+    setFilter(status: string) {
+        this.statusFilter.set(status);
+        if (status && status !== 'Submitted') {
+            this.viewAll.set(true);
+        }
         this.applyFilters();
     }
 
@@ -78,15 +84,16 @@ export class UnassignedClaimsComponent {
 
     applyFilters() {
         const source = this.viewAll() ? this.allClaims() : this.claims();
-        const status = this.statusFilter();
-        const query = this.searchQuery();
+        const status = this.statusFilter().toLowerCase().trim();
+        const query = this.searchQuery().toLowerCase().trim();
 
         this.filteredClaims.set(source.filter(c => {
-            const matchesStatus = status ? c.status === status : true;
+            const matchesStatus = status ? (c.status || '').toLowerCase().trim() === status : true;
             const matchesQuery = query ? (
-                c.customerName.toLowerCase().includes(query) ||
-                c.id.toString().includes(query) ||
-                c.claimType.toLowerCase().includes(query)
+                (c.customerName || '').toLowerCase().includes(query) ||
+                (c.planName || '').toLowerCase().includes(query) ||
+                (c.id?.toString() || '').includes(query) ||
+                (c.claimType || '').toLowerCase().includes(query)
             ) : true;
             return matchesStatus && matchesQuery;
         }));

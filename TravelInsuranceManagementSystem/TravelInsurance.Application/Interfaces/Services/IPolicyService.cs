@@ -21,7 +21,7 @@ namespace TravelInsurance.Application.Interfaces.Services
 
         Task<BuyPolicyResponseDto> BuyPolicyAsync(int customerId, int policyId);
 
-        Task RenewPolicyAsync(int policyId);
+        Task RenewPolicyAsync(int policyId, int extensionDays);
 
         Task AssignAgentAsync(int policyId, int agentId);
 

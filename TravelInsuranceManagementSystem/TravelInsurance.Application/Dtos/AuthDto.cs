@@ -19,7 +19,7 @@ namespace TravelInsurance.Application.Dtos
 
         public record ResetPasswordDto(string Token, string NewPassword);
         
-        public record UserProfileDto(int Id, string Name, string Email, string Role, DateTime? DateOfBirth);
+        public record UserProfileDto(int Id, string Name, string Email, string Role, DateTime? DateOfBirth, decimal? CommissionRate);
 
     }
 }

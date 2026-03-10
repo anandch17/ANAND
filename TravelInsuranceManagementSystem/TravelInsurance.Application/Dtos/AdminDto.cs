@@ -148,12 +148,29 @@ namespace TravelInsurance.Application.Dtos
             int Id,
             int PolicyNumber,
             string CustomerName,
+            string PlanName,
             string ClaimType,
             decimal ClaimAmount,
-            string Status
+            string Status,
+            string? ReviewNotes = null,
+            decimal? SettledAmount = null
         );
 
-        public record AssignedClaimsDto(int id, int PolicyNumber, string CustomerName, string ClaimType, decimal ClaimAmount, string AgentName, string Status, List<string> DocumentUrls);
+        public record AssignedClaimsDto(
+            int id, 
+            int PolicyNumber, 
+            string CustomerName, 
+            string PlanName,
+            string ClaimType, 
+            decimal ClaimAmount, 
+            string AgentName, 
+            string Status, 
+            List<string> DocumentUrls,
+            decimal BaseSettlementAmount,
+            string? Description,
+            string? ReviewNotes,
+            decimal? SettledAmount
+        );
 
         public record AgentPerformanceDto(
             int TotalAssigned,
